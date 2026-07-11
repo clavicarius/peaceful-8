@@ -4,11 +4,10 @@ site_url: https://peaceful-8.github.io
 
 theme:
   name: material
-
   language: de
-
+  logo: assets/logo.png
+  favicon: assets/favicon.png
   palette:
-
     - scheme: default
       primary: indigo
       accent: deep purple
@@ -75,3 +74,4 @@ nav:
   - ADR:
       - Engine Independent: adr/0001-engine-independent.md
       - TypeScript Strict: adr/0002-typescript-strict.md
+      

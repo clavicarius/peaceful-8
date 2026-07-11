@@ -1,5 +1,6 @@
 # Peaceful 8 - Project Overview
 
+
 ## 1. Projektübersicht
 
 **Peaceful 8** ist ein plattformübergreifendes Logikspiel, das auf dem klassischen Schachbrett basiert.
