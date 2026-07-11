@@ -19,6 +19,30 @@ Der Fokus liegt auf einer ruhigen, konzentrierten Spielerfahrung.
 
 > Eight pieces. Zero conflicts.
 
+## Zielgruppe
+
+Peaceful 8 richtet sich an Spieler, die logische Herausforderungen bevorzugen und Wert auf eine entspannte Spielerfahrung legen.
+
+Das Spiel ist bewusst frei von Zeitdruck und eignet sich sowohl für kurze Spielsessions als auch für längere Rätselphasen.
+
+Die Zielgruppe umfasst:
+
+- Puzzle-Enthusiasten
+- Schachinteressierte
+- Casual Gamer
+- Mobile Gamer
+- Spieler aller Altersgruppen
+
+## Nicht-Ziele
+
+Peaceful 8 ist kein Schachspiel.
+
+Es geht nicht darum, gegen einen Gegner anzutreten oder klassische Partien zu spielen.
+
+Ebenso soll das Spiel kein hektisches Geschicklichkeitsspiel sein.
+
+Der Fokus liegt ausschließlich auf logischen Rätseln.
+
 ---
 
 # 2. Spielidee
@@ -39,6 +63,17 @@ Diese Figuren müssen so auf dem Brett platziert werden, dass:
 * das Rätsel vollständig gelöst ist
 
 Die Figuren verhalten sich nach klassischen Schachregeln.
+
+## Designprinzipien
+
+Peaceful 8 folgt einigen klaren Gestaltungsprinzipien.
+
+- einfache Regeln
+- anspruchsvolle Lösungen
+- ruhige Atmosphäre
+- unmittelbares Feedback
+- keine Werbung im Spielfeld
+- keine störenden Animationen
 
 ---
 
@@ -143,86 +178,13 @@ Dadurch entstehen praktisch unbegrenzt viele Herausforderungen.
 
 # 7. Technische Architektur
 
-## Grundprinzip
-
-Die Spiellogik wird vollständig von der Oberfläche getrennt.
-
-Architektur:
-
-```
-                UI
-                 |
-          Game Engine
-                 |
-     -----------------------
-     |          |          |
-  Solver   Generator   Storage
-```
+Die Anwendung besteht aus einer klar getrennten Spiel-Engine, einem Solver, einem Puzzle-Generator und mehreren Benutzeroberflächen. Details sind in [Architecture](../architecture/ARCHITECTURE.md) beschrieben.
 
 ---
 
 # 8. Technologie
 
-## Frontend
-
-* React
-* TypeScript
-* Vite
-
-## Mobile
-
-* Capacitor
-
-Eine gemeinsame Codebasis ermöglicht:
-
-* Browser-Version
-* Android-App
-* iOS-App
-
-## Testing
-
-* Vitest
-* Playwright
-
-## Qualität
-
-* ESLint
-* Prettier
-* TypeScript strict mode
-
-## CI/CD
-
-* GitHub Actions
-
----
-
-# 9. Repository-Struktur
-
-```
-peaceful-8/
-
-apps/
-  web/
-  mobile/
-
-packages/
-  engine/
-  solver/
-  generator/
-  ui/
-  shared/
-
-levels/
-
-docs/
-
-tests/
-
-.github/
-
-README.md
-AGENT_GUIDE.md
-```
+Die Anwendung basiert auf einem modernen TypeScript-Stack. Details befinden sich im Dokument [Tech Stack](../architecture/TECH_STACK.md).
 
 ---
 
@@ -261,223 +223,3 @@ Verantwortlich für:
 * Erkennen ungültiger Level
 
 ---
-
-# 11. Level-Datenmodell
-
-Beispiel:
-
-```json
-{
-  "id": 42,
-  "difficulty": "medium",
-  "pieces": [
-    {
-      "type": "queen",
-      "position": "A4",
-      "fixed": true
-    },
-    {
-      "type": "knight",
-      "fixed": false
-    }
-  ]
-}
-```
-
----
-
-# 12. Entwicklungsmeilensteine
-
-## Milestone 1 - Foundation (Version 0.1)
-
-**Ziel:** Technische Grundlage
-
-Umfang:
-
-* Repository erstellen
-* Projektstruktur einrichten
-* TypeScript Setup
-* CI Pipeline
-* Grunddokumentation
-
-Ergebnis:
-
-Lauffähiges Entwicklungsprojekt.
-
----
-
-## Milestone 2 - Game Engine (Version 0.2)
-
-**Ziel:** Funktionierende Spielregeln
-
-Umfang:
-
-* Schachbrettmodell
-* Figurenmodell
-* Bewegungsregeln
-* Konflikterkennung
-* automatische Tests
-
-Ergebnis:
-
-Eine vollständig getestete Spiellogik.
-
----
-
-## Milestone 3 - First Prototype (Version 0.3)
-
-**Ziel:** Erstes spielbares Erlebnis
-
-Umfang:
-
-* grafisches Spielfeld
-* Figuren platzieren
-* Drag & Drop
-* Konfliktanzeige
-* Lösung erkennen
-
-Ergebnis:
-
-Erste spielbare Version.
-
----
-
-## Milestone 4 - Solver (Version 0.4)
-
-**Ziel:** Automatische Lösungssuche
-
-Umfang:
-
-* Lösungsalgorithmus
-* Validierung
-* Unterstützung für Hinweise
-
-Ergebnis:
-
-Das System kann Rätsel analysieren.
-
----
-
-## Milestone 5 - Level Generator (Version 0.5)
-
-**Ziel:** Automatische Rätselerstellung
-
-Umfang:
-
-* Generierung kompletter Lösungen
-* Entfernen von Figuren
-* Schwierigkeitsbewertung
-* Speicherung als Level-Dateien
-
-Ergebnis:
-
-Automatisch erzeugte Level.
-
----
-
-## Milestone 6 - MVP Release (Version 0.6)
-
-**Ziel:** Vollständiges erstes Spiel
-
-Umfang:
-
-* Kampagnenmodus
-* 100 Level
-* Fortschritt speichern
-* Einstellungen
-* Responsive Design
-
-Ergebnis:
-
-Spielbare Browser-Version.
-
----
-
-## Milestone 7 - Mobile Release (Version 0.7)
-
-**Ziel:** Mobile Plattformen
-
-Umfang:
-
-* Android Build
-* iOS Build
-* Touch Optimierung
-* Offline-Modus
-
-Ergebnis:
-
-Mobile Apps.
-
----
-
-## Milestone 8 - Community Features (Version 0.8)
-
-**Ziel:** Langfristige Motivation
-
-Umfang:
-
-* Daily Puzzle
-* Statistiken
-* Erfolge
-* Bestenlisten
-
----
-
-## Milestone 9 - Advanced Features (Version 0.9)
-
-**Ziel:** Erweiterte Möglichkeiten
-
-Umfang:
-
-* Level Editor
-* eigene Rätsel teilen
-* Spezialregeln
-* Themes
-
----
-
-## Milestone 10 - Release 1.0
-
-**Ziel:** Veröffentlichung
-
-Umfang:
-
-* Stabilisierung
-* Performance Optimierung
-* Store Vorbereitung
-* Dokumentation
-
----
-
-# 13. Entwicklungsprinzipien
-
-## Code
-
-* sauber getrennte Module
-* testbarer Code
-* keine unnötige Komplexität
-
-## Design
-
-* einfache Bedienung
-* ruhige Atmosphäre
-* Fokus auf Denken statt Geschwindigkeit
-
-## Erweiterbarkeit
-
-Neue Funktionen sollen ergänzt werden können, ohne bestehende Kernlogik zu verändern.
-
----
-
-# 14. Langfristige Vision
-
-Peaceful 8 soll sich von einem einfachen Puzzle zu einer Plattform für Schach- und Logikrätsel entwickeln.
-
-Mögliche zukünftige Erweiterungen:
-
-* tägliche Herausforderungen
-* eigene Level
-* Wettbewerbe
-* weitere Brettgrößen
-* neue Figuren
-* Community-Inhalte
