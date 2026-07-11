@@ -1,7 +1,8 @@
-# ADR0001 - Peaceful 8 – Brand Guidelines
+# ADR-0001 - Brand Guidelines
 
 Version: 1.0  
-Status: Draft
+Status: Accepted
+Datum: 2026-07-11
 
 ---
 
