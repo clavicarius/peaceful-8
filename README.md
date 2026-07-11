@@ -1,37 +1,56 @@
 # Peaceful 8
 
-![logo](./assets/Peaceful-8-logo.png)
+![logo](./docs/assets/logo.png)
 
 ## Projektübersicht
 
-Peaceful 8 ist ein plattformübergreifendes Logikspiel auf Basis eines klassischen Schachbretts.
+**Peaceful 8** ist ein plattformübergreifendes Logikspiel, das auf dem klassischen Schachbrett basiert.
 
-Der Spieler platziert acht Schachfiguren (Dame, Turm, Läufer, Springer) so auf einem 8x8-Brett, dass keine Figur eine andere Figur angreifen kann.
+**Slogan:**
 
-Das Ziel ist eine friedliche Anordnung aller Figuren.
+> Eight pieces. Zero conflicts.
 
-## Kernidee
+## Spielidee 
+Der Spieler platziert acht Schachfiguren auf einem 8x8-Schachbrett, sodass sich keine der Figuren gegenseitig angreifen kann.
 
-"Eight pieces. Zero conflicts." - "Balance is Victory."
+Das Spiel kombiniert Schachlogik, strategisches Denken, Puzzle-Mechaniken, automatische Rätselgenerierung.
 
-Das Spiel kombiniert:
-- Schachlogik
-- Logikrätsel
-- Puzzle-Generierung
-- entspannte Spielerfahrung
+Der Fokus liegt auf einer ruhigen, konzentrierten Spielerfahrung.
 
-## Plattformen
 
-- Web Browser
-- Progressive Web App
-- Android
-- iOS
+## Zielgruppe
+
+Peaceful 8 richtet sich an Spieler, die logische Herausforderungen bevorzugen und Wert auf eine entspannte Spielerfahrung legen.
+
+Das Spiel ist bewusst frei von Zeitdruck und eignet sich sowohl für kurze Spielsessions als auch für längere Rätselphasen.
+
+Die Zielgruppe umfasst:
+
+* Puzzle-Enthusiasten
+* Schachinteressierte
+* Casual Gamer
+* Mobile Gamer
+* Spieler aller Altersgruppen
+
+## Nicht-Ziele
+
+Peaceful 8 ist kein Schachspiel.
+
+Es geht nicht darum, gegen einen Gegner anzutreten oder klassische Partien zu spielen.
+
+Ebenso soll das Spiel kein hektisches Geschicklichkeitsspiel sein.
+
+Der Fokus liegt ausschließlich auf logischen Rätseln.
+
+---
+
 
 ## Dokumentation
 
-- [Produktvision](.docs/VISION.md) 
-- [Spielmechanik](.docs/GAME_DESIGN.md)
-- [technische Architektur](.docs/ARCHITECTURE.md)
-- [Level und Generator](.docs/LEVEL_SYSTEM.md)
-- [Projektübersicht](.docs/PROJECT_OVERVIEW.md) 
-- [Roadmap](.docs/DEVELOPMENT_PLAN.md)
+[https://peaceful-8.github.io/](https://peaceful-8.github.io/)
+
+
+## Disclaimer
+
+Auch wenn für dieses Projekt eine [Roadmap](./docs/development/ROADMAP.md ) vorhanden ist, handelt es sich um ein privates Projekt, das je nach verfügbarer Zeit, Lust und Energie vorangetrieben wird.
+
