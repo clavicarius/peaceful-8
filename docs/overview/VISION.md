@@ -1,5 +1,6 @@
 # Vision
 
+
 ## Ziel
 
 Peaceful 8 soll ein ruhiges, aber anspruchsvolles Denkspiel werden.
@@ -27,3 +28,15 @@ Der Spieler soll:
 ## Alleinstellungsmerkmal
 
 Automatisch generierte Rätsel mit garantierter Lösbarkeit.
+
+## Mögliche zukünftige Erweiterungen:
+
+* tägliche Herausforderungen
+* eigene Level
+* Wettbewerbe
+* weitere Brettgrößen
+* neue Figuren
+* Community-Inhalte
+
+## Langfristige Vision
+Peaceful 8 soll sich von einem einfachen Puzzle zu einer Plattform für Schach- und Logikrätsel entwickeln.

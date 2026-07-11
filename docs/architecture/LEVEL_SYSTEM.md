@@ -6,6 +6,25 @@ Levels werden als JSON gespeichert.
 
 Beispiel:
 
+```json
+{
+  "id": 42,
+  "difficulty": "medium",
+  "pieces": [
+    {
+      "type": "queen",
+      "position": "A4",
+      "fixed": true
+    },
+    {
+      "type": "knight",
+      "fixed": false
+    }
+  ]
+}
+```
+
+```json
 {
  "id":1,
  "difficulty":"easy",
@@ -17,7 +36,7 @@ Beispiel:
    }
  ]
 }
-
+```
 
 ## Anforderungen
 

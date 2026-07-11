@@ -1,0 +1,77 @@
+site_name: Peaceful 8
+site_description: Documentation
+site_url: https://peaceful-8.github.io
+
+theme:
+  name: material
+
+  language: de
+
+  palette:
+
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Dark Mode
+
+features:
+
+  - navigation.instant
+  - navigation.tabs
+  - navigation.sections
+  - navigation.top
+
+  - search.highlight
+  - search.share
+
+  - content.code.copy
+  - content.tabs.link
+
+plugins:
+
+  - search
+
+markdown_extensions:
+
+  - admonition
+
+  - pymdownx.details
+
+  - pymdownx.superfences
+
+  - tables
+
+  - toc:
+      permalink: true
+
+nav:
+
+  - Home: index.md
+
+  - Overview:
+      - Project Overview: overview/PROJECT_OVERVIEW.md
+      - Vision: overview/VISION.md
+
+  - Architecture:
+      - Architecture: architecture/ARCHITECTURE.md
+      - Game Design: architecture/GAME_DESIGN.md
+      - Game Engine: architecture/GAME_ENGINE.md
+      - Level System: architecture/LEVEL_SYSTEM.md
+      - Tech Stack: architecture/TECH_STACK.md
+
+  - Development:
+      - Roadmap: development/ROADMAP.md
+      - Development Plan: development/DEVELOPMENT_PLAN.md
+      - UI / UX: development/UI_UX.md
+      - Testing: development/TESTING.md
+      - Tasks: development/TASKS.md
+
+  - ADR:
+      - Engine Independent: adr/0001-engine-independent.md
+      - TypeScript Strict: adr/0002-typescript-strict.md
