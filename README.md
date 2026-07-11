@@ -46,8 +46,10 @@ Der Fokus liegt ausschließlich auf logischen Rätseln.
 
 
 ## Dokumentation
-
+<!--
 [https://peaceful-8.github.io/](https://peaceful-8.github.io/)
+-->
+[doc](docs/index.md)
 
 
 ## Disclaimer
