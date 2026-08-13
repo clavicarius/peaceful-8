@@ -6,7 +6,7 @@
 | ------- | ------------------ |
 | **0.1** | Foundation         |
 | **0.2** | Game Engine        |
-| **0.3** | First Prototype    |
+| **0.3** | Playable Prototype |
 | **0.4** | Solver             |
 | **0.5** | Level Generator    |
 | **0.6** | MVP Release        |
@@ -53,7 +53,7 @@ Eine vollständig getestete Spiellogik.
 
 ---
 
-## Milestone 3 - First Prototype (Version 0.3)
+## Milestone 3 - Playable Prototype (Version 0.3)
 
 **Ziel:** Erstes spielbares Erlebnis
 

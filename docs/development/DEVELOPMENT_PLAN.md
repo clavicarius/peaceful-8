@@ -37,7 +37,7 @@ Eine vollständig getestete Spiellogik.
 
 ---
 
-## Milestone 3 - First Prototype (Version 0.3)
+## Milestone 3 - Playable Prototype (Version 0.3)
 
 **Ziel:** Erstes spielbares Erlebnis
 
