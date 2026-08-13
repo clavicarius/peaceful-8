@@ -2,18 +2,20 @@
 
 ## Overview
 
-| Version | Inhalt             |
-| ------- | ------------------ |
-| **0.1** | Foundation         |
-| **0.2** | Game Engine        |
-| **0.3** | Playable Prototype |
-| **0.4** | Solver             |
-| **0.5** | Level Generator    |
-| **0.6** | MVP Release        |
-| **0.7** | Mobile Release     |
-| **0.8** | Community Features |
-| **0.9** | Advanced Features  |
-| **1.0** | Release 1.0        |
+| Version | GitHub-Milestone   | Ziel                         |
+| ------- | ------------------ | ---------------------------- |
+| **0.1** | Foundation         | Technische Grundlage         |
+| **0.2** | Game Engine        | Funktionierende Spielregeln  |
+| **0.3** | Playable Prototype | Erstes spielbares Erlebnis   |
+| **0.4** | Solver             | Automatische Lösungssuche    |
+| **0.5** | Level Generator    | Automatische Rätselerstellung |
+| **0.6** | MVP Release        | Vollständiges erstes Spiel   |
+| **0.7** | Mobile Release     | Mobile Plattformen           |
+| **0.8** | Community Features | Langfristige Motivation      |
+| **0.9** | Advanced Features  | Erweiterte Möglichkeiten     |
+| **1.0** | Release 1.0        | Veröffentlichung             |
+
+Die Spalte **GitHub-Milestone** entspricht dem Titel, der in GitHub als Meilenstein angelegt und Issues zugeordnet werden soll.
 
 
 

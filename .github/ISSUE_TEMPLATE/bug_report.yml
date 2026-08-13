@@ -86,6 +86,25 @@ body:
     validations:
       required: false
 
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: Ziel-Meilenstein
+      description: In welchem GitHub-Milestone soll der Bug voraussichtlich behoben werden?
+      options:
+        - Foundation (0.1)
+        - Game Engine (0.2)
+        - Playable Prototype (0.3)
+        - Solver (0.4)
+        - Level Generator (0.5)
+        - MVP Release (0.6)
+        - Mobile Release (0.7)
+        - Community Features (0.8)
+        - Advanced Features (0.9)
+        - Release 1.0
+    validations:
+      required: false
+
   - type: checkboxes
     id: checklist
     attributes:
