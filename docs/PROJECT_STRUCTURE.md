@@ -139,25 +139,20 @@ docs/
 
 tests/
 Wichtige Meilensteine
-M1 – Engine
-Regeln funktionieren
-Tests grün
-M2 – Erster spielbarer Prototyp
-Figuren ziehen
-Konflikte anzeigen
-M3 – Generator
-Erzeugt erste Level
-M4 – MVP
-100 Level
-Speichern
-Einstellungen
-M5 – Beta
-Tutorial
-Daily Puzzle
-Animationen
-M6 – Version 1.0
 
-Veröffentlichung
+Die verbindliche Roadmap ist in `docs/development/ROADMAP.md` dokumentiert.
+
+Version	Milestone
+0.1	Foundation
+0.2	Game Engine
+0.3	First Prototype
+0.4	Solver
+0.5	Level Generator
+0.6	MVP Release
+0.7	Mobile Release
+0.8	Community Features
+0.9	Advanced Features
+1.0	Release 1.0
 
 GitHub-Projektstruktur
 
@@ -176,17 +171,17 @@ LICENSE
 CONTRIBUTING.md
 AGENTS.md
 Roadmap (Versionen)
-Version	Inhalt
-0.1	Spiel-Engine
-0.2	Spielbares Brett
-0.3	Speichern und Laden
-0.4	Levelgenerator
-0.5	Kampagne
-0.6	Daily Puzzle
-0.7	Mobile Apps
-0.8	Level-Editor
-0.9	Beta-Test
-1.0	Veröffentlichung
+Version	Milestone
+0.1	Foundation
+0.2	Game Engine
+0.3	First Prototype
+0.4	Solver
+0.5	Level Generator
+0.6	MVP Release
+0.7	Mobile Release
+0.8	Community Features
+0.9	Advanced Features
+1.0	Release 1.0
 Eine Ergänzung, die sich früh lohnt
 
 Ich würde den Solver und den Levelgenerator von Anfang an als eigenständige Pakete entwickeln. So kann dieselbe Logik später mehrfach genutzt werden:
