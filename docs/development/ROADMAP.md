@@ -2,18 +2,18 @@
 
 ## Overview
 
-| Version | Inhalt              |
-| ------- | ------------------- |
-| **0.1** | Spiel-Engine        |
-| **0.2** | Spielbares Brett    |
-| **0.3** | Speichern und Laden |
-| **0.4** | Levelgenerator      |
-| **0.5** | Kampagne            |
-| **0.6** | Daily Puzzle        |
-| **0.7** | Mobile Apps         |
-| **0.8** | Level-Editor        |
-| **0.9** | Beta-Test           |
-| **1.0** | Veröffentlichung    |
+| Version | Inhalt             |
+| ------- | ------------------ |
+| **0.1** | Foundation         |
+| **0.2** | Game Engine        |
+| **0.3** | First Prototype    |
+| **0.4** | Solver             |
+| **0.5** | Level Generator    |
+| **0.6** | MVP Release        |
+| **0.7** | Mobile Release     |
+| **0.8** | Community Features |
+| **0.9** | Advanced Features  |
+| **1.0** | Release 1.0        |
 
 
 
@@ -150,6 +150,10 @@ Umfang:
 * Erfolge
 * Bestenlisten
 
+Ergebnis:
+
+Die ersten Community-Funktionen fördern langfristige Motivation und tägliche Rückkehr.
+
 ---
 
 ## Milestone 9 - Advanced Features (Version 0.9)
@@ -163,9 +167,13 @@ Umfang:
 * Spezialregeln
 * Themes
 
+Ergebnis:
+
+Erweiterte Inhalte und Personalisierung machen die Plattform vielseitiger.
+
 ---
 
-## Milestone 10 - Release 1.0
+## Milestone 10 - Release 1.0 (Version 1.0)
 
 **Ziel:** Veröffentlichung
 
@@ -175,5 +183,9 @@ Umfang:
 * Performance Optimierung
 * Store Vorbereitung
 * Dokumentation
+
+Ergebnis:
+
+Eine stabile Veröffentlichung mit vollständiger Dokumentation und Release-Vorbereitung.
 
 ---

@@ -134,6 +134,10 @@ Umfang:
 * Erfolge
 * Bestenlisten
 
+Ergebnis:
+
+Die ersten Community-Funktionen fördern langfristige Motivation und tägliche Rückkehr.
+
 ---
 
 ## Milestone 9 - Advanced Features (Version 0.9)
@@ -147,9 +151,13 @@ Umfang:
 * Spezialregeln
 * Themes
 
+Ergebnis:
+
+Erweiterte Inhalte und Personalisierung machen die Plattform vielseitiger.
+
 ---
 
-## Milestone 10 - Release 1.0
+## Milestone 10 - Release 1.0 (Version 1.0)
 
 **Ziel:** Veröffentlichung
 
@@ -160,5 +168,8 @@ Umfang:
 * Store Vorbereitung
 * Dokumentation
 
----
+Ergebnis:
 
+Eine stabile Veröffentlichung mit vollständiger Dokumentation und Release-Vorbereitung.
+
+---
