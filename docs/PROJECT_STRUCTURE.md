@@ -145,7 +145,7 @@ Die verbindliche Roadmap ist in `docs/development/ROADMAP.md` dokumentiert.
 Version	Milestone
 0.1	Foundation
 0.2	Game Engine
-0.3	First Prototype
+0.3	Playable Prototype
 0.4	Solver
 0.5	Level Generator
 0.6	MVP Release
@@ -174,7 +174,7 @@ Roadmap (Versionen)
 Version	Milestone
 0.1	Foundation
 0.2	Game Engine
-0.3	First Prototype
+0.3	Playable Prototype
 0.4	Solver
 0.5	Level Generator
 0.6	MVP Release
