@@ -10,11 +10,11 @@ Peaceful 8 ist ein plattformübergreifendes Logikspiel, bei dem acht Schachfigur
 
 Die Dokumentation richtet sich an:
 
-* Entwickler
-* KI-Entwicklungsagenten
-* Mitwirkende (Contributors)
-* Tester
-* Projektverantwortliche
+- Entwickler
+- KI-Entwicklungsagenten
+- Mitwirkende (Contributors)
+- Tester
+- Projektverantwortliche
 
 ---
 
@@ -22,11 +22,11 @@ Die Dokumentation richtet sich an:
 
 Die Entwicklung von Peaceful 8 orientiert sich an folgenden Grundprinzipien:
 
-* **Einfach zu verstehen** – Die Spielregeln sollen innerhalb weniger Minuten verständlich sein.
-* **Schwer zu meistern** – Anspruchsvolle Rätsel sorgen für langfristige Motivation.
-* **Plattformübergreifend** – Eine gemeinsame Codebasis für Web, Android und iOS.
-* **Modular aufgebaut** – Klare Trennung zwischen Spiellogik, Benutzeroberfläche und Puzzle-Generator.
-* **Automatisch erweiterbar** – Neue Level sollen ohne Änderungen am Quellcode hinzugefügt werden können.
+- **Einfach zu verstehen** – Die Spielregeln sollen innerhalb weniger Minuten verständlich sein.
+- **Schwer zu meistern** – Anspruchsvolle Rätsel sorgen für langfristige Motivation.
+- **Plattformübergreifend** – Eine gemeinsame Codebasis für Web, Android und iOS.
+- **Modular aufgebaut** – Klare Trennung zwischen Spiellogik, Benutzeroberfläche und Puzzle-Generator.
+- **Automatisch erweiterbar** – Neue Level sollen ohne Änderungen am Quellcode hinzugefügt werden können.
 
 ---
 
@@ -38,27 +38,27 @@ Die Dokumentation ist in mehrere Themenbereiche unterteilt.
 
 Grundlegende Informationen über das Projekt.
 
-* Project Overview
-* Vision
+- Project Overview
+- Vision
 
 ### Architecture
 
 Technische Architektur und Spielmechanik.
 
-* Architecture
-* Game Design
-* Game Engine
-* Level System
-* Tech Stack
+- Architecture
+- Game Design
+- Game Engine
+- Level System
+- Tech Stack
 
 ### Development
 
 Informationen zur Entwicklung.
 
-* Roadmap
-* Development Plan
-* Testing
-* Tasks
+- Roadmap
+- Development Plan
+- Testing
+- Tasks
 
 ### ADR
 
@@ -72,11 +72,11 @@ Hier werden wichtige technische Entscheidungen dokumentiert und begründet.
 
 Während der gesamten Entwicklung gelten folgende Grundsätze:
 
-* Die Spiellogik ist vollständig von der Benutzeroberfläche getrennt.
-* Die Game Engine enthält keinerlei UI-Code.
-* Alle Kernfunktionen werden automatisiert getestet.
-* Dokumentation ist Bestandteil jeder Implementierung.
-* Neue Funktionen sollen bestehende Architektur respektieren.
+- Die Spiellogik ist vollständig von der Benutzeroberfläche getrennt.
+- Die Game Engine enthält keinerlei UI-Code.
+- Alle Kernfunktionen werden automatisiert getestet.
+- Dokumentation ist Bestandteil jeder Implementierung.
+- Neue Funktionen sollen bestehende Architektur respektieren.
 
 ---
 
@@ -84,14 +84,14 @@ Während der gesamten Entwicklung gelten folgende Grundsätze:
 
 Die erste Version von Peaceful 8 basiert auf:
 
-* React
-* TypeScript
-* Vite
-* Capacitor
-* Vitest
-* Playwright
-* GitHub Actions
-* MkDocs Material
+- React
+- TypeScript
+- Vite
+- Capacitor
+- Vitest
+- Playwright
+- GitHub Actions
+- MkDocs Material
 
 ---
 
@@ -101,11 +101,11 @@ Das Projekt befindet sich derzeit in der **Konzeptions- und Architekturphase**.
 
 Aktuelle Schwerpunkte:
 
-* Definition der Spielmechanik
-* Entwurf der Softwarearchitektur
-* Aufbau der Entwicklungsumgebung
-* Dokumentation
-* Planung der ersten spielbaren Version (MVP)
+- Definition der Spielmechanik
+- Entwurf der Softwarearchitektur
+- Aufbau der Entwicklungsumgebung
+- Dokumentation
+- Planung der ersten spielbaren Version (MVP)
 
 ---
 

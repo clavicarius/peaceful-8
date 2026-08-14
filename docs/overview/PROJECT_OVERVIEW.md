@@ -1,6 +1,5 @@
 # Peaceful 8 - Project Overview
 
-
 ## 1. Projektübersicht
 
 **Peaceful 8** ist ein plattformübergreifendes Logikspiel, das auf dem klassischen Schachbrett basiert.
@@ -9,10 +8,10 @@ Der Spieler platziert acht Schachfiguren auf einem 8x8-Schachbrett, sodass sich 
 
 Das Spiel kombiniert:
 
-* Schachlogik
-* strategisches Denken
-* Puzzle-Mechaniken
-* automatische Rätselgenerierung
+- Schachlogik
+- strategisches Denken
+- Puzzle-Mechaniken
+- automatische Rätselgenerierung
 
 Der Fokus liegt auf einer ruhigen, konzentrierten Spielerfahrung.
 
@@ -52,16 +51,16 @@ Der Fokus liegt ausschließlich auf logischen Rätseln.
 
 Der Spieler erhält acht Figuren aus folgenden Typen:
 
-* Dame
-* Turm
-* Läufer
-* Springer
+- Dame
+- Turm
+- Läufer
+- Springer
 
 Diese Figuren müssen so auf dem Brett platziert werden, dass:
 
-* keine Figur eine andere angreifen kann
-* alle acht Positionen gültig sind
-* das Rätsel vollständig gelöst ist
+- keine Figur eine andere angreifen kann
+- alle acht Positionen gültig sind
+- das Rätsel vollständig gelöst ist
 
 Die Figuren verhalten sich nach klassischen Schachregeln.
 
@@ -84,9 +83,9 @@ Peaceful 8 folgt einigen klaren Gestaltungsprinzipien.
 
 Der Spieler kann Figuren:
 
-* auf freie Felder ziehen
-* verschieben
-* entfernen (abhängig vom Spielmodus)
+- auf freie Felder ziehen
+- verschieben
+- entfernen (abhängig vom Spielmodus)
 
 Die Oberfläche zeigt direkt, ob Konflikte entstehen.
 
@@ -102,9 +101,9 @@ Eine Figur greift eine andere Figur an.
 
 Mögliche Darstellung:
 
-* rote Markierung betroffener Figuren
-* Anzeige der Angriffslinie
-* Hervorhebung konfliktverursachender Felder
+- rote Markierung betroffener Figuren
+- Anzeige der Angriffslinie
+- Hervorhebung konfliktverursachender Felder
 
 ---
 
@@ -138,27 +137,27 @@ Die Schwierigkeit wird über mehrere Faktoren gesteuert.
 
 ## Anfänger
 
-* viele Figuren vorgegeben
-* wenige freie Entscheidungen
+- viele Figuren vorgegeben
+- wenige freie Entscheidungen
 
 ## Leicht
 
-* einige Figuren vorgegeben
-* überschaubare Lösungswege
+- einige Figuren vorgegeben
+- überschaubare Lösungswege
 
 ## Mittel
 
-* wenige Vorgaben
-* strategische Planung notwendig
+- wenige Vorgaben
+- strategische Planung notwendig
 
 ## Schwer
 
-* fast vollständige Eigenlösung
+- fast vollständige Eigenlösung
 
 ## Experte
 
-* leeres Brett
-* vollständige Lösung finden
+- leeres Brett
+- vollständige Lösung finden
 
 ---
 
@@ -168,10 +167,10 @@ Das zentrale technische Alleinstellungsmerkmal ist ein automatischer Puzzle-Gene
 
 Der Generator soll:
 
-* gültige Rätsel erzeugen
-* Lösbarkeit garantieren
-* Schwierigkeitsgrade bewerten
-* optional eindeutige Lösungen erzeugen
+- gültige Rätsel erzeugen
+- Lösbarkeit garantieren
+- Schwierigkeitsgrade bewerten
+- optional eindeutige Lösungen erzeugen
 
 Dadurch entstehen praktisch unbegrenzt viele Herausforderungen.
 
@@ -195,11 +194,11 @@ Die Anwendung basiert auf einem modernen TypeScript-Stack. Details befinden sich
 
 Verantwortlich für:
 
-* Brettmodell
-* Figuren
-* Bewegungsregeln
-* Konflikterkennung
-* Siegprüfung
+- Brettmodell
+- Figuren
+- Bewegungsregeln
+- Konflikterkennung
+- Siegprüfung
 
 Keine UI-Abhängigkeiten.
 
@@ -209,9 +208,9 @@ Keine UI-Abhängigkeiten.
 
 Verantwortlich für:
 
-* Finden gültiger Lösungen
-* Prüfen von Leveln
-* Unterstützung für Hinweise
+- Finden gültiger Lösungen
+- Prüfen von Leveln
+- Unterstützung für Hinweise
 
 ---
 
@@ -219,8 +218,8 @@ Verantwortlich für:
 
 Verantwortlich für:
 
-* Erzeugen neuer Rätsel
-* Bewertung der Schwierigkeit
-* Erkennen ungültiger Level
+- Erzeugen neuer Rätsel
+- Bewertung der Schwierigkeit
+- Erkennen ungültiger Level
 
 ---

@@ -21,7 +21,6 @@ Nach Abschluss darf keine Figur eine andere Figur angreifen.
 4. Lösung erreichen
 5. Nächstes Level spielen
 
-
 ## Schwierigkeitsgrad
 
 ### Anfänger
@@ -41,7 +40,6 @@ Nach Abschluss darf keine Figur eine andere Figur angreifen.
 
 - leeres Brett
 - vollständige Lösung finden
-
 
 ## Spielmodi
 

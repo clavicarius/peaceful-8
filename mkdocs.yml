@@ -20,7 +20,6 @@ theme:
         name: Dark Mode
 
 features:
-
   - navigation.instant
   - navigation.tabs
   - navigation.sections
@@ -33,11 +32,9 @@ features:
   - content.tabs.link
 
 plugins:
-
   - search
 
 markdown_extensions:
-
   - admonition
 
   - pymdownx.details
@@ -50,7 +47,6 @@ markdown_extensions:
       permalink: true
 
 nav:
-
   - Home: index.md
 
   - Overview:
@@ -74,4 +70,3 @@ nav:
   - ADR:
       - Engine Independent: adr/0001-engine-independent.md
       - TypeScript Strict: adr/0002-typescript-strict.md
-      

@@ -67,12 +67,12 @@ The UI may consume the Game Engine but must never contain game rules.
 
 Responsible for:
 
-* board representation
-* chess pieces
-* movement rules
-* attack detection
-* puzzle validation
-* game state
+- board representation
+- chess pieces
+- movement rules
+- attack detection
+- puzzle validation
+- game state
 
 The Engine must remain completely deterministic.
 
@@ -82,10 +82,10 @@ The Engine must remain completely deterministic.
 
 Responsible for:
 
-* solving puzzles
-* validating generated puzzles
-* providing hints
-* checking uniqueness of solutions
+- solving puzzles
+- validating generated puzzles
+- providing hints
+- checking uniqueness of solutions
 
 ---
 
@@ -93,10 +93,10 @@ Responsible for:
 
 Responsible for:
 
-* creating complete valid boards
-* removing pieces
-* assigning difficulty
-* exporting puzzles
+- creating complete valid boards
+- removing pieces
+- assigning difficulty
+- exporting puzzles
 
 The Generator should always use the Solver to validate generated puzzles.
 
@@ -106,12 +106,12 @@ The Generator should always use the Solver to validate generated puzzles.
 
 Responsible for:
 
-* rendering the board
-* animations
-* drag & drop
-* touch input
-* menus
-* settings
+- rendering the board
+- animations
+- drag & drop
+- touch input
+- menus
+- settings
 
 The UI must never implement chess rules.
 
@@ -121,10 +121,10 @@ The UI must never implement chess rules.
 
 Always prefer:
 
-* simplicity
-* readability
-* maintainability
-* deterministic behaviour
+- simplicity
+- readability
+- maintainability
+- deterministic behaviour
 
 Avoid unnecessary abstractions.
 
@@ -136,18 +136,18 @@ Introduce new dependencies only when they provide significant long-term value.
 
 Use:
 
-* TypeScript
-* strict mode
-* ESLint
-* Prettier
+- TypeScript
+- strict mode
+- ESLint
+- Prettier
 
 General rules:
 
-* small functions
-* descriptive names
-* immutable data where practical
-* no duplicated logic
-* no magic numbers
+- small functions
+- descriptive names
+- immutable data where practical
+- no duplicated logic
+- no magic numbers
 
 ---
 
@@ -159,23 +159,23 @@ Required test categories:
 
 ## Unit Tests
 
-* chess movement
-* attack detection
-* board validation
-* solver logic
-* generator logic
+- chess movement
+- attack detection
+- board validation
+- solver logic
+- generator logic
 
 ## Integration Tests
 
-* loading puzzles
-* solving puzzles
-* saving progress
+- loading puzzles
+- solving puzzles
+- saving progress
 
 ## End-to-End Tests
 
-* complete gameplay
-* drag & drop
-* mobile interactions
+- complete gameplay
+- drag & drop
+- mobile interactions
 
 Bug fixes should include regression tests whenever possible.
 
@@ -187,11 +187,11 @@ Every architectural change must update the corresponding documentation.
 
 Possible files include:
 
-* PROJECT_OVERVIEW.md
-* GAME_DESIGN.md
-* ARCHITECTURE.md
-* LEVEL_SYSTEM.md
-* GAME_ENGINE.md
+- PROJECT_OVERVIEW.md
+- GAME_DESIGN.md
+- ARCHITECTURE.md
+- LEVEL_SYSTEM.md
+- GAME_ENGINE.md
 
 Documentation is considered part of the implementation.
 
@@ -205,10 +205,10 @@ Current roadmap:
 
 Project Foundation
 
-* repository
-* CI
-* documentation
-* project structure
+- repository
+- CI
+- documentation
+- project structure
 
 ---
 
@@ -216,10 +216,10 @@ Project Foundation
 
 Game Engine
 
-* board
-* pieces
-* attack detection
-* validation
+- board
+- pieces
+- attack detection
+- validation
 
 ---
 
@@ -227,9 +227,9 @@ Game Engine
 
 Playable Prototype
 
-* board UI
-* drag & drop
-* conflict highlighting
+- board UI
+- drag & drop
+- conflict highlighting
 
 ---
 
@@ -237,9 +237,9 @@ Playable Prototype
 
 Solver
 
-* puzzle solving
-* validation
-* hints
+- puzzle solving
+- validation
+- hints
 
 ---
 
@@ -247,9 +247,9 @@ Solver
 
 Puzzle Generator
 
-* automatic generation
-* difficulty estimation
-* uniqueness validation
+- automatic generation
+- difficulty estimation
+- uniqueness validation
 
 ---
 
@@ -257,10 +257,10 @@ Puzzle Generator
 
 Minimum Viable Product
 
-* campaign
-* 100 levels
-* save progress
-* settings
+- campaign
+- 100 levels
+- save progress
+- settings
 
 ---
 
@@ -268,9 +268,9 @@ Minimum Viable Product
 
 Mobile Release
 
-* Android
-* iOS
-* offline support
+- Android
+- iOS
+- offline support
 
 ---
 
@@ -278,9 +278,9 @@ Mobile Release
 
 Community Features
 
-* Daily Puzzle
-* statistics
-* achievements
+- Daily Puzzle
+- statistics
+- achievements
 
 ---
 
@@ -288,9 +288,9 @@ Community Features
 
 Advanced Features
 
-* Level Editor
-* puzzle sharing
-* visual themes
+- Level Editor
+- puzzle sharing
+- visual themes
 
 ---
 
@@ -298,9 +298,9 @@ Advanced Features
 
 Version 1.0
 
-* release preparation
-* optimization
-* bug fixing
+- release preparation
+- optimization
+- bug fixing
 
 ---
 
@@ -308,11 +308,11 @@ Version 1.0
 
 Every Pull Request should answer the following questions:
 
-* What was changed?
-* Why was it changed?
-* Does it include tests?
-* Does it update documentation?
-* Does it preserve the architecture?
+- What was changed?
+- Why was it changed?
+- Does it include tests?
+- Does it update documentation?
+- Does it preserve the architecture?
 
 ---
 
@@ -337,13 +337,13 @@ When implementing new functionality:
 
 A task is considered complete when:
 
-* implementation is finished
-* tests pass
-* lint passes
-* formatting passes
-* documentation is updated
-* no duplicated logic exists
-* architecture remains consistent
+- implementation is finished
+- tests pass
+- lint passes
+- formatting passes
+- documentation is updated
+- no duplicated logic exists
+- architecture remains consistent
 
 ---
 
@@ -353,11 +353,11 @@ Peaceful 8 should become a high-quality puzzle platform capable of generating vi
 
 Future ideas include:
 
-* multiple board sizes
-* additional chess pieces
-* seasonal events
-* cloud synchronization
-* online leaderboards
-* community puzzle sharing
+- multiple board sizes
+- additional chess pieces
+- seasonal events
+- cloud synchronization
+- online leaderboards
+- community puzzle sharing
 
 Every implementation should support this long-term vision without unnecessarily increasing complexity.

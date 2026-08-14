@@ -12,13 +12,11 @@ Sie kennt:
 - Angriffsregeln
 - Spielzustand
 
-
 ## Figuren
 
 Jede Figur implementiert:
 
 canAttack(source, target)
-
 
 ## Beispiel
 
@@ -28,11 +26,9 @@ Queen:
 - gleiche Spalte
 - gleiche Diagonale
 
-
 Knight:
 
 - L-Bewegung
-
 
 ## Ergebnis
 

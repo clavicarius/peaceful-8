@@ -8,18 +8,15 @@ Engine:
 - Angriffserkennung
 - Siegprüfung
 
-
 Generator:
 
 - erzeugt gültige Level
 - garantiert Lösung
 
-
 ## Integration Tests
 
 - Level laden
 - Spielablauf
-
 
 ## E2E Tests
 
