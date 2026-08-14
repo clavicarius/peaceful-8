@@ -1,0 +1,107 @@
+name: Create Milestone Issues
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/create-milestone-issues.yml'
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create milestone label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh label create "milestone" --repo "$REPO" \
+            --description "Tracking issue for a project milestone" \
+            --color "0052CC" || true
+
+      - name: Create milestone tracking issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          create_issue_if_missing() {
+            local title="$1"
+            local body="$2"
+            local label="$3"
+
+            existing=$(gh issue list --repo "$REPO" --search "$title" --state all --json number,title --jq ".[] | select(.title == \"$title\") | .number")
+            if [ -n "$existing" ]; then
+              echo "Issue already exists: $title (#$existing)"
+            else
+              gh issue create --repo "$REPO" --title "$title" --body "$body" --label "$label"
+              echo "Created issue: $title"
+            fi
+          }
+
+          # M1 - Foundation
+          create_issue_if_missing \
+            "M1: Foundation (v0.1)" \
+            "## Goal\nEstablish the technical foundation of the project.\n\n## Scope\n- Create repository\n- Set up project structure\n- TypeScript setup\n- CI pipeline\n- Basic documentation\n\n## Definition of Done\nA working development project that compiles, lints, and runs CI.\n\n**Milestone:** Foundation (0.1)" \
+            "milestone"
+
+          # M2 - Game Engine
+          create_issue_if_missing \
+            "M2: Game Engine (v0.2)" \
+            "## Goal\nImplement working chess game rules.\n\n## Scope\n- Chessboard model\n- Piece model\n- Movement rules\n- Conflict detection\n- Automated tests\n\n## Definition of Done\nFully tested game logic with no UI dependency.\n\n**Milestone:** Game Engine (0.2)" \
+            "milestone"
+
+          # M3 - Playable Prototype
+          create_issue_if_missing \
+            "M3: Playable Prototype (v0.3)" \
+            "## Goal\nFirst playable experience.\n\n## Scope\n- Graphical board\n- Place pieces\n- Drag & Drop\n- Conflict highlighting\n- Solution detection\n\n## Definition of Done\nFirst playable version in the browser.\n\n**Milestone:** Playable Prototype (0.3)" \
+            "milestone"
+
+          # M4 - Solver
+          create_issue_if_missing \
+            "M4: Solver (v0.4)" \
+            "## Goal\nAutomatic puzzle solving.\n\n## Scope\n- Solving algorithm\n- Validation\n- Hint support\n\n## Definition of Done\nThe system can analyse and solve puzzles.\n\n**Milestone:** Solver (0.4)" \
+            "milestone"
+
+          # M5 - Level Generator
+          create_issue_if_missing \
+            "M5: Level Generator (v0.5)" \
+            "## Goal\nAutomatic puzzle generation.\n\n## Scope\n- Generate complete solutions\n- Remove pieces\n- Difficulty estimation\n- Export as level files\n\n## Definition of Done\nAutomatically generated levels with validated unique solutions.\n\n**Milestone:** Level Generator (0.5)" \
+            "milestone"
+
+          # M6 - MVP Release
+          create_issue_if_missing \
+            "M6: MVP Release (v0.6)" \
+            "## Goal\nComplete first playable game.\n\n## Scope\n- Campaign mode\n- 100 levels\n- Save progress\n- Settings\n- Responsive design\n\n## Definition of Done\nPlayable browser version with a complete level set.\n\n**Milestone:** MVP Release (0.6)" \
+            "milestone"
+
+          # M7 - Mobile Release
+          create_issue_if_missing \
+            "M7: Mobile Release (v0.7)" \
+            "## Goal\nMobile platform support.\n\n## Scope\n- Android build\n- iOS build\n- Touch optimisation\n- Offline mode\n\n## Definition of Done\nMobile apps published to the app stores.\n\n**Milestone:** Mobile Release (0.7)" \
+            "milestone"
+
+          # M8 - Community Features
+          create_issue_if_missing \
+            "M8: Community Features (v0.8)" \
+            "## Goal\nLong-term player motivation.\n\n## Scope\n- Daily Puzzle\n- Statistics\n- Achievements\n- Leaderboards\n\n## Definition of Done\nCommunity features deployed and driving daily engagement.\n\n**Milestone:** Community Features (0.8)" \
+            "milestone"
+
+          # M9 - Advanced Features
+          create_issue_if_missing \
+            "M9: Advanced Features (v0.9)" \
+            "## Goal\nExtended capabilities and personalisation.\n\n## Scope\n- Level Editor\n- Share custom puzzles\n- Special rules\n- Themes\n\n## Definition of Done\nExtended content and personalisation features available.\n\n**Milestone:** Advanced Features (0.9)" \
+            "milestone"
+
+          # M10 - Release 1.0
+          create_issue_if_missing \
+            "M10: Release 1.0 (v1.0)" \
+            "## Goal\nStable public release.\n\n## Scope\n- Stabilisation\n- Performance optimisation\n- Store preparation\n- Documentation\n\n## Definition of Done\nStable release with complete documentation and store presence.\n\n**Milestone:** Release 1.0 (1.0)" \
+            "milestone"
