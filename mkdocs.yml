@@ -62,6 +62,7 @@ nav:
 
   - Development:
       - Roadmap: development/ROADMAP.md
+      - Milestones: development/MILESTONES.md
       - Development Plan: development/DEVELOPMENT_PLAN.md
       - UI / UX: development/UI_UX.md
       - Testing: development/TESTING.md
