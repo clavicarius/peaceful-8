@@ -1,7 +1,7 @@
 name: ✨ Feature Request
 description: Neue Funktion oder Verbesserung vorschlagen
-title: "[Feature]: "
-labels: ["enhancement", "triage"]
+title: '[Feature]: '
+labels: ['enhancement', 'triage']
 assignees: []
 body:
   - type: markdown
@@ -14,7 +14,7 @@ body:
     attributes:
       label: Problem / Motivation
       description: Welches Problem soll gelöst werden? Warum ist das wichtig?
-      placeholder: "Als Nutzer möchte ich ..., damit ..."
+      placeholder: 'Als Nutzer möchte ich ..., damit ...'
     validations:
       required: true
 

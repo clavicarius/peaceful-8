@@ -1,7 +1,7 @@
 name: 📖 Dokumentation
 description: Fehler, Lücken oder Verbesserungen in der Doku melden
-title: "[Docs]: "
-labels: ["documentation", "triage"]
+title: '[Docs]: '
+labels: ['documentation', 'triage']
 assignees: []
 body:
   - type: textarea

@@ -29,28 +29,30 @@ apps/
 web/
 mobile/
 
-
 packages/
 
 engine/
+
 - Spiellogik
 
 solver/
+
 - Lösungssuche
 
 generator/
+
 - Levelerzeugung
 
 ui/
-- gemeinsame UI Komponenten
 
+- gemeinsame UI Komponenten
 
 ## Datenfluss
 
 UI
- |
+|
 Game Engine
- |
+|
 Solver / Generator
- |
+|
 Level Storage

@@ -118,20 +118,20 @@ Technische Architektur
 Peaceful 8
 
 apps/
-   web
-   mobile
+web
+mobile
 
 packages/
-   engine
-   generator
-   solver
-   ui
-   shared
+engine
+generator
+solver
+ui
+shared
 
 levels/
-   campaign
-   daily
-   generated
+campaign
+daily
+generated
 
 docs/
 
@@ -142,17 +142,17 @@ Wichtige Meilensteine
 
 Die verbindliche Roadmap ist in `docs/development/ROADMAP.md` dokumentiert.
 
-Version	Milestone
-0.1	Foundation
-0.2	Game Engine
-0.3	Playable Prototype
-0.4	Solver
-0.5	Level Generator
-0.6	MVP Release
-0.7	Mobile Release
-0.8	Community Features
-0.9	Advanced Features
-1.0	Release 1.0
+Version Milestone
+0.1 Foundation
+0.2 Game Engine
+0.3 Playable Prototype
+0.4 Solver
+0.5 Level Generator
+0.6 MVP Release
+0.7 Mobile Release
+0.8 Community Features
+0.9 Advanced Features
+1.0 Release 1.0
 
 GitHub-Projektstruktur
 
@@ -171,17 +171,17 @@ LICENSE
 CONTRIBUTING.md
 AGENTS.md
 Roadmap (Versionen)
-Version	Milestone
-0.1	Foundation
-0.2	Game Engine
-0.3	Playable Prototype
-0.4	Solver
-0.5	Level Generator
-0.6	MVP Release
-0.7	Mobile Release
-0.8	Community Features
-0.9	Advanced Features
-1.0	Release 1.0
+Version Milestone
+0.1 Foundation
+0.2 Game Engine
+0.3 Playable Prototype
+0.4 Solver
+0.5 Level Generator
+0.6 MVP Release
+0.7 Mobile Release
+0.8 Community Features
+0.9 Advanced Features
+1.0 Release 1.0
 Eine Ergänzung, die sich früh lohnt
 
 Ich würde den Solver und den Levelgenerator von Anfang an als eigenständige Pakete entwickeln. So kann dieselbe Logik später mehrfach genutzt werden:

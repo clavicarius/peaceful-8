@@ -1,7 +1,7 @@
 name: 🐛 Bug Report
 description: Etwas funktioniert nicht wie erwartet
-title: "[Bug]: "
-labels: ["bug"]
+title: '[Bug]: '
+labels: ['bug']
 assignees: []
 body:
   - type: markdown
@@ -61,7 +61,7 @@ body:
     attributes:
       label: Version
       description: Welche Version ist betroffen?
-      placeholder: "z.B. v1.2.3"
+      placeholder: 'z.B. v1.2.3'
     validations:
       required: true
 

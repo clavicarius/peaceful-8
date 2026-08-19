@@ -10,13 +10,13 @@
 
 > Eight pieces. Zero conflicts.
 
-## Spielidee 
+## Spielidee
+
 Der Spieler platziert acht Schachfiguren auf einem 8x8-Schachbrett, sodass sich keine der Figuren gegenseitig angreifen kann.
 
 Das Spiel kombiniert Schachlogik, strategisches Denken, Puzzle-Mechaniken, automatische Rätselgenerierung.
 
 Der Fokus liegt auf einer ruhigen, konzentrierten Spielerfahrung.
-
 
 ## Zielgruppe
 
@@ -26,11 +26,11 @@ Das Spiel ist bewusst frei von Zeitdruck und eignet sich sowohl für kurze Spiel
 
 Die Zielgruppe umfasst:
 
-* Puzzle-Enthusiasten
-* Schachinteressierte
-* Casual Gamer
-* Mobile Gamer
-* Spieler aller Altersgruppen
+- Puzzle-Enthusiasten
+- Schachinteressierte
+- Casual Gamer
+- Mobile Gamer
+- Spieler aller Altersgruppen
 
 ## Nicht-Ziele
 
@@ -44,15 +44,14 @@ Der Fokus liegt ausschließlich auf logischen Rätseln.
 
 ---
 
-
 ## Dokumentation
+
 <!--
 [https://peaceful-8.github.io/](https://peaceful-8.github.io/)
 -->
-[doc](docs/index.md)
 
+[doc](docs/index.md)
 
 ## Disclaimer
 
-Auch wenn für dieses Projekt eine [Roadmap](./docs/development/ROADMAP.md ) vorhanden ist, handelt es sich um ein privates Projekt, das je nach verfügbarer Zeit, Lust und Energie vorangetrieben wird.
-
+Auch wenn für dieses Projekt eine [Roadmap](./docs/development/ROADMAP.md) vorhanden ist, handelt es sich um ein privates Projekt, das je nach verfügbarer Zeit, Lust und Energie vorangetrieben wird.

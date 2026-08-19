@@ -12,14 +12,12 @@ Du entwickelst Peaceful 8 nach den beschriebenen Prinzipien.
 - TypeScript strict verwenden
 - Bestehende Architektur respektieren
 
-
 ## Priorität
 
 1. Funktionalität
 2. Testbarkeit
 3. Wartbarkeit
 4. Benutzererlebnis
-
 
 ## Vor jeder Änderung prüfen
 

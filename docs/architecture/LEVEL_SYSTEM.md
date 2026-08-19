@@ -26,15 +26,15 @@ Beispiel:
 
 ```json
 {
- "id":1,
- "difficulty":"easy",
- "pieces":[
-   {
-    "type":"queen",
-    "position":"A1",
-    "fixed":true
-   }
- ]
+  "id": 1,
+  "difficulty": "easy",
+  "pieces": [
+    {
+      "type": "queen",
+      "position": "A1",
+      "fixed": true
+    }
+  ]
 }
 ```
 
@@ -45,7 +45,6 @@ Ein Level muss:
 - lösbar sein
 - gültige Figuren besitzen
 - Schwierigkeitsgrad erfüllen
-
 
 ## Generator
 

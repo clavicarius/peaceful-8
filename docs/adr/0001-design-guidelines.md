@@ -25,13 +25,13 @@ Der Spieler gewinnt nicht durch Geschwindigkeit oder Glück, sondern durch logis
 
 # Markenwerte
 
-| Wert | Bedeutung |
-|-------|-----------|
-| Balance | Jede Entscheidung beeinflusst das gesamte Spielfeld |
-| Intelligence | Logisches Denken steht im Mittelpunkt |
-| Simplicity | Wenige Regeln, große strategische Tiefe |
-| Harmony | Konfliktfrei, ruhig, konzentriert |
-| Premium | Hochwertige Gestaltung statt verspielter Optik |
+| Wert         | Bedeutung                                           |
+| ------------ | --------------------------------------------------- |
+| Balance      | Jede Entscheidung beeinflusst das gesamte Spielfeld |
+| Intelligence | Logisches Denken steht im Mittelpunkt               |
+| Simplicity   | Wenige Regeln, große strategische Tiefe             |
+| Harmony      | Konfliktfrei, ruhig, konzentriert                   |
+| Premium      | Hochwertige Gestaltung statt verspielter Optik      |
 
 ---
 
@@ -423,5 +423,5 @@ Alternativen:
 
 # Designziel
 
-Das Erscheinungsbild soll wirken wie die Marke eines internationalen Premium-Strategiespiels – vergleichbar mit der visuellen Qualität moderner Brettspielverlage und hochwertiger Indie-Studios. 
+Das Erscheinungsbild soll wirken wie die Marke eines internationalen Premium-Strategiespiels – vergleichbar mit der visuellen Qualität moderner Brettspielverlage und hochwertiger Indie-Studios.
 Jede Gestaltung soll Ruhe, Präzision und strategische Tiefe vermitteln und die Marke langfristig wiedererkennbar machen.

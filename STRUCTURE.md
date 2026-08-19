@@ -13,30 +13,29 @@ peaceful-8/
 ├── LICENSE
 │
 ├── docs/
-│   ├── overview/
-│   │   ├── PROJECT_OVERVIEW.md
-│   │   └── VISION.md
-│   │
-│   ├── architecture/
-│   │   ├── ARCHITECTURE.md
-│   │   ├── GAME_DESIGN.md
-│   │   ├── GAME_ENGINE.md
-│   │   ├── LEVEL_SYSTEM.md
-│   │   └── TECH_STACK.md
-│   │
-│   ├── development/
-│   │   ├── ROADMAP.md
-│   │   ├── DEVELOPMENT_PLAN.md
-│   │   ├── TESTING.md
-│   │   └── TASKS.md
-│   │
-│   └── adr/
-│       ├── 0001-engine-independent.md
-│       ├── 0002-typescript-strict.md
-│       └── ...
+│ ├── overview/
+│ │ ├── PROJECT_OVERVIEW.md
+│ │ └── VISION.md
+│ │
+│ ├── architecture/
+│ │ ├── ARCHITECTURE.md
+│ │ ├── GAME_DESIGN.md
+│ │ ├── GAME_ENGINE.md
+│ │ ├── LEVEL_SYSTEM.md
+│ │ └── TECH_STACK.md
+│ │
+│ ├── development/
+│ │ ├── ROADMAP.md
+│ │ ├── DEVELOPMENT_PLAN.md
+│ │ ├── TESTING.md
+│ │ └── TASKS.md
+│ │
+│ └── adr/
+│ ├── 0001-engine-independent.md
+│ ├── 0002-typescript-strict.md
+│ └── ...
 │
 ├── apps/
 ├── packages/
 ├── tests/
 └── .github/
-

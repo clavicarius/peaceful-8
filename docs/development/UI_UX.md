@@ -10,7 +10,6 @@ Minimalistisch und ruhig.
 - Drag & Drop
 - Touch Unterstützung
 
-
 ## Feedback
 
 Grün:
@@ -18,7 +17,6 @@ Figur konfliktfrei
 
 Rot:
 Figur greift andere Figur an
-
 
 ## Animationen
 

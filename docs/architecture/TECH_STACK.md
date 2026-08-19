@@ -6,23 +6,19 @@
 - TypeScript
 - Vite
 
-
 ## Mobile
 
 - Capacitor
-
 
 ## Testing
 
 - Vitest
 - Playwright
 
-
 ## Deployment
 
 - GitHub Actions
 - GitHub Pages / Cloudflare Pages
-
 
 ## Codequalität
 
@@ -30,35 +26,33 @@
 - Prettier
 - TypeScript strict mode
 
-
-
 ## Frontend
 
-* React
-* TypeScript
-* Vite
+- React
+- TypeScript
+- Vite
 
 ## Mobile
 
-* Capacitor
+- Capacitor
 
 Eine gemeinsame Codebasis ermöglicht:
 
-* Browser-Version
-* Android-App
-* iOS-App
+- Browser-Version
+- Android-App
+- iOS-App
 
 ## Testing
 
-* Vitest
-* Playwright
+- Vitest
+- Playwright
 
 ## Qualität
 
-* ESLint
-* Prettier
-* TypeScript strict mode
+- ESLint
+- Prettier
+- TypeScript strict mode
 
 ## CI/CD
 
-* GitHub Actions
+- GitHub Actions
