@@ -3,6 +3,6 @@ import { ENGINE_VERSION } from '../index.js';
 
 describe('Engine', () => {
   it('exports ENGINE_VERSION', () => {
-    expect(ENGINE_VERSION).toBe('0.1.0');
+    expect(ENGINE_VERSION).toBe('0.2.0');
   });
 });
