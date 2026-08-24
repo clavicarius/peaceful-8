@@ -1,0 +1,173 @@
+import { describe, it, expect } from 'vitest';
+import {
+  createBoard,
+  placePiece,
+  removePiece,
+  getPieceAt,
+  detectConflicts,
+  validateBoard,
+  isValidPosition,
+  DEFAULT_BOARD_SIZE,
+} from '../board.js';
+import type { Board } from '../board.js';
+import type { Position } from '../types.js';
+
+const pos = (row: number, col: number): Position => ({ row, col });
+
+describe('createBoard', () => {
+  it('creates an empty board with default size', () => {
+    const board = createBoard();
+    expect(board.size).toEqual(DEFAULT_BOARD_SIZE);
+    expect(board.pieces).toHaveLength(0);
+  });
+
+  it('creates a board with custom size', () => {
+    const board = createBoard({ rows: 4, cols: 4 });
+    expect(board.size).toEqual({ rows: 4, cols: 4 });
+  });
+});
+
+describe('isValidPosition', () => {
+  const size = DEFAULT_BOARD_SIZE;
+  it('accepts valid positions', () => {
+    expect(isValidPosition(pos(0, 0), size)).toBe(true);
+    expect(isValidPosition(pos(7, 7), size)).toBe(true);
+  });
+  it('rejects out-of-bounds positions', () => {
+    expect(isValidPosition(pos(-1, 0), size)).toBe(false);
+    expect(isValidPosition(pos(8, 0), size)).toBe(false);
+    expect(isValidPosition(pos(0, 8), size)).toBe(false);
+  });
+});
+
+describe('placePiece', () => {
+  it('places a piece on an empty cell', () => {
+    const board = placePiece(createBoard(), 'queen', pos(3, 4));
+    expect(board.pieces).toHaveLength(1);
+    expect(board.pieces[0].type).toBe('queen');
+    expect(board.pieces[0].position).toEqual(pos(3, 4));
+  });
+
+  it('throws when position is outside the board', () => {
+    expect(() => placePiece(createBoard(), 'rook', pos(9, 0))).toThrow();
+  });
+
+  it('throws when position is already occupied', () => {
+    const board = placePiece(createBoard(), 'rook', pos(0, 0));
+    expect(() => placePiece(board, 'bishop', pos(0, 0))).toThrow();
+  });
+
+  it('is immutable – original board is unchanged', () => {
+    const original = createBoard();
+    placePiece(original, 'knight', pos(0, 0));
+    expect(original.pieces).toHaveLength(0);
+  });
+});
+
+describe('removePiece', () => {
+  it('removes a piece from the board', () => {
+    const board = placePiece(createBoard(), 'rook', pos(1, 1));
+    const updated = removePiece(board, pos(1, 1));
+    expect(updated.pieces).toHaveLength(0);
+  });
+
+  it('is a no-op when no piece at position', () => {
+    const board = placePiece(createBoard(), 'rook', pos(1, 1));
+    const updated = removePiece(board, pos(5, 5));
+    expect(updated.pieces).toHaveLength(1);
+  });
+});
+
+describe('getPieceAt', () => {
+  it('returns the piece at an occupied cell', () => {
+    const board = placePiece(createBoard(), 'bishop', pos(2, 3));
+    const piece = getPieceAt(board, pos(2, 3));
+    expect(piece).toBeDefined();
+    expect(piece?.type).toBe('bishop');
+  });
+
+  it('returns undefined for empty cell', () => {
+    expect(getPieceAt(createBoard(), pos(0, 0))).toBeUndefined();
+  });
+});
+
+describe('detectConflicts', () => {
+  it('returns no conflicts for an empty board', () => {
+    expect(detectConflicts(createBoard())).toHaveLength(0);
+  });
+
+  it('detects a row conflict between two rooks', () => {
+    let board = placePiece(createBoard(), 'rook', pos(0, 0));
+    board = placePiece(board, 'rook', pos(0, 7));
+    const conflicts = detectConflicts(board);
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('detects no conflict when rooks are on different rows and cols', () => {
+    let board = placePiece(createBoard(), 'rook', pos(0, 0));
+    board = placePiece(board, 'rook', pos(1, 1));
+    // They share a diagonal but rooks don't attack diagonally
+    const conflicts = detectConflicts(board);
+    expect(conflicts).toHaveLength(0);
+  });
+
+  it('detects a diagonal conflict between two bishops', () => {
+    let board = placePiece(createBoard(), 'bishop', pos(0, 0));
+    board = placePiece(board, 'bishop', pos(3, 3));
+    const conflicts = detectConflicts(board);
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('detects a knight conflict', () => {
+    let board = placePiece(createBoard(), 'knight', pos(4, 4));
+    board = placePiece(board, 'knight', pos(2, 3));
+    const conflicts = detectConflicts(board);
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('detects cross-type conflict (queen vs rook same row)', () => {
+    let board = placePiece(createBoard(), 'queen', pos(3, 0));
+    board = placePiece(board, 'rook', pos(3, 7));
+    const conflicts = detectConflicts(board);
+    expect(conflicts).toHaveLength(1);
+  });
+});
+
+describe('validateBoard', () => {
+  it('is invalid when fewer than 8 pieces', () => {
+    const result = validateBoard(createBoard());
+    expect(result.valid).toBe(false);
+  });
+
+  it('is invalid when 8 pieces but conflicts exist', () => {
+    // Place 8 queens all on the same row → many conflicts
+    let board: Board = createBoard();
+    for (let col = 0; col < 8; col++) {
+      board = placePiece(board, 'queen', pos(0, col));
+    }
+    const result = validateBoard(board);
+    expect(result.valid).toBe(false);
+    expect(result.conflicts.length).toBeGreaterThan(0);
+  });
+
+  it('is valid for a known correct 8-queen solution', () => {
+    // A valid 8-queens solution: queens placed so none attack each other
+    const solution: [number, number][] = [
+      [0, 0],
+      [1, 4],
+      [2, 7],
+      [3, 5],
+      [4, 2],
+      [5, 6],
+      [6, 1],
+      [7, 3],
+    ];
+    let board: Board = createBoard();
+    for (const [row, col] of solution) {
+      board = placePiece(board, 'queen', pos(row, col));
+    }
+    const result = validateBoard(board);
+    expect(result.valid).toBe(true);
+    expect(result.conflicts).toHaveLength(0);
+  });
+});
