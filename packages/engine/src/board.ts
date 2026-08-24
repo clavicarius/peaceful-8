@@ -79,6 +79,34 @@ export function removePiece(board: Board, position: Position): Board {
 }
 
 /**
+ * Returns a new board with a piece moved from one position to another.
+ *
+ * Throws when the source cell is empty, the target position is outside the
+ * board, or the target cell is occupied by a different piece.
+ */
+export function movePiece(board: Board, from: Position, to: Position): Board {
+  if (!isValidPosition(to, board.size)) {
+    throw new Error(`Position (${to.row}, ${to.col}) is outside the board.`);
+  }
+
+  if (from.row === to.row && from.col === to.col) {
+    return board;
+  }
+
+  const piece = getPieceAt(board, from);
+  if (!piece) {
+    throw new Error(`No piece found at position (${from.row}, ${from.col}).`);
+  }
+
+  const targetPiece = getPieceAt(board, to);
+  if (targetPiece) {
+    throw new Error(`Position (${to.row}, ${to.col}) is already occupied.`);
+  }
+
+  return placePiece(removePiece(board, from), piece.type, to);
+}
+
+/**
  * Returns the piece at the given position, or undefined if the cell is empty.
  */
 export function getPieceAt(board: Board, position: Position): Piece | undefined {
