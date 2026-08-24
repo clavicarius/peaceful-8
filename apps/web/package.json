@@ -1,0 +1,21 @@
+{
+  "name": "@peaceful-8/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@peaceful-8/engine": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "vite": "^5.0.0",
+    "vitest": "^2.0.0"
+  }
+}

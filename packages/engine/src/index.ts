@@ -21,3 +21,4 @@ export {
   isValidPosition,
   createPieceId,
 } from './board.js';
+export type { Board } from './board.js';
