@@ -60,8 +60,8 @@ function App() {
         <p className="eyebrow">Playable Prototype v0.3</p>
         <h1>Peaceful 8</h1>
         <p className="intro-copy">
-          Drag pieces onto the board or click a tool and then a square. Red squares mark
-          attacking pieces.
+          Drag pieces onto the board or click a tool and then a square. Red squares mark attacking
+          pieces.
         </p>
         <div className={`status-banner status-${snapshot.status}`} aria-live="polite">
           {getStatusMessage(snapshot)}
