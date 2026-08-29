@@ -1,21 +1,26 @@
 {
   "name": "@peaceful-8/web",
-  "version": "0.1.0",
   "private": true,
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --noEmit"
+    "test": "vitest run",
+    "typecheck": "tsc -b"
   },
   "dependencies": {
-    "@peaceful-8/engine": "*"
+    "@peaceful-8/engine": "file:../../packages/engine",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "vite": "^5.0.0",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.0",
+    "vite": "^8.2.2",
     "vitest": "^2.0.0"
   }
 }

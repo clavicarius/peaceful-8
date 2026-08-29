@@ -1,16 +1,12 @@
+import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import { fileURLToPath, URL } from 'url';
+import { resolve } from 'node:path';
 
 export default defineConfig({
-  base: '/peaceful-8/',
-  build: {
-    outDir: 'dist',
-  },
+  plugins: [react()],
   resolve: {
     alias: {
-      '@peaceful-8/engine': fileURLToPath(
-        new URL('../../packages/engine/src/index.ts', import.meta.url)
-      ),
+      '@peaceful-8/engine': resolve(import.meta.dirname, '../../packages/engine/src/index.ts'),
     },
   },
 });

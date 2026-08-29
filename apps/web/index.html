@@ -4,31 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Peaceful 8</title>
-    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <header>
-      <h1>♟ Peaceful 8</h1>
-      <p>Place 8 pieces on the board so that no piece attacks another.</p>
-    </header>
-
-    <p id="status"></p>
-
-    <div id="selector" role="group" aria-label="Piece selector"></div>
-
-    <main>
-      <div id="board" role="grid" aria-label="Chess board"></div>
-    </main>
-
-    <button id="reset" type="button">Reset board</button>
-
-    <footer>
-      <p>
-        Open-source ·
-        <a href="https://github.com/clavicarius/peaceful-8" style="color: inherit">GitHub</a>
-      </p>
-    </footer>
-
-    <script type="module" src="/src/main.ts"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

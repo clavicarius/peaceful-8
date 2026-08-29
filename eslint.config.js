@@ -9,12 +9,15 @@ export default [
     ignores: ['**/dist/**', '**/node_modules/**'],
   },
   {
-    files: ['**/*.ts'],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
         project: './tsconfig.eslint.json',
         tsconfigRootDir: import.meta.dirname,
+      },
+      globals: {
+        document: 'readonly',
       },
     },
     plugins: {

@@ -3,6 +3,7 @@ import {
   createBoard,
   placePiece,
   removePiece,
+  movePiece,
   getPieceAt,
   detectConflicts,
   validateBoard,
@@ -75,6 +76,32 @@ describe('removePiece', () => {
     const board = placePiece(createBoard(), 'rook', pos(1, 1));
     const updated = removePiece(board, pos(5, 5));
     expect(updated.pieces).toHaveLength(1);
+  });
+});
+
+describe('movePiece', () => {
+  it('moves a piece to an empty cell', () => {
+    const board = placePiece(createBoard(), 'rook', pos(1, 1));
+    const updated = movePiece(board, pos(1, 1), pos(2, 3));
+
+    expect(getPieceAt(updated, pos(1, 1))).toBeUndefined();
+    expect(getPieceAt(updated, pos(2, 3))?.type).toBe('rook');
+  });
+
+  it('returns the same board when moving to the same cell', () => {
+    const board = placePiece(createBoard(), 'bishop', pos(2, 2));
+    expect(movePiece(board, pos(2, 2), pos(2, 2))).toBe(board);
+  });
+
+  it('throws when the source cell is empty', () => {
+    expect(() => movePiece(createBoard(), pos(0, 0), pos(1, 1))).toThrow();
+  });
+
+  it('throws when the target cell is occupied', () => {
+    let board = placePiece(createBoard(), 'queen', pos(0, 0));
+    board = placePiece(board, 'knight', pos(1, 2));
+
+    expect(() => movePiece(board, pos(0, 0), pos(1, 2))).toThrow();
   });
 });
 

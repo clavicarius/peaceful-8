@@ -6,6 +6,7 @@
   "include": [
     "packages/*/src/**/*.ts",
     "apps/*/src/**/*.ts",
+    "apps/*/src/**/*.tsx",
     "apps/*/vite.config.ts",
     "eslint.config.js"
   ],
