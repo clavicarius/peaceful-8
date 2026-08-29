@@ -1,0 +1,166 @@
+import {
+  createBoard,
+  detectConflicts,
+  getPieceAt,
+  movePiece,
+  placePiece,
+  removePiece,
+  validateBoard,
+} from '@peaceful-8/engine';
+import type { Board, PieceType, Position } from '@peaceful-8/engine';
+
+export type Tool = PieceType | 'erase';
+
+export type DragPayload =
+  | { kind: 'palette'; pieceType: PieceType }
+  | { kind: 'board-piece'; pieceType: PieceType; position: Position };
+
+export interface BoardSnapshot {
+  readonly conflictCount: number;
+  readonly conflictingPieceIds: ReadonlySet<string>;
+  readonly pieceCount: number;
+  readonly remainingSlots: number;
+  readonly solved: boolean;
+  readonly status: 'incomplete' | 'complete' | 'conflict' | 'solved';
+}
+
+export const DEFAULT_TOOL: Tool = 'queen';
+
+export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
+
+export function createGameBoard(): Board {
+  return createBoard();
+}
+
+export function serializeDragPayload(payload: DragPayload): string {
+  return JSON.stringify(payload);
+}
+
+export function parseDragPayload(value: string): DragPayload | null {
+  try {
+    const parsed = JSON.parse(value) as Partial<DragPayload>;
+
+    if (parsed.kind === 'palette' && typeof parsed.pieceType === 'string') {
+      return { kind: 'palette', pieceType: parsed.pieceType as PieceType };
+    }
+
+    if (
+      parsed.kind === 'board-piece' &&
+      typeof parsed.pieceType === 'string' &&
+      parsed.position &&
+      typeof parsed.position.row === 'number' &&
+      typeof parsed.position.col === 'number'
+    ) {
+      return {
+        kind: 'board-piece',
+        pieceType: parsed.pieceType as PieceType,
+        position: parsed.position,
+      };
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+export function applyToolToCell(board: Board, tool: Tool, position: Position): Board {
+  if (tool === 'erase') {
+    return removePiece(board, position);
+  }
+
+  const existingPiece = getPieceAt(board, position);
+  if (existingPiece) {
+    return placePiece(removePiece(board, position), tool, position);
+  }
+
+  if (board.pieces.length >= board.size.rows) {
+    return board;
+  }
+
+  return placePiece(board, tool, position);
+}
+
+export function applyDragPayload(board: Board, payload: DragPayload, position: Position): Board {
+  const targetPiece = getPieceAt(board, position);
+  if (targetPiece) {
+    return board;
+  }
+
+  if (payload.kind === 'palette') {
+    if (board.pieces.length >= board.size.rows) {
+      return board;
+    }
+
+    return placePiece(board, payload.pieceType, position);
+  }
+
+  return movePiece(board, payload.position, position);
+}
+
+export function getBoardSnapshot(board: Board): BoardSnapshot {
+  const validation = validateBoard(board);
+  const conflictingPieceIds = collectConflictingPieceIds(board);
+  const pieceCount = board.pieces.length;
+  const remainingSlots = Math.max(board.size.rows - pieceCount, 0);
+
+  if (validation.valid) {
+    return {
+      conflictCount: 0,
+      conflictingPieceIds,
+      pieceCount,
+      remainingSlots,
+      solved: true,
+      status: 'solved',
+    };
+  }
+
+  if (validation.conflicts.length > 0) {
+    return {
+      conflictCount: validation.conflicts.length,
+      conflictingPieceIds,
+      pieceCount,
+      remainingSlots,
+      solved: false,
+      status: 'conflict',
+    };
+  }
+
+  return {
+    conflictCount: 0,
+    conflictingPieceIds,
+    pieceCount,
+    remainingSlots,
+    solved: false,
+    status: pieceCount === board.size.rows ? 'complete' : 'incomplete',
+  };
+}
+
+export function getStatusMessage(snapshot: BoardSnapshot): string {
+  if (snapshot.status === 'solved') {
+    return 'Solved! Eight peaceful pieces are on the board.';
+  }
+
+  if (snapshot.status === 'conflict') {
+    const suffix = snapshot.conflictCount === 1 ? '' : 's';
+    return `${snapshot.conflictCount} conflict${suffix} highlighted in red.`;
+  }
+
+  if (snapshot.status === 'complete') {
+    return 'Eight pieces placed. Rearrange them until no attacks remain.';
+  }
+
+  const suffix = snapshot.remainingSlots === 1 ? '' : 's';
+  return `Place ${snapshot.remainingSlots} more piece${suffix} to complete the puzzle.`;
+}
+
+function collectConflictingPieceIds(board: Board): ReadonlySet<string> {
+  const conflictingPieceIds = new Set<string>();
+
+  for (const conflict of detectConflicts(board)) {
+    conflictingPieceIds.add(conflict.pieceA.id);
+    conflictingPieceIds.add(conflict.pieceB.id);
+  }
+
+  return conflictingPieceIds;
+}
