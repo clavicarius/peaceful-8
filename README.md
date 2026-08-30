@@ -52,6 +52,10 @@ Der Fokus liegt ausschließlich auf logischen Rätseln.
 
 [doc](docs/index.md)
 
+## Spielen
+
+[Peaceful 8 spielen](https://clavicarius.github.io/peaceful-8/)
+
 ## Disclaimer
 
 Auch wenn für dieses Projekt eine [Roadmap](./docs/development/ROADMAP.md) vorhanden ist, handelt es sich um ein privates Projekt, das je nach verfügbarer Zeit, Lust und Energie vorangetrieben wird.
