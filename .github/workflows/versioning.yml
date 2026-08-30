@@ -57,7 +57,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag "$NEXT_TAG" "$GITHUB_SHA"
           git push origin "refs/tags/$NEXT_TAG"
-          git tag --force "$MAJOR_TAG" "$NEXT_TAG"
+          git tag --force "$MAJOR_TAG" "$GITHUB_SHA"
           git push origin "refs/tags/$MAJOR_TAG" --force
 
       - name: Report idempotent result

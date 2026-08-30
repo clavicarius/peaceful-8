@@ -33,7 +33,10 @@ runs:
           echo "Unable to read version tags from remote '$REMOTE'." >&2
           exit 1
         fi
-        mapfile -t version_tags < <(printf '%s\n' "$remote_tags" | awk '{sub("refs/tags/", "", $2); print $2}')
+        version_tags=()
+        if [[ -n "$remote_tags" ]]; then
+          mapfile -t version_tags < <(printf '%s\n' "$remote_tags" | awk '{sub("refs/tags/", "", $2); print $2}')
+        fi
 
         latest_tag=
         for tag in "${version_tags[@]}"; do
