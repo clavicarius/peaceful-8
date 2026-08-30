@@ -127,9 +127,13 @@
   color: #fffaf0;
 }
 
-.tool-symbol,
-.piece-token {
+.tool-symbol {
   font-size: 1.8rem;
+  line-height: 1;
+}
+
+.piece-token {
+  font-size: 3.5rem;
   line-height: 1;
 }
 
