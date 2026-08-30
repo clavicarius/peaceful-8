@@ -1,0 +1,68 @@
+name: Compute semantic version
+description: Compute the next globally monotonic patch version from remote tags
+inputs:
+  remote:
+    description: Git remote containing the version tags
+    required: false
+    default: origin
+outputs:
+  latest-tag:
+    description: Latest semantic version tag found on the remote
+    value: ${{ steps.compute.outputs.latest-tag }}
+  next-tag:
+    description: Next semantic version tag
+    value: ${{ steps.compute.outputs.next-tag }}
+  major-tag:
+    description: Moving major tag for the next version
+    value: ${{ steps.compute.outputs.major-tag }}
+  tag-exists:
+    description: Whether the computed version tag already exists remotely
+    value: ${{ steps.compute.outputs.tag-exists }}
+runs:
+  using: composite
+  steps:
+    - id: compute
+      name: Compute version
+      shell: bash
+      env:
+        REMOTE: ${{ inputs.remote }}
+      run: |
+        set -euo pipefail
+
+        if ! remote_tags="$(git ls-remote --tags --refs "$REMOTE" 'refs/tags/v*')"; then
+          echo "Unable to read version tags from remote '$REMOTE'." >&2
+          exit 1
+        fi
+        mapfile -t version_tags < <(printf '%s\n' "$remote_tags" | awk '{sub("refs/tags/", "", $2); print $2}')
+
+        latest_tag=
+        for tag in "${version_tags[@]}"; do
+          if [[ "$tag" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            if [[ -z "$latest_tag" ]] || [[ "$(printf '%s\n' "$latest_tag" "$tag" | sort -V | tail -n1)" == "$tag" ]]; then
+              latest_tag="$tag"
+            fi
+          fi
+        done
+
+        if [[ -z "$latest_tag" ]]; then
+          next_tag="v0.1.0"
+        else
+          [[ "$latest_tag" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
+          major=$((10#${BASH_REMATCH[1]}))
+          minor=$((10#${BASH_REMATCH[2]}))
+          patch=$((10#${BASH_REMATCH[3]} + 1))
+          next_tag="v${major}.${minor}.${patch}"
+        fi
+
+        major_tag="${next_tag%%.*}"
+        tag_exists=false
+        if git ls-remote --exit-code --tags --refs "$REMOTE" "refs/tags/$next_tag" >/dev/null 2>&1; then
+          tag_exists=true
+        fi
+
+        {
+          echo "latest-tag=$latest_tag"
+          echo "next-tag=$next_tag"
+          echo "major-tag=$major_tag"
+          echo "tag-exists=$tag_exists"
+        } >> "$GITHUB_OUTPUT"
