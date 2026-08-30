@@ -8,8 +8,9 @@ Peaceful 8 uses automated semantic versioning through
 The workflow runs on every push to `main`. It also runs for pull requests
 targeting `main`, but pull-request runs are always dry runs.
 
-After a successful versioning run for `main`, the GitHub Pages workflow builds
-and deploys the exact versioned commit. Manual Pages deployments remain
+After a successful versioning run for `main`, the full version tag triggers
+the GitHub Pages workflow, which builds and deploys that exact tagged commit.
+Moving major tags do not trigger deployments. Manual Pages deployments remain
 available through `workflow_dispatch`.
 
 ## Tags and increments
