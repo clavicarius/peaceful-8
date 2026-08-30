@@ -38,7 +38,7 @@ jobs:
       - name: Set version from Git tag
         run: |
           commit_sha="$(git rev-parse HEAD)"
-          version_tag="$(git tag --points-at "$commit_sha" --list 'v*' | sort -V | tail -n1)"
+          version_tag="$(git tag --points-at "$commit_sha" --list 'v*.*.*' | sort -V | tail -n1)"
           echo "VITE_VERSION_TAG=${version_tag:-development}" >> "$GITHUB_ENV"
 
       - name: Build engine
