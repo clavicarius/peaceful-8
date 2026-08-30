@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import globals from 'globals';
 
 /** @type {import("eslint").Linter.Config[]} */
 export default [
@@ -25,6 +26,12 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...tsPlugin.configs.recommended.rules,
+    },
+  },
+  {
+    files: ['apps/web/src/**/*.ts'],
+    languageOptions: {
+      globals: globals.browser,
     },
   },
 ];
