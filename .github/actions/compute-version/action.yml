@@ -53,13 +53,14 @@ runs:
         if [[ -z "$latest_tag" ]]; then
           next_tag="v0.1.0"
         else
-          if ! [[ "$latest_tag" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+          if [[ "$latest_tag" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            major=$((10#${BASH_REMATCH[1]}))
+            minor=$((10#${BASH_REMATCH[2]}))
+            patch=$((10#${BASH_REMATCH[3]} + 1))
+          else
             echo "Failed to parse latest tag: $latest_tag" >&2
             exit 1
           fi
-          major=$((10#${BASH_REMATCH[1]}))
-          minor=$((10#${BASH_REMATCH[2]}))
-          patch=$((10#${BASH_REMATCH[3]} + 1))
           next_tag="v${major}.${minor}.${patch}"
         fi
 

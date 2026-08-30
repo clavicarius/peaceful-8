@@ -9,7 +9,7 @@ on:
       - main
 
 concurrency:
-  group: versioning-main
+  group: versioning-${{ github.event.pull_request.number || 'main' }}
   cancel-in-progress: false
 
 permissions:
