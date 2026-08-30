@@ -30,6 +30,8 @@ const PIECE_LABELS: Record<PieceType, string> = {
   rook: 'Rook',
 };
 
+const versionTag = import.meta.env.VITE_VERSION_TAG ?? 'development';
+
 function App() {
   const [board, setBoard] = useState(createGameBoard);
   const [selectedTool, setSelectedTool] = useState<Tool>(DEFAULT_TOOL);
@@ -57,7 +59,7 @@ function App() {
   return (
     <main className="app-shell">
       <section className="panel intro-panel">
-        <p className="eyebrow">Playable prototype v0.3.2</p>
+        <p className="eyebrow">Playable prototype {versionTag}</p>
         <h1>Peaceful 8</h1>
         <p className="intro-copy">
           Drag pieces onto the board or click a tool and then a square. Red squares mark attacking
