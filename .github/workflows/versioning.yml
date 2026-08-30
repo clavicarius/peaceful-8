@@ -48,7 +48,10 @@ jobs:
           echo "Version tag already exists: $TAG_EXISTS"
 
       - name: Create and push tags
-        if: github.event_name == 'push' && steps.version.outputs.tag-exists != 'true'
+        if: >-
+          github.event_name == 'push' &&
+          github.ref == 'refs/heads/main' &&
+          steps.version.outputs.tag-exists != 'true'
         env:
           NEXT_TAG: ${{ steps.version.outputs.next-tag }}
           MAJOR_TAG: ${{ steps.version.outputs.major-tag }}
@@ -61,5 +64,8 @@ jobs:
           git push origin "refs/tags/$MAJOR_TAG" --force
 
       - name: Report idempotent result
-        if: github.event_name == 'push' && steps.version.outputs.tag-exists == 'true'
+        if: >-
+          github.event_name == 'push' &&
+          github.ref == 'refs/heads/main' &&
+          steps.version.outputs.tag-exists == 'true'
         run: echo "Version tag ${{ steps.version.outputs.next-tag }} already exists; no changes made."
