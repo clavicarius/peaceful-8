@@ -38,7 +38,8 @@ latest full version in its major line.
 - Branch and actor guards prevent tag operations from recursively triggering
   versioning. Tag pushes do not match the `main` branch trigger.
 - Before publishing, the workflow checks whether the computed full tag already
-  exists on `origin`. If it does, the run succeeds without changing tags.
+  exists on `origin`. If it does, no duplicate full tag is created.
+- The moving major tag is always force-updated to the current `main` commit.
 
 ## Operational examples
 
