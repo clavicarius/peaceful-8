@@ -57,7 +57,7 @@ function App() {
   return (
     <main className="app-shell">
       <section className="panel intro-panel">
-        <p className="eyebrow">Playable Prototype v0.3</p>
+        <p className="eyebrow">Playable prototype v0.3.2</p>
         <h1>Peaceful 8</h1>
         <p className="intro-copy">
           Drag pieces onto the board or click a tool and then a square. Red squares mark attacking
