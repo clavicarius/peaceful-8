@@ -10,6 +10,11 @@ Beispiel:
 {
   "id": 42,
   "difficulty": "medium",
+  "board": {
+    "width": 6,
+    "height": 8,
+    "blockedCells": ["B2", "C2", "D5"]
+  },
   "pieces": [
     {
       "type": "queen",
@@ -28,6 +33,11 @@ Beispiel:
 {
   "id": 1,
   "difficulty": "easy",
+  "board": {
+    "width": 5,
+    "height": 5,
+    "blockedCells": []
+  },
   "pieces": [
     {
       "type": "queen",
@@ -44,7 +54,16 @@ Ein Level muss:
 
 - lösbar sein
 - gültige Figuren besitzen
+- ein gültiges Brettlayout besitzen (auch nicht quadratisch möglich)
+- gesperrte Felder konsistent definieren
 - Schwierigkeitsgrad erfüllen
+
+## Koordinatensystem
+
+- Felder werden in algebraischer Notation gespeichert (z. B. `A1`, `B2`).
+- Spalten werden mit Großbuchstaben ab `A` gezählt.
+- Zeilen sind 1-basiert.
+- Für ein Board mit `width = 6` und `height = 8` sind z. B. `A1` bis `F8` gültig.
 
 ## Generator
 

@@ -34,6 +34,8 @@ packages/
 engine/
 
 - Spiellogik
+- Bretttopologie (variable Größen und Formen)
+- gesperrte Felder auf Levelbasis
 
 solver/
 

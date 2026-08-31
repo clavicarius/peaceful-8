@@ -6,7 +6,7 @@
 
 Willkommen zur technischen Dokumentation von **Peaceful 8**.
 
-Peaceful 8 ist ein plattformübergreifendes Logikspiel, bei dem acht Schachfiguren so auf einem Schachbrett platziert werden müssen, dass sich keine Figur gegenseitig angreift. Das Spiel verbindet klassische Schachregeln mit modernen Puzzle-Mechaniken und legt den Fokus auf strategisches Denken statt auf Geschwindigkeit.
+Peaceful 8 ist ein plattformübergreifendes Logikspiel, bei dem acht vorgegebene Schachfiguren so auf einem variablen Levelbrett platziert werden müssen, dass sich keine Figur gegenseitig angreift. Das Brett kann je nach Level auch kleiner oder nicht quadratisch sein; zusätzlich können Felder gesperrt sein. Das Spiel verbindet klassische Schachregeln mit modernen Puzzle-Mechaniken und legt den Fokus auf strategisches Denken statt auf Geschwindigkeit.
 
 Die Dokumentation richtet sich an:
 
