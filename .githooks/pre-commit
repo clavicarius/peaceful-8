@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Git pre-commit hook: delegate to the shared CI checks.
+# Install: git config core.hooksPath .githooks
+
+exec "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/ci-checks.sh"
