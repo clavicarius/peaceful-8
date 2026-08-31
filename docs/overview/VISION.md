@@ -9,6 +9,7 @@ Der Spieler soll:
 - schnell verstehen, wie das Spiel funktioniert
 - langfristig neue Herausforderungen erhalten
 - durch logisches Denken Lösungen finden
+- mit variablen Brettlayouts und Levelrestriktionen neue Muster entdecken
 
 ## Zielgruppe
 

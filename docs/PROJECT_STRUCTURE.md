@@ -2,7 +2,9 @@
 
 Vision
 
-Peaceful 8 ist ein plattformübergreifendes Logikspiel, bei dem acht Schachfiguren so auf einem Schachbrett platziert werden, dass sich keine Figur gegenseitig angreift.
+Peaceful 8 ist ein plattformübergreifendes Logikspiel, bei dem acht vorgegebene Schachfiguren so auf variablen Brettlayouts platziert werden, dass sich keine Figur gegenseitig angreift.
+
+Levels können auch kleinere oder nicht quadratische Brettformen enthalten sowie gesperrte Felder, die nicht belegt werden dürfen.
 
 Das Spiel soll:
 

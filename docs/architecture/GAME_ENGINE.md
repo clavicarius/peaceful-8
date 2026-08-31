@@ -7,8 +7,10 @@ Die Engine enthält keine UI-Logik.
 Sie kennt:
 
 - Brett
+- Brettform und Brettgröße pro Level
 - Figuren
 - Positionen
+- gesperrte Felder
 - Angriffsregeln
 - Spielzustand
 

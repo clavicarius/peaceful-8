@@ -6,7 +6,8 @@ Minimalistisch und ruhig.
 
 ## Spielfeld
 
-- 8x8 Brett
+- variables Brettlayout je Level (auch kleiner oder nicht quadratisch)
+- visuelle Kennzeichnung gesperrter Felder
 - Drag & Drop
 - Touch Unterstützung
 

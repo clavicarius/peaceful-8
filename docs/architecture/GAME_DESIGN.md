@@ -2,7 +2,7 @@
 
 ## Grundregel
 
-Platziere genau acht Figuren auf einem Schachbrett.
+Platziere genau acht vorgegebene Figuren auf einem Levelbrett.
 
 Erlaubte Figuren:
 
@@ -12,6 +12,11 @@ Erlaubte Figuren:
 - Springer
 
 Nach Abschluss darf keine Figur eine andere Figur angreifen.
+
+Zusätzliche Levelregeln:
+
+- Das Brettlayout kann kleiner oder nicht quadratisch sein.
+- Gesperrte Felder dürfen nicht belegt werden.
 
 ## Spielfluss
 
