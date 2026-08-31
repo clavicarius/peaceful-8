@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { DragEvent } from 'react';
+import type { CSSProperties, DragEvent } from 'react';
 import { getPieceAt } from '@peaceful-8/engine';
 import type { PieceType, Position } from '@peaceful-8/engine';
 import './App.css';
@@ -69,7 +69,9 @@ function App() {
           {getStatusMessage(snapshot)}
         </div>
         <div className="stats-row">
-          <span>{snapshot.pieceCount} / 8 pieces placed</span>
+          <span>
+            {snapshot.pieceCount} / {snapshot.targetPieceCount} pieces placed
+          </span>
           <span>{snapshot.conflictCount} conflicts</span>
         </div>
       </section>
@@ -102,9 +104,14 @@ function App() {
         </aside>
 
         <section className="panel board-panel">
-          <div className="board" role="grid" aria-label="Peaceful 8 board">
-            {Array.from({ length: 8 }, (_, row) =>
-              Array.from({ length: 8 }, (_, col) => {
+          <div
+            className="board"
+            role="grid"
+            aria-label="Peaceful 8 board"
+            style={{ '--board-columns': String(board.size.cols) } as CSSProperties}
+          >
+            {Array.from({ length: board.size.rows }, (_, row) =>
+              Array.from({ length: board.size.cols }, (_, col) => {
                 const position = { row, col };
                 const piece = getPieceAt(board, position);
                 const conflict = piece ? snapshot.conflictingPieceIds.has(piece.id) : false;
@@ -116,7 +123,7 @@ function App() {
                     type="button"
                     role="gridcell"
                     className={`board-cell ${squareTone} ${conflict ? 'conflict' : ''}`}
-                    aria-label={buildCellLabel(position, piece?.type, conflict)}
+                    aria-label={buildCellLabel(position, board.size.rows, piece?.type, conflict)}
                     onClick={() => handleCellClick(position)}
                     onDragOver={(event) => event.preventDefault()}
                     onDrop={(event) => handleDrop(event, position)}
@@ -141,7 +148,7 @@ function App() {
                     ) : (
                       <span className="cell-coordinate">
                         {String.fromCharCode(97 + col)}
-                        {8 - row}
+                        {board.size.rows - row}
                       </span>
                     )}
                   </button>
@@ -182,14 +189,19 @@ function PaletteButton({ label, pieceType, selected, onSelect }: PaletteButtonPr
   );
 }
 
-function buildCellLabel(position: Position, pieceType?: PieceType, conflict = false): string {
+function buildCellLabel(
+  position: Position,
+  boardRows: number,
+  pieceType?: PieceType,
+  conflict = false
+): string {
   if (!pieceType) {
-    return `Empty square ${String.fromCharCode(97 + position.col)}${8 - position.row}`;
+    return `Empty square ${String.fromCharCode(97 + position.col)}${boardRows - position.row}`;
   }
 
   const conflictMessage = conflict ? ' in conflict' : '';
   return `${PIECE_LABELS[pieceType]} on ${String.fromCharCode(97 + position.col)}${
-    8 - position.row
+    boardRows - position.row
   }${conflictMessage}`;
 }
 

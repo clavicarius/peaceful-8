@@ -52,12 +52,12 @@ describe('applyDragPayload', () => {
     expect(updated.pieces[0]?.position).toEqual({ row: 2, col: 2 });
   });
 
-  it('prevents adding a ninth piece from the palette', () => {
+  it('prevents adding a sixth piece from the palette', () => {
     const filledBoard = fillBoardWithoutConflicts();
     const updated = applyDragPayload(
       filledBoard,
       { kind: 'palette', pieceType: 'queen' },
-      { row: 7, col: 7 }
+      { row: 4, col: 4 }
     );
 
     expect(updated).toBe(filledBoard);
@@ -67,7 +67,7 @@ describe('applyDragPayload', () => {
 describe('board status', () => {
   it('reports conflicts and solved states', () => {
     let conflictBoard = placePiece(createGameBoard(), 'rook', { row: 0, col: 0 });
-    conflictBoard = placePiece(conflictBoard, 'rook', { row: 0, col: 7 });
+    conflictBoard = placePiece(conflictBoard, 'rook', { row: 0, col: 4 });
 
     const conflictSnapshot = getBoardSnapshot(conflictBoard);
     expect(conflictSnapshot.status).toBe('conflict');
@@ -83,13 +83,10 @@ describe('board status', () => {
 function fillBoardWithoutConflicts(): Board {
   const solution: ReadonlyArray<readonly [number, number]> = [
     [0, 0],
-    [1, 4],
-    [2, 7],
-    [3, 5],
-    [4, 2],
-    [5, 6],
-    [6, 1],
-    [7, 3],
+    [1, 2],
+    [2, 4],
+    [3, 1],
+    [4, 3],
   ];
 
   return solution.reduce(
