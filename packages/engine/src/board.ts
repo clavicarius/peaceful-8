@@ -11,6 +11,8 @@ import type { Conflict, ValidationResult } from './types.js';
 
 /** Default board size: 8×8. */
 export const DEFAULT_BOARD_SIZE: BoardSize = { rows: 8, cols: 8 };
+/** Default number of pieces required to solve a board. */
+export const DEFAULT_REQUIRED_PIECE_COUNT = 8;
 
 /** Creates a unique id for a piece given its index. Exported for testing. */
 export function createPieceId(type: PieceType, row: number, col: number): string {
@@ -42,7 +44,7 @@ export function createBoard(input: BoardSize | BoardConfig = DEFAULT_BOARD_SIZE)
   const config: BoardConfig = isBoardSize(input) ? { size: input } : input;
   const size = config.size ?? DEFAULT_BOARD_SIZE;
   const blockedPositions = config.blockedPositions ?? [];
-  const requiredPieceCount = config.requiredPieceCount ?? 8;
+  const requiredPieceCount = config.requiredPieceCount ?? DEFAULT_REQUIRED_PIECE_COUNT;
 
   if (requiredPieceCount < 0 || !Number.isInteger(requiredPieceCount)) {
     throw new Error('requiredPieceCount must be a non-negative integer.');

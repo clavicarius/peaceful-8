@@ -10,6 +10,7 @@ import {
   isValidPosition,
   isBlockedPosition,
   DEFAULT_BOARD_SIZE,
+  DEFAULT_REQUIRED_PIECE_COUNT,
 } from '../board.js';
 import type { Board } from '../board.js';
 import type { Position } from '../types.js';
@@ -22,7 +23,7 @@ describe('createBoard', () => {
     expect(board.size).toEqual(DEFAULT_BOARD_SIZE);
     expect(board.pieces).toHaveLength(0);
     expect(board.blockedPositions).toEqual([]);
-    expect(board.requiredPieceCount).toBe(8);
+    expect(board.requiredPieceCount).toBe(DEFAULT_REQUIRED_PIECE_COUNT);
   });
 
   it('creates a board with custom size', () => {
@@ -188,12 +189,19 @@ describe('detectConflicts', () => {
     expect(conflicts).toHaveLength(1);
   });
 
-  it('does not detect slider conflict through another piece', () => {
+  it('does not detect direct slider conflict through another piece', () => {
     let board = placePiece(createBoard(), 'rook', pos(0, 0));
     board = placePiece(board, 'knight', pos(0, 3));
     board = placePiece(board, 'rook', pos(0, 7));
     const conflicts = detectConflicts(board);
-    expect(conflicts).toHaveLength(0);
+    const hasEdgeRookConflict = conflicts.some(
+      ({ pieceA, pieceB }) =>
+        pieceA.position.row === 0 &&
+        pieceA.position.col === 0 &&
+        pieceB.position.row === 0 &&
+        pieceB.position.col === 7
+    );
+    expect(hasEdgeRookConflict).toBe(false);
   });
 
   it('does not detect slider conflict through a blocked cell', () => {
@@ -246,7 +254,7 @@ describe('validateBoard', () => {
   it('uses custom required piece count for validation', () => {
     let board: Board = createBoard({ requiredPieceCount: 2 });
     board = placePiece(board, 'queen', pos(0, 0));
-    board = placePiece(board, 'knight', pos(2, 1));
+    board = placePiece(board, 'rook', pos(1, 2));
 
     const result = validateBoard(board);
     expect(result.valid).toBe(true);

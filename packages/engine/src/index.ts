@@ -21,6 +21,7 @@ export { queenAttacks, rookAttacks, bishopAttacks, knightAttacks, canAttack } fr
 
 export {
   DEFAULT_BOARD_SIZE,
+  DEFAULT_REQUIRED_PIECE_COUNT,
   createBoard,
   placePiece,
   removePiece,
