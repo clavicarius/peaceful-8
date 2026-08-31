@@ -8,6 +8,7 @@ import {
   detectConflicts,
   validateBoard,
   isValidPosition,
+  isBlockedPosition,
   DEFAULT_BOARD_SIZE,
 } from '../board.js';
 import type { Board } from '../board.js';
@@ -20,11 +21,24 @@ describe('createBoard', () => {
     const board = createBoard();
     expect(board.size).toEqual(DEFAULT_BOARD_SIZE);
     expect(board.pieces).toHaveLength(0);
+    expect(board.blockedPositions).toEqual([]);
+    expect(board.requiredPieceCount).toBe(8);
   });
 
   it('creates a board with custom size', () => {
     const board = createBoard({ rows: 4, cols: 4 });
     expect(board.size).toEqual({ rows: 4, cols: 4 });
+  });
+
+  it('creates a board with blocked positions and custom required piece count', () => {
+    const board = createBoard({
+      size: { rows: 4, cols: 4 },
+      blockedPositions: [pos(1, 1), pos(2, 2)],
+      requiredPieceCount: 3,
+    });
+
+    expect(board.blockedPositions).toEqual([pos(1, 1), pos(2, 2)]);
+    expect(board.requiredPieceCount).toBe(3);
   });
 });
 
@@ -56,6 +70,14 @@ describe('placePiece', () => {
   it('throws when position is already occupied', () => {
     const board = placePiece(createBoard(), 'rook', pos(0, 0));
     expect(() => placePiece(board, 'bishop', pos(0, 0))).toThrow();
+  });
+
+  it('throws when position is blocked', () => {
+    const board = createBoard({
+      blockedPositions: [pos(2, 2)],
+    });
+
+    expect(() => placePiece(board, 'bishop', pos(2, 2))).toThrow();
   });
 
   it('is immutable – original board is unchanged', () => {
@@ -102,6 +124,13 @@ describe('movePiece', () => {
     board = placePiece(board, 'knight', pos(1, 2));
 
     expect(() => movePiece(board, pos(0, 0), pos(1, 2))).toThrow();
+  });
+
+  it('throws when moving to a blocked cell', () => {
+    let board = createBoard({ blockedPositions: [pos(2, 3)] });
+    board = placePiece(board, 'rook', pos(1, 1));
+
+    expect(() => movePiece(board, pos(1, 1), pos(2, 3))).toThrow();
   });
 });
 
@@ -158,6 +187,22 @@ describe('detectConflicts', () => {
     const conflicts = detectConflicts(board);
     expect(conflicts).toHaveLength(1);
   });
+
+  it('does not detect slider conflict through another piece', () => {
+    let board = placePiece(createBoard(), 'rook', pos(0, 0));
+    board = placePiece(board, 'knight', pos(0, 3));
+    board = placePiece(board, 'rook', pos(0, 7));
+    const conflicts = detectConflicts(board);
+    expect(conflicts).toHaveLength(0);
+  });
+
+  it('does not detect slider conflict through a blocked cell', () => {
+    let board = createBoard({ blockedPositions: [pos(0, 3)] });
+    board = placePiece(board, 'queen', pos(0, 0));
+    board = placePiece(board, 'queen', pos(0, 7));
+    const conflicts = detectConflicts(board);
+    expect(conflicts).toHaveLength(0);
+  });
 });
 
 describe('validateBoard', () => {
@@ -196,5 +241,26 @@ describe('validateBoard', () => {
     const result = validateBoard(board);
     expect(result.valid).toBe(true);
     expect(result.conflicts).toHaveLength(0);
+  });
+
+  it('uses custom required piece count for validation', () => {
+    let board: Board = createBoard({ requiredPieceCount: 2 });
+    board = placePiece(board, 'queen', pos(0, 0));
+    board = placePiece(board, 'knight', pos(2, 1));
+
+    const result = validateBoard(board);
+    expect(result.valid).toBe(true);
+  });
+});
+
+describe('isBlockedPosition', () => {
+  it('returns true only for blocked positions', () => {
+    const board = createBoard({
+      size: { rows: 3, cols: 3 },
+      blockedPositions: [pos(1, 1)],
+    });
+
+    expect(isBlockedPosition(board, pos(1, 1))).toBe(true);
+    expect(isBlockedPosition(board, pos(0, 0))).toBe(false);
   });
 });
