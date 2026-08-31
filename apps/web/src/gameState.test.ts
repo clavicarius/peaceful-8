@@ -16,12 +16,19 @@ describe('applyToolToCell', () => {
     expect(board.pieces[0]?.type).toBe('queen');
   });
 
-  it('replaces an occupied square with a different piece type', () => {
+  it('replaces an occupied square with a different selected piece', () => {
     const board = placePiece(createGameBoard(), 'rook', { row: 1, col: 1 });
     const updated = applyToolToCell(board, 'bishop', { row: 1, col: 1 });
 
     expect(updated.pieces).toHaveLength(1);
     expect(updated.pieces[0]?.type).toBe('bishop');
+  });
+
+  it('removes an occupied square when the selected piece matches', () => {
+    const board = placePiece(createGameBoard(), 'bishop', { row: 1, col: 1 });
+    const updated = applyToolToCell(board, 'bishop', { row: 1, col: 1 });
+
+    expect(updated.pieces).toHaveLength(0);
   });
 
   it('removes a piece when the erase tool is active', () => {

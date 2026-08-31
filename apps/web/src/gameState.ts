@@ -71,7 +71,9 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
 
   const existingPiece = getPieceAt(board, position);
   if (existingPiece) {
-    return placePiece(removePiece(board, position), tool, position);
+    return existingPiece.type === tool
+      ? removePiece(board, position)
+      : placePiece(removePiece(board, position), tool, position);
   }
 
   if (board.pieces.length >= board.size.rows) {
