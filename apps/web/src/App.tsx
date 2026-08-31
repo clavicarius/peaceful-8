@@ -62,7 +62,7 @@ function App() {
         <p className="eyebrow">[WIP] Playable prototype {versionTag}</p>
         <h1>Peaceful 8</h1>
         <p className="intro-copy">
-          Drag pieces onto the board or click a tool and then a square to place or remove it. 
+          Drag pieces onto the board or click a tool and then a square to place or remove it.
 		  Red squares mark attacking pieces.
         </p>
         <div className={`status-banner status-${snapshot.status}`} aria-live="polite">
