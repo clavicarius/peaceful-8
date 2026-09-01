@@ -18,11 +18,11 @@ describe('createGameBoard', () => {
     expect(snapshot.targetPieceCount).toBe(5);
   });
 
-  it('uses the smaller board dimension as target piece count', () => {
-    const board = createBoard({ rows: 4, cols: 6 });
+  it('uses board rows as target piece count', () => {
+    const board = createBoard({ rows: 6, cols: 4 });
     const snapshot = getBoardSnapshot(board);
 
-    expect(snapshot.targetPieceCount).toBe(4);
+    expect(snapshot.targetPieceCount).toBe(6);
   });
 });
 

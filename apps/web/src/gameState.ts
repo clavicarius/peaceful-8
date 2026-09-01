@@ -177,5 +177,5 @@ function collectConflictingPieceIds(board: Board): ReadonlySet<string> {
 }
 
 function getTargetPieceCount(board: Board): number {
-  return Math.min(board.size.rows, board.size.cols);
+  return board.size.rows;
 }
