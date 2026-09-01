@@ -5,12 +5,14 @@
  * All mutating operations return new Board instances.
  */
 
-import type { Piece, PieceType, Position, BoardSize } from './types.js';
+import type { Piece, PieceType, Position, BoardSize, BoardConfig } from './types.js';
 import { canAttack } from './attacks.js';
 import type { Conflict, ValidationResult } from './types.js';
 
 /** Default board size: 8×8. */
 export const DEFAULT_BOARD_SIZE: BoardSize = { rows: 8, cols: 8 };
+/** Default number of pieces required to solve a board. */
+export const DEFAULT_REQUIRED_PIECE_COUNT = 8;
 
 /** Creates a unique id for a piece given its index. Exported for testing. */
 export function createPieceId(type: PieceType, row: number, col: number): string {
@@ -33,11 +35,30 @@ export function isValidPosition(position: Position, size: BoardSize): boolean {
 export interface Board {
   readonly size: BoardSize;
   readonly pieces: ReadonlyArray<Piece>;
+  readonly blockedPositions: ReadonlyArray<Position>;
+  readonly requiredPieceCount: number;
 }
 
 /** Creates an empty board with the given size (defaults to 8×8). */
-export function createBoard(size: BoardSize = DEFAULT_BOARD_SIZE): Board {
-  return { size, pieces: [] };
+export function createBoard(input: BoardSize | BoardConfig = DEFAULT_BOARD_SIZE): Board {
+  const config: BoardConfig = isBoardSize(input) ? { size: input } : input;
+  const size = config.size ?? DEFAULT_BOARD_SIZE;
+  const blockedPositions = config.blockedPositions ?? [];
+  const requiredPieceCount = config.requiredPieceCount ?? DEFAULT_REQUIRED_PIECE_COUNT;
+
+  if (requiredPieceCount < 0 || !Number.isInteger(requiredPieceCount)) {
+    throw new Error('requiredPieceCount must be a non-negative integer.');
+  }
+
+  for (const blockedPosition of blockedPositions) {
+    if (!isValidPosition(blockedPosition, size)) {
+      throw new Error(
+        `Blocked position (${blockedPosition.row}, ${blockedPosition.col}) is outside the board.`
+      );
+    }
+  }
+
+  return { size, pieces: [], blockedPositions, requiredPieceCount };
 }
 
 /**
@@ -48,6 +69,9 @@ export function createBoard(size: BoardSize = DEFAULT_BOARD_SIZE): Board {
 export function placePiece(board: Board, type: PieceType, position: Position): Board {
   if (!isValidPosition(position, board.size)) {
     throw new Error(`Position (${position.row}, ${position.col}) is outside the board.`);
+  }
+  if (isBlockedPosition(board, position)) {
+    throw new Error(`Position (${position.row}, ${position.col}) is blocked.`);
   }
 
   const occupied = board.pieces.some(
@@ -88,6 +112,9 @@ export function movePiece(board: Board, from: Position, to: Position): Board {
   if (!isValidPosition(to, board.size)) {
     throw new Error(`Position (${to.row}, ${to.col}) is outside the board.`);
   }
+  if (isBlockedPosition(board, to)) {
+    throw new Error(`Position (${to.row}, ${to.col}) is blocked.`);
+  }
 
   if (from.row === to.row && from.col === to.col) {
     return board;
@@ -126,7 +153,7 @@ export function detectConflicts(board: Board): Conflict[] {
     for (let j = i + 1; j < pieces.length; j++) {
       const a = pieces[i];
       const b = pieces[j];
-      if (canAttack(a.type, a.position, b.position) || canAttack(b.type, b.position, a.position)) {
+      if (pieceAttacks(board, a, b) || pieceAttacks(board, b, a)) {
         conflicts.push({ pieceA: a, pieceB: b });
       }
     }
@@ -143,6 +170,63 @@ export function detectConflicts(board: Board): Conflict[] {
  */
 export function validateBoard(board: Board): ValidationResult {
   const conflicts = detectConflicts(board);
-  const valid = board.pieces.length === board.size.rows && conflicts.length === 0;
+  const valid = board.pieces.length === board.requiredPieceCount && conflicts.length === 0;
   return { valid, conflicts };
+}
+
+/** Returns true when a position is blocked on the board. */
+export function isBlockedPosition(board: Board, position: Position): boolean {
+  return board.blockedPositions.some(
+    (blocked) => blocked.row === position.row && blocked.col === position.col
+  );
+}
+
+function isBoardSize(value: BoardSize | BoardConfig): value is BoardSize {
+  return 'rows' in value && 'cols' in value;
+}
+
+function pieceAttacks(board: Board, attacker: Piece, target: Piece): boolean {
+  if (!canAttack(attacker.type, attacker.position, target.position)) {
+    return false;
+  }
+
+  if (!isSlidingPiece(attacker.type)) {
+    return true;
+  }
+
+  return hasClearLineOfSight(board, attacker.position, target.position);
+}
+
+function isSlidingPiece(type: PieceType): boolean {
+  return type === 'queen' || type === 'rook' || type === 'bishop';
+}
+
+function hasClearLineOfSight(board: Board, source: Position, target: Position): boolean {
+  const rowDelta = target.row - source.row;
+  const colDelta = target.col - source.col;
+
+  const rowStep = Math.sign(rowDelta);
+  const colStep = Math.sign(colDelta);
+
+  const alignedStraight = rowDelta === 0 || colDelta === 0;
+  const alignedDiagonal = Math.abs(rowDelta) === Math.abs(colDelta);
+  if (!alignedStraight && !alignedDiagonal) {
+    return false;
+  }
+
+  let row = source.row + rowStep;
+  let col = source.col + colStep;
+
+  while (row !== target.row || col !== target.col) {
+    const position = { row, col };
+
+    if (isBlockedPosition(board, position) || getPieceAt(board, position)) {
+      return false;
+    }
+
+    row += rowStep;
+    col += colStep;
+  }
+
+  return true;
 }

@@ -35,3 +35,10 @@ export interface BoardSize {
   rows: number;
   cols: number;
 }
+
+/** Configuration used when creating a board. */
+export interface BoardConfig {
+  size?: BoardSize;
+  blockedPositions?: ReadonlyArray<Position>;
+  requiredPieceCount?: number;
+}
