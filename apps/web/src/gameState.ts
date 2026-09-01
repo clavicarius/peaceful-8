@@ -16,6 +16,7 @@ export type DragPayload =
   | { kind: 'board-piece'; pieceType: PieceType; position: Position };
 
 export interface BoardSnapshot {
+  readonly targetPieceCount: number;
   readonly conflictCount: number;
   readonly conflictingPieceIds: ReadonlySet<string>;
   readonly pieceCount: number;
@@ -27,9 +28,10 @@ export interface BoardSnapshot {
 export const DEFAULT_TOOL: Tool = 'queen';
 
 export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
+export const PLAYABLE_BOARD_SIZE = { rows: 5, cols: 5 } as const;
 
 export function createGameBoard(): Board {
-  return createBoard();
+  return createBoard({ size: PLAYABLE_BOARD_SIZE, requiredPieceCount: PLAYABLE_BOARD_SIZE.rows });
 }
 
 export function serializeDragPayload(payload: DragPayload): string {
@@ -69,6 +71,8 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
     return removePiece(board, position);
   }
 
+  const targetPieceCount = getTargetPieceCount(board);
+
   const existingPiece = getPieceAt(board, position);
   if (existingPiece) {
     return existingPiece.type === tool
@@ -76,7 +80,7 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
       : placePiece(removePiece(board, position), tool, position);
   }
 
-  if (board.pieces.length >= board.size.rows) {
+  if (board.pieces.length >= targetPieceCount) {
     return board;
   }
 
@@ -84,13 +88,14 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
 }
 
 export function applyDragPayload(board: Board, payload: DragPayload, position: Position): Board {
+  const targetPieceCount = getTargetPieceCount(board);
   const targetPiece = getPieceAt(board, position);
   if (targetPiece) {
     return board;
   }
 
   if (payload.kind === 'palette') {
-    if (board.pieces.length >= board.size.rows) {
+    if (board.pieces.length >= targetPieceCount) {
       return board;
     }
 
@@ -104,10 +109,12 @@ export function getBoardSnapshot(board: Board): BoardSnapshot {
   const validation = validateBoard(board);
   const conflictingPieceIds = collectConflictingPieceIds(board);
   const pieceCount = board.pieces.length;
-  const remainingSlots = Math.max(board.size.rows - pieceCount, 0);
+  const targetPieceCount = getTargetPieceCount(board);
+  const remainingSlots = Math.max(targetPieceCount - pieceCount, 0);
 
   if (validation.valid) {
     return {
+      targetPieceCount,
       conflictCount: 0,
       conflictingPieceIds,
       pieceCount,
@@ -119,6 +126,7 @@ export function getBoardSnapshot(board: Board): BoardSnapshot {
 
   if (validation.conflicts.length > 0) {
     return {
+      targetPieceCount,
       conflictCount: validation.conflicts.length,
       conflictingPieceIds,
       pieceCount,
@@ -129,18 +137,19 @@ export function getBoardSnapshot(board: Board): BoardSnapshot {
   }
 
   return {
+    targetPieceCount,
     conflictCount: 0,
     conflictingPieceIds,
     pieceCount,
     remainingSlots,
     solved: false,
-    status: pieceCount === board.size.rows ? 'complete' : 'incomplete',
+    status: pieceCount === targetPieceCount ? 'complete' : 'incomplete',
   };
 }
 
 export function getStatusMessage(snapshot: BoardSnapshot): string {
   if (snapshot.status === 'solved') {
-    return 'Solved! Eight peaceful pieces are on the board.';
+    return `Solved! ${snapshot.targetPieceCount} peaceful pieces are on the board.`;
   }
 
   if (snapshot.status === 'conflict') {
@@ -149,7 +158,7 @@ export function getStatusMessage(snapshot: BoardSnapshot): string {
   }
 
   if (snapshot.status === 'complete') {
-    return 'Eight pieces placed. Rearrange them until no attacks remain.';
+    return `${snapshot.targetPieceCount} pieces placed. Rearrange them until no attacks remain.`;
   }
 
   const suffix = snapshot.remainingSlots === 1 ? '' : 's';
@@ -165,4 +174,9 @@ function collectConflictingPieceIds(board: Board): ReadonlySet<string> {
   }
 
   return conflictingPieceIds;
+}
+
+function getTargetPieceCount(board: Board): number {
+  // The playable mode follows one-piece-per-row progression.
+  return board.size.rows;
 }

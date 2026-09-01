@@ -58,6 +58,28 @@ Ein Level muss:
 - gesperrte Felder konsistent definieren
 - Schwierigkeitsgrad erfüllen
 
+## Beispielanalyse: 5×5 mit gesperrten Ecken
+
+Für ein 5×5-Brett mit gesperrten Eckfeldern `A1`, `A5`, `E1`, `E5` wurden folgende
+gültige 8er-Belegungen mit gemischten Figuren ermittelt:
+
+### Lösung A
+
+- Türme: `B1`, `C2`
+- Läufer: `A3`, `D4`
+- Springer: `D3`, `A4`, `E4`, `D5`
+
+### Lösung B
+
+- Türme: `B1`, `C4`
+- Läufer: `D2`, `A3`
+- Springer: `A2`, `E2`, `D3`, `D5`
+
+Hinweis zur Dame:
+
+- Bei vier gesperrten Ecken existiert keine gültige 8er-Lösung mit mindestens einer Dame.
+- Wird genau eine Ecke freigegeben (also nur drei gesperrte Ecken), sind 8er-Lösungen mit Dame möglich.
+
 ## Koordinatensystem
 
 - Felder werden in algebraischer Notation gespeichert (z. B. `A1`, `B2`).
