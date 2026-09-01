@@ -10,12 +10,12 @@ import {
 } from './gameState';
 
 describe('createGameBoard', () => {
-  it('creates a 5x5 playable board with a 5-piece target', () => {
+  it('creates a 5x5 playable board with an 8-piece target', () => {
     const board = createGameBoard();
     const snapshot = getBoardSnapshot(board);
 
     expect(board.size).toEqual({ rows: 5, cols: 5 });
-    expect(snapshot.targetPieceCount).toBe(5);
+    expect(snapshot.targetPieceCount).toBe(8);
   });
 });
 
@@ -62,7 +62,7 @@ describe('applyDragPayload', () => {
     expect(updated.pieces[0]?.position).toEqual({ row: 2, col: 2 });
   });
 
-  it('prevents adding a sixth piece from the palette', () => {
+  it('prevents adding a ninth piece from the palette', () => {
     const filledBoard = fillBoardWithoutConflicts();
     const updated = applyDragPayload(
       filledBoard,
@@ -75,14 +75,14 @@ describe('applyDragPayload', () => {
 });
 
 describe('board status', () => {
-  it('uses board rows as target piece count', () => {
-    const board = createBoard({ rows: 6, cols: 6 });
+  it('uses the configured required piece count', () => {
+    const board = createBoard({ size: { rows: 6, cols: 6 }, requiredPieceCount: 3 });
     const snapshot = getBoardSnapshot(board);
 
-    expect(snapshot.targetPieceCount).toBe(6);
+    expect(snapshot.targetPieceCount).toBe(3);
   });
 
-  it('reports conflicts and solved states', () => {
+  it('reports conflicts and an eight-piece solved state', () => {
     let conflictBoard = placePiece(createGameBoard(), 'rook', { row: 0, col: 0 });
     conflictBoard = placePiece(conflictBoard, 'rook', { row: 0, col: 4 });
 
@@ -100,14 +100,17 @@ describe('board status', () => {
 function fillBoardWithoutConflicts(): Board {
   const solution: ReadonlyArray<readonly [number, number]> = [
     [0, 0],
-    [1, 2],
+    [0, 2],
+    [0, 4],
+    [1, 1],
+    [1, 3],
+    [2, 0],
+    [2, 2],
     [2, 4],
-    [3, 1],
-    [4, 3],
   ];
 
   return solution.reduce(
-    (board, [row, col]) => placePiece(board, 'queen', { row, col }),
+    (board, [row, col]) => placePiece(board, 'knight', { row, col }),
     createGameBoard()
   );
 }

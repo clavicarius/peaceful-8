@@ -165,8 +165,8 @@ export function detectConflicts(board: Board): Conflict[] {
 /**
  * Validates the current board state.
  *
- * A board is valid when it contains exactly `board.size.rows` pieces and no
- * conflicts exist. For a standard 8×8 board this means exactly 8 pieces.
+ * A board is valid when it contains exactly `board.requiredPieceCount` pieces
+ * and no conflicts exist. For a standard board this defaults to 8 pieces.
  */
 export function validateBoard(board: Board): ValidationResult {
   const conflicts = detectConflicts(board);
