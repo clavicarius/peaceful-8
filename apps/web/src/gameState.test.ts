@@ -76,7 +76,7 @@ describe('applyDragPayload', () => {
 
 describe('board status', () => {
   it('uses board rows as target piece count', () => {
-    const board = createBoard({ rows: 6, cols: 4 });
+    const board = createBoard({ rows: 6, cols: 6 });
     const snapshot = getBoardSnapshot(board);
 
     expect(snapshot.targetPieceCount).toBe(6);
