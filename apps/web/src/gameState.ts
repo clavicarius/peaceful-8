@@ -67,11 +67,11 @@ export function parseDragPayload(value: string): DragPayload | null {
 }
 
 export function applyToolToCell(board: Board, tool: Tool, position: Position): Board {
-  const targetPieceCount = board.size.rows;
-
   if (tool === 'erase') {
     return removePiece(board, position);
   }
+
+  const targetPieceCount = getTargetPieceCount(board);
 
   const existingPiece = getPieceAt(board, position);
   if (existingPiece) {
@@ -88,7 +88,7 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
 }
 
 export function applyDragPayload(board: Board, payload: DragPayload, position: Position): Board {
-  const targetPieceCount = board.size.rows;
+  const targetPieceCount = getTargetPieceCount(board);
   const targetPiece = getPieceAt(board, position);
   if (targetPiece) {
     return board;
@@ -109,7 +109,7 @@ export function getBoardSnapshot(board: Board): BoardSnapshot {
   const validation = validateBoard(board);
   const conflictingPieceIds = collectConflictingPieceIds(board);
   const pieceCount = board.pieces.length;
-  const targetPieceCount = board.size.rows;
+  const targetPieceCount = getTargetPieceCount(board);
   const remainingSlots = Math.max(targetPieceCount - pieceCount, 0);
 
   if (validation.valid) {
@@ -174,4 +174,8 @@ function collectConflictingPieceIds(board: Board): ReadonlySet<string> {
   }
 
   return conflictingPieceIds;
+}
+
+function getTargetPieceCount(board: Board): number {
+  return board.size.rows;
 }
