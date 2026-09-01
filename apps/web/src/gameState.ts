@@ -31,7 +31,7 @@ export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bis
 export const PLAYABLE_BOARD_SIZE = { rows: 5, cols: 5 } as const;
 
 export function createGameBoard(): Board {
-  return createBoard(PLAYABLE_BOARD_SIZE);
+  return createBoard({ size: PLAYABLE_BOARD_SIZE, requiredPieceCount: PLAYABLE_BOARD_SIZE.rows });
 }
 
 export function serializeDragPayload(payload: DragPayload): string {
