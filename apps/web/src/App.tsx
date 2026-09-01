@@ -62,8 +62,8 @@ function App() {
         <p className="eyebrow">[WIP] Playable prototype {versionTag}</p>
         <h1>Peaceful 8</h1>
         <p className="intro-copy">
-          Drag pieces onto the board or click a tool and then a square to place or remove it. Red
-          squares mark attacking pieces.
+          Play the 5x5 prototype by dragging pieces onto the board or clicking a tool and then a
+          square to place or remove it. Red squares mark attacking pieces.
         </p>
         <div className={`status-banner status-${snapshot.status}`} aria-live="polite">
           {getStatusMessage(snapshot)}
@@ -107,7 +107,7 @@ function App() {
           <div
             className="board"
             role="grid"
-            aria-label="Peaceful 8 board"
+            aria-label="Peaceful 8 5x5 board"
             style={{ '--board-columns': String(board.size.cols) } as CSSProperties}
           >
             {Array.from({ length: board.size.rows }, (_, row) =>

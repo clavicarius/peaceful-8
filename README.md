@@ -60,6 +60,8 @@ Der Fokus liegt ausschließlich auf logischen Rätseln.
 
 [Peaceful 8 spielen](https://clavicarius.github.io/peaceful-8/)
 
+Die aktuelle spielbare Prototyp-Version nutzt ein 5x5-Boardlayout.
+
 ## Disclaimer
 
 Auch wenn für dieses Projekt eine [Roadmap](./docs/development/ROADMAP.md) vorhanden ist, handelt es sich um ein privates Projekt, das je nach verfügbarer Zeit, Lust und Energie vorangetrieben wird.

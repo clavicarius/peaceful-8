@@ -9,6 +9,16 @@ import {
   getStatusMessage,
 } from './gameState';
 
+describe('createGameBoard', () => {
+  it('creates a 5x5 playable board with a 5-piece target', () => {
+    const board = createGameBoard();
+    const snapshot = getBoardSnapshot(board);
+
+    expect(board.size).toEqual({ rows: 5, cols: 5 });
+    expect(snapshot.targetPieceCount).toBe(5);
+  });
+});
+
 describe('applyToolToCell', () => {
   it('places a selected piece on an empty square', () => {
     const board = applyToolToCell(createGameBoard(), 'queen', { row: 0, col: 0 });
