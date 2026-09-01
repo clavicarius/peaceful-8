@@ -177,5 +177,6 @@ function collectConflictingPieceIds(board: Board): ReadonlySet<string> {
 }
 
 function getTargetPieceCount(board: Board): number {
+  // The playable mode follows one-piece-per-row progression.
   return board.size.rows;
 }
