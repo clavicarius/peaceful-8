@@ -29,7 +29,7 @@ export const DEFAULT_TOOL: Tool = 'queen';
 
 export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
 export const PLAYABLE_BOARD_SIZE = { rows: 5, cols: 5 } as const;
-export const PLAYABLE_TARGET_PIECE_COUNT = 5;
+export const PLAYABLE_TARGET_PIECE_COUNT = PLAYABLE_BOARD_SIZE.rows;
 
 export function createGameBoard(): Board {
   return createBoard(PLAYABLE_BOARD_SIZE);
