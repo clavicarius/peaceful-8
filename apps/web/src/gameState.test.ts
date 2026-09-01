@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { placePiece } from '@peaceful-8/engine';
 import type { Board } from '@peaceful-8/engine';
 import {
+  PLAYABLE_TARGET_PIECE_COUNT,
   applyDragPayload,
   applyToolToCell,
   createGameBoard,
@@ -15,7 +16,7 @@ describe('createGameBoard', () => {
     const snapshot = getBoardSnapshot(board);
 
     expect(board.size).toEqual({ rows: 5, cols: 5 });
-    expect(snapshot.targetPieceCount).toBe(5);
+    expect(snapshot.targetPieceCount).toBe(PLAYABLE_TARGET_PIECE_COUNT);
   });
 });
 

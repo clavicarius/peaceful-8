@@ -29,6 +29,7 @@ export const DEFAULT_TOOL: Tool = 'queen';
 
 export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
 export const PLAYABLE_BOARD_SIZE = { rows: 5, cols: 5 } as const;
+export const PLAYABLE_TARGET_PIECE_COUNT = 5;
 
 export function createGameBoard(): Board {
   return createBoard(PLAYABLE_BOARD_SIZE);
@@ -78,7 +79,7 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
       : placePiece(removePiece(board, position), tool, position);
   }
 
-  if (board.pieces.length >= board.size.rows) {
+  if (board.pieces.length >= PLAYABLE_TARGET_PIECE_COUNT) {
     return board;
   }
 
@@ -92,7 +93,7 @@ export function applyDragPayload(board: Board, payload: DragPayload, position: P
   }
 
   if (payload.kind === 'palette') {
-    if (board.pieces.length >= board.size.rows) {
+    if (board.pieces.length >= PLAYABLE_TARGET_PIECE_COUNT) {
       return board;
     }
 
@@ -106,7 +107,7 @@ export function getBoardSnapshot(board: Board): BoardSnapshot {
   const validation = validateBoard(board);
   const conflictingPieceIds = collectConflictingPieceIds(board);
   const pieceCount = board.pieces.length;
-  const targetPieceCount = board.size.rows;
+  const targetPieceCount = PLAYABLE_TARGET_PIECE_COUNT;
   const remainingSlots = Math.max(targetPieceCount - pieceCount, 0);
 
   if (validation.valid) {
@@ -140,7 +141,7 @@ export function getBoardSnapshot(board: Board): BoardSnapshot {
     pieceCount,
     remainingSlots,
     solved: false,
-    status: pieceCount === board.size.rows ? 'complete' : 'incomplete',
+    status: pieceCount === targetPieceCount ? 'complete' : 'incomplete',
   };
 }
 
