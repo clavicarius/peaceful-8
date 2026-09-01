@@ -1,6 +1,6 @@
 # Peaceful 8
 
-![logo](./docs/assets/logo.png)
+![logo](./docs/assets/Peaceful-8-logo-landscape.png)
 
 ## Projektübersicht
 
