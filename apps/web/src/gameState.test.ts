@@ -17,13 +17,6 @@ describe('createGameBoard', () => {
     expect(board.size).toEqual({ rows: 5, cols: 5 });
     expect(snapshot.targetPieceCount).toBe(5);
   });
-
-  it('uses board rows as target piece count', () => {
-    const board = createBoard({ rows: 6, cols: 4 });
-    const snapshot = getBoardSnapshot(board);
-
-    expect(snapshot.targetPieceCount).toBe(6);
-  });
 });
 
 describe('applyToolToCell', () => {
@@ -82,6 +75,13 @@ describe('applyDragPayload', () => {
 });
 
 describe('board status', () => {
+  it('uses board rows as target piece count', () => {
+    const board = createBoard({ rows: 6, cols: 4 });
+    const snapshot = getBoardSnapshot(board);
+
+    expect(snapshot.targetPieceCount).toBe(6);
+  });
+
   it('reports conflicts and solved states', () => {
     let conflictBoard = placePiece(createGameBoard(), 'rook', { row: 0, col: 0 });
     conflictBoard = placePiece(conflictBoard, 'rook', { row: 0, col: 4 });
