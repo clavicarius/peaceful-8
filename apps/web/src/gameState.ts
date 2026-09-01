@@ -29,7 +29,6 @@ export const DEFAULT_TOOL: Tool = 'queen';
 
 export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
 export const PLAYABLE_BOARD_SIZE = { rows: 5, cols: 5 } as const;
-export const PLAYABLE_TARGET_PIECE_COUNT = PLAYABLE_BOARD_SIZE.rows;
 
 export function createGameBoard(): Board {
   return createBoard(PLAYABLE_BOARD_SIZE);
@@ -68,6 +67,8 @@ export function parseDragPayload(value: string): DragPayload | null {
 }
 
 export function applyToolToCell(board: Board, tool: Tool, position: Position): Board {
+  const targetPieceCount = getTargetPieceCount(board);
+
   if (tool === 'erase') {
     return removePiece(board, position);
   }
@@ -79,7 +80,7 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
       : placePiece(removePiece(board, position), tool, position);
   }
 
-  if (board.pieces.length >= PLAYABLE_TARGET_PIECE_COUNT) {
+  if (board.pieces.length >= targetPieceCount) {
     return board;
   }
 
@@ -87,13 +88,14 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
 }
 
 export function applyDragPayload(board: Board, payload: DragPayload, position: Position): Board {
+  const targetPieceCount = getTargetPieceCount(board);
   const targetPiece = getPieceAt(board, position);
   if (targetPiece) {
     return board;
   }
 
   if (payload.kind === 'palette') {
-    if (board.pieces.length >= PLAYABLE_TARGET_PIECE_COUNT) {
+    if (board.pieces.length >= targetPieceCount) {
       return board;
     }
 
@@ -107,7 +109,7 @@ export function getBoardSnapshot(board: Board): BoardSnapshot {
   const validation = validateBoard(board);
   const conflictingPieceIds = collectConflictingPieceIds(board);
   const pieceCount = board.pieces.length;
-  const targetPieceCount = PLAYABLE_TARGET_PIECE_COUNT;
+  const targetPieceCount = getTargetPieceCount(board);
   const remainingSlots = Math.max(targetPieceCount - pieceCount, 0);
 
   if (validation.valid) {
@@ -172,4 +174,8 @@ function collectConflictingPieceIds(board: Board): ReadonlySet<string> {
   }
 
   return conflictingPieceIds;
+}
+
+function getTargetPieceCount(board: Board): number {
+  return Math.min(board.size.rows, board.size.cols);
 }
