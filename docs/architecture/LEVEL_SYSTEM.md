@@ -73,3 +73,28 @@ Der Generator:
 2. entfernt Figuren
 3. prüft Schwierigkeit
 4. speichert Level
+
+## Beispielzusammenfassung: 5x5 mit gesperrtem Zentrum
+
+Für ein 5x5-Brett mit gesperrtem Feld `C3` wurden zwei gültige Belegungen mit acht Figuren gefunden.
+
+Verwendete Figurenverteilung pro Lösung:
+
+- 1× Dame
+- 1× Turm
+- 2× Läufer
+- 4× Springer
+
+### Lösung A
+
+- Dame: `C1`
+- Turm: `B3`
+- Läufer: `E2`, `A5`
+- Springer: `A4`, `E4`, `D5`, `E5`
+
+### Lösung B
+
+- Dame: `C1`
+- Turm: `D3`
+- Läufer: `A2`, `E5`
+- Springer: `A4`, `E4`, `A5`, `B5`
