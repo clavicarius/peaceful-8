@@ -29,9 +29,10 @@ export const DEFAULT_TOOL: Tool = 'queen';
 
 export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
 export const PLAYABLE_BOARD_SIZE = { rows: 5, cols: 5 } as const;
+export const TARGET_PIECE_COUNT = 8;
 
 export function createGameBoard(): Board {
-  return createBoard({ size: PLAYABLE_BOARD_SIZE, requiredPieceCount: PLAYABLE_BOARD_SIZE.rows });
+  return createBoard({ size: PLAYABLE_BOARD_SIZE, requiredPieceCount: TARGET_PIECE_COUNT });
 }
 
 export function serializeDragPayload(payload: DragPayload): string {
@@ -177,6 +178,5 @@ function collectConflictingPieceIds(board: Board): ReadonlySet<string> {
 }
 
 function getTargetPieceCount(board: Board): number {
-  // The playable mode follows one-piece-per-row progression.
-  return board.size.rows;
+  return board.requiredPieceCount;
 }
