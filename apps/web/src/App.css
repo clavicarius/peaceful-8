@@ -139,6 +139,8 @@
 
 .board {
   display: grid;
+  width: min(100%, 45rem);
+  margin-inline: auto;
   grid-template-columns: repeat(var(--board-columns, 8), minmax(0, 1fr));
   gap: 0.2rem;
   padding: 0.2rem;
