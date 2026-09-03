@@ -170,6 +170,11 @@
   background: #efb0aa;
 }
 
+.board-cell.blocked {
+  background: #7a7269;
+  color: #fffaf0;
+}
+
 .piece-token {
   user-select: none;
 }

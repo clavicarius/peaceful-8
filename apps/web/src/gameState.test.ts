@@ -47,6 +47,16 @@ describe('applyToolToCell', () => {
 
     expect(updated.pieces).toHaveLength(0);
   });
+
+  it('toggles a blocked square without reducing the piece target', () => {
+    const board = applyToolToCell(createGameBoard(), 'blocked', { row: 1, col: 1 });
+    const snapshot = getBoardSnapshot(board);
+
+    expect(board.blockedPositions).toEqual([{ row: 1, col: 1 }]);
+    expect(snapshot.pieceCount).toBe(0);
+    expect(snapshot.remainingSlots).toBe(8);
+    expect(applyToolToCell(board, 'blocked', { row: 1, col: 1 }).blockedPositions).toEqual([]);
+  });
 });
 
 describe('applyDragPayload', () => {

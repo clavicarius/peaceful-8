@@ -9,6 +9,7 @@ import {
   validateBoard,
   isValidPosition,
   isBlockedPosition,
+  toggleBlockedPosition,
   DEFAULT_BOARD_SIZE,
   DEFAULT_REQUIRED_PIECE_COUNT,
 } from '../board.js';
@@ -48,6 +49,23 @@ describe('isValidPosition', () => {
   it('accepts valid positions', () => {
     expect(isValidPosition(pos(0, 0), size)).toBe(true);
     expect(isValidPosition(pos(7, 7), size)).toBe(true);
+  });
+
+  describe('toggleBlockedPosition', () => {
+    it('toggles an empty position without changing the piece count', () => {
+      const board = createBoard();
+      const blocked = toggleBlockedPosition(board, pos(2, 2));
+
+      expect(blocked.blockedPositions).toEqual([pos(2, 2)]);
+      expect(blocked.pieces).toHaveLength(0);
+      expect(toggleBlockedPosition(blocked, pos(2, 2)).blockedPositions).toEqual([]);
+    });
+
+    it('does not block a position occupied by a piece', () => {
+      const board = placePiece(createBoard(), 'queen', pos(2, 2));
+
+      expect(toggleBlockedPosition(board, pos(2, 2))).toBe(board);
+    });
   });
   it('rejects out-of-bounds positions', () => {
     expect(isValidPosition(pos(-1, 0), size)).toBe(false);

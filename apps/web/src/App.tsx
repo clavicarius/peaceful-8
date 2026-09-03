@@ -91,6 +91,18 @@ function App() {
             ))}
             <button
               type="button"
+              draggable
+              className={`tool-button ${selectedTool === 'blocked' ? 'selected' : ''}`}
+              onClick={() => setSelectedTool('blocked')}
+              onDragStart={(event) => {
+                event.dataTransfer.setData('text/plain', serializeDragPayload({ kind: 'blocked' }));
+              }}
+            >
+              <span className="tool-symbol">▧</span>
+              <span>Blocked</span>
+            </button>
+            <button
+              type="button"
               className={`tool-button ${selectedTool === 'erase' ? 'selected' : ''}`}
               onClick={() => setSelectedTool('erase')}
             >
@@ -115,6 +127,9 @@ function App() {
                 const position = { row, col };
                 const piece = getPieceAt(board, position);
                 const conflict = piece ? snapshot.conflictingPieceIds.has(piece.id) : false;
+                const blocked = board.blockedPositions.some(
+                  (blockedPosition) => blockedPosition.row === row && blockedPosition.col === col
+                );
                 const squareTone = (row + col) % 2 === 0 ? 'light' : 'dark';
 
                 return (
@@ -122,8 +137,16 @@ function App() {
                     key={`${row}-${col}`}
                     type="button"
                     role="gridcell"
-                    className={`board-cell ${squareTone} ${conflict ? 'conflict' : ''}`}
-                    aria-label={buildCellLabel(position, board.size.rows, piece?.type, conflict)}
+                    className={`board-cell ${squareTone} ${conflict ? 'conflict' : ''} ${
+                      blocked ? 'blocked' : ''
+                    }`}
+                    aria-label={buildCellLabel(
+                      position,
+                      board.size.rows,
+                      piece?.type,
+                      conflict,
+                      blocked
+                    )}
                     onClick={() => handleCellClick(position)}
                     onDragOver={(event) => event.preventDefault()}
                     onDrop={(event) => handleDrop(event, position)}
@@ -193,16 +216,20 @@ function buildCellLabel(
   position: Position,
   boardRows: number,
   pieceType?: PieceType,
-  conflict = false
+  conflict = false,
+  blocked = false
 ): string {
+  const coordinate = `${String.fromCharCode(97 + position.col)}${boardRows - position.row}`;
+  if (blocked) {
+    return `Blocked square ${coordinate}`;
+  }
+
   if (!pieceType) {
-    return `Empty square ${String.fromCharCode(97 + position.col)}${boardRows - position.row}`;
+    return `Empty square ${coordinate}`;
   }
 
   const conflictMessage = conflict ? ' in conflict' : '';
-  return `${PIECE_LABELS[pieceType]} on ${String.fromCharCode(97 + position.col)}${
-    boardRows - position.row
-  }${conflictMessage}`;
+  return `${PIECE_LABELS[pieceType]} on ${coordinate}${conflictMessage}`;
 }
 
 export default App;
