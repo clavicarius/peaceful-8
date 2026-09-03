@@ -63,7 +63,8 @@ function App() {
         <h1>Peaceful 8</h1>
         <p className="intro-copy">
           Play the 5x5 prototype by dragging pieces onto the board or clicking a tool and then a
-          square to place or remove it. Red squares mark attacking pieces.
+          square to place, block, or remove it. Red squares mark attacking pieces; dark gray squares
+          are blocked.
         </p>
         <div className={`status-banner status-${snapshot.status}`} aria-live="polite">
           {getStatusMessage(snapshot)}

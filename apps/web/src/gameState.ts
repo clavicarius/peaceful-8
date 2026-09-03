@@ -2,6 +2,7 @@ import {
   createBoard,
   detectConflicts,
   getPieceAt,
+  isBlockedPosition,
   movePiece,
   placePiece,
   removePiece,
@@ -106,6 +107,10 @@ export function applyDragPayload(board: Board, payload: DragPayload, position: P
   const targetPieceCount = getTargetPieceCount(board);
   const targetPiece = getPieceAt(board, position);
   if (targetPiece) {
+    return board;
+  }
+
+  if (isBlockedPosition(board, position)) {
     return board;
   }
 

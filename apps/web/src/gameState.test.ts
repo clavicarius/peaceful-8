@@ -72,6 +72,19 @@ describe('applyDragPayload', () => {
     expect(updated.pieces[0]?.position).toEqual({ row: 2, col: 2 });
   });
 
+  it('does not move a piece onto a blocked square', () => {
+    let board = applyToolToCell(createGameBoard(), 'blocked', { row: 2, col: 2 });
+    board = placePiece(board, 'rook', { row: 0, col: 0 });
+
+    const updated = applyDragPayload(
+      board,
+      { kind: 'board-piece', pieceType: 'rook', position: { row: 0, col: 0 } },
+      { row: 2, col: 2 }
+    );
+
+    expect(updated).toBe(board);
+  });
+
   it('prevents adding a ninth piece from the palette', () => {
     const filledBoard = fillBoardWithoutConflicts();
     const updated = applyDragPayload(
