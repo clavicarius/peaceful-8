@@ -47,6 +47,22 @@ describe('applyToolToCell', () => {
 
     expect(updated.pieces).toHaveLength(0);
   });
+
+  it('toggles a blocked square without reducing the piece target', () => {
+    const board = applyToolToCell(createGameBoard(), 'blocked', { row: 1, col: 1 });
+    const snapshot = getBoardSnapshot(board);
+
+    expect(board.blockedPositions).toEqual([{ row: 1, col: 1 }]);
+    expect(snapshot.pieceCount).toBe(0);
+    expect(snapshot.remainingSlots).toBe(8);
+    expect(applyToolToCell(board, 'blocked', { row: 1, col: 1 }).blockedPositions).toEqual([]);
+  });
+
+  it('ignores placing a piece on a blocked square', () => {
+    const board = applyToolToCell(createGameBoard(), 'blocked', { row: 1, col: 1 });
+
+    expect(applyToolToCell(board, 'queen', { row: 1, col: 1 })).toBe(board);
+  });
 });
 
 describe('applyDragPayload', () => {
@@ -60,6 +76,19 @@ describe('applyDragPayload', () => {
 
     expect(updated.pieces).toHaveLength(1);
     expect(updated.pieces[0]?.position).toEqual({ row: 2, col: 2 });
+  });
+
+  it('does not move a piece onto a blocked square', () => {
+    let board = applyToolToCell(createGameBoard(), 'blocked', { row: 2, col: 2 });
+    board = placePiece(board, 'rook', { row: 0, col: 0 });
+
+    const updated = applyDragPayload(
+      board,
+      { kind: 'board-piece', pieceType: 'rook', position: { row: 0, col: 0 } },
+      { row: 2, col: 2 }
+    );
+
+    expect(updated).toBe(board);
   });
 
   it('prevents adding a ninth piece from the palette', () => {

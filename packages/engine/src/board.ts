@@ -181,6 +181,28 @@ export function isBlockedPosition(board: Board, position: Position): boolean {
   );
 }
 
+/** Returns a new board with the blocked state of a position toggled. */
+export function toggleBlockedPosition(board: Board, position: Position): Board {
+  if (!isValidPosition(position, board.size)) {
+    throw new Error(`Position (${position.row}, ${position.col}) is outside the board.`);
+  }
+
+  if (getPieceAt(board, position)) {
+    return board;
+  }
+
+  if (isBlockedPosition(board, position)) {
+    return {
+      ...board,
+      blockedPositions: board.blockedPositions.filter(
+        (blocked) => blocked.row !== position.row || blocked.col !== position.col
+      ),
+    };
+  }
+
+  return { ...board, blockedPositions: [...board.blockedPositions, position] };
+}
+
 function isBoardSize(value: BoardSize | BoardConfig): value is BoardSize {
   return 'rows' in value && 'cols' in value;
 }

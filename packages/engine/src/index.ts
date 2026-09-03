@@ -31,5 +31,6 @@ export {
   validateBoard,
   isValidPosition,
   isBlockedPosition,
+  toggleBlockedPosition,
   createPieceId,
 } from './board.js';

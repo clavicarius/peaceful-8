@@ -2,17 +2,20 @@ import {
   createBoard,
   detectConflicts,
   getPieceAt,
+  isBlockedPosition,
   movePiece,
   placePiece,
   removePiece,
+  toggleBlockedPosition,
   validateBoard,
 } from '@peaceful-8/engine';
 import type { Board, PieceType, Position } from '@peaceful-8/engine';
 
-export type Tool = PieceType | 'erase';
+export type Tool = PieceType | 'blocked' | 'erase';
 
 export type DragPayload =
   | { kind: 'palette'; pieceType: PieceType }
+  | { kind: 'blocked' }
   | { kind: 'board-piece'; pieceType: PieceType; position: Position };
 
 export interface BoardSnapshot {
@@ -47,6 +50,10 @@ export function parseDragPayload(value: string): DragPayload | null {
       return { kind: 'palette', pieceType: parsed.pieceType as PieceType };
     }
 
+    if (parsed.kind === 'blocked') {
+      return { kind: 'blocked' };
+    }
+
     if (
       parsed.kind === 'board-piece' &&
       typeof parsed.pieceType === 'string' &&
@@ -72,6 +79,14 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
     return removePiece(board, position);
   }
 
+  if (tool === 'blocked') {
+    return toggleBlockedPosition(board, position);
+  }
+
+  if (isBlockedPosition(board, position)) {
+    return board;
+  }
+
   const targetPieceCount = getTargetPieceCount(board);
 
   const existingPiece = getPieceAt(board, position);
@@ -89,9 +104,17 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
 }
 
 export function applyDragPayload(board: Board, payload: DragPayload, position: Position): Board {
+  if (payload.kind === 'blocked') {
+    return toggleBlockedPosition(board, position);
+  }
+
   const targetPieceCount = getTargetPieceCount(board);
   const targetPiece = getPieceAt(board, position);
   if (targetPiece) {
+    return board;
+  }
+
+  if (isBlockedPosition(board, position)) {
     return board;
   }
 
