@@ -57,6 +57,12 @@ describe('applyToolToCell', () => {
     expect(snapshot.remainingSlots).toBe(8);
     expect(applyToolToCell(board, 'blocked', { row: 1, col: 1 }).blockedPositions).toEqual([]);
   });
+
+  it('ignores placing a piece on a blocked square', () => {
+    const board = applyToolToCell(createGameBoard(), 'blocked', { row: 1, col: 1 });
+
+    expect(applyToolToCell(board, 'queen', { row: 1, col: 1 })).toBe(board);
+  });
 });
 
 describe('applyDragPayload', () => {

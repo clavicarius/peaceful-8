@@ -83,6 +83,10 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
     return toggleBlockedPosition(board, position);
   }
 
+  if (isBlockedPosition(board, position)) {
+    return board;
+  }
+
   const targetPieceCount = getTargetPieceCount(board);
 
   const existingPiece = getPieceAt(board, position);
