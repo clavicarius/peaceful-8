@@ -32,6 +32,11 @@ describe('createBoard', () => {
     expect(board.size).toEqual({ rows: 4, cols: 4 });
   });
 
+  it('rejects non-positive or non-integer dimensions', () => {
+    expect(() => createBoard({ rows: 0, cols: 4 })).toThrow();
+    expect(() => createBoard({ rows: 4, cols: 2.5 })).toThrow();
+  });
+
   it('creates a board with blocked positions and custom required piece count', () => {
     const board = createBoard({
       size: { rows: 4, cols: 4 },
