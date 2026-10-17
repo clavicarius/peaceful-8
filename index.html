@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f1e8" />
+    <title>Peaceful 8</title>
+    <style>
+      :root {
+        color: #2a2118;
+        background: #f7f1e8;
+        font-family: system-ui, sans-serif;
+      }
+
+      body {
+        display: grid;
+        min-height: 100vh;
+        margin: 0;
+        place-content: center;
+        text-align: center;
+      }
+
+      img {
+        display: block;
+        width: min(80vw, 24rem);
+        height: auto;
+        margin: 0 auto 1.5rem;
+      }
+
+      .coming-soon-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        width: 100%;
+        padding: 0.75rem 0;
+        color: #f7f1e8;
+        background: #2a2118;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+      }
+
+      .coming-soon-track {
+        display: flex;
+        width: 200%;
+        animation: scroll 12s linear infinite;
+      }
+
+      .coming-soon-track span {
+        flex: 0 0 50%;
+        text-align: center;
+      }
+
+      @keyframes scroll {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      p {
+        margin: 0;
+        font-size: clamp(1.25rem, 4vw, 2rem);
+        font-weight: 600;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .coming-soon-track {
+          width: 100%;
+          animation: none;
+        }
+
+        .coming-soon-track span:first-child {
+          flex-basis: 100%;
+        }
+
+        .coming-soon-track span[aria-hidden="true"] {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="coming-soon-banner">
+      <div class="coming-soon-track">
+        <span>COMING SOON</span>
+        <span aria-hidden="true">COMING SOON</span>
+      </div>
+    </div>
+    <main>
+      <img src="./assets/Peaceful-8-logo-landscape.png" alt="Peaceful 8" />
+      <p>Eight pieces. Zero conflicts.</p>
+    </main>
+  </body>
+</html>
