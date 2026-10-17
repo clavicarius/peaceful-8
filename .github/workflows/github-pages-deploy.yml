@@ -2,8 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches:
+      - main
+      - gh-pages
   workflow_dispatch:
 
 permissions:
@@ -21,9 +22,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout published site
         uses: actions/checkout@v4
         with:
+          ref: gh-pages
+          path: site
+
+      - name: Checkout main preview
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: preview-source
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -31,25 +40,38 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: preview-source/package-lock.json
 
       - name: Install dependencies
         run: npm ci
+        working-directory: preview-source
 
       - name: Set version from Git tag
         run: |
-          version_tag="$(git tag --points-at "$GITHUB_SHA" --list 'v*.*.*' | sort -V | tail -n1)"
+          version_tag="$(git -C preview-source tag --points-at HEAD --list 'v*.*.*' | sort -V | tail -n1)"
           echo "VITE_VERSION_TAG=${version_tag:-development}" >> "$GITHUB_ENV"
 
       - name: Build engine
         run: npm run build --workspace=packages/engine
+        working-directory: preview-source
 
       - name: Build web app
         run: npm run build --workspace=apps/web
+        working-directory: preview-source
+
+      - name: Add preview to published site
+        run: |
+          cp preview-source/index.html site/index.html
+          mkdir -p site/assets
+          cp preview-source/docs/assets/logo.png site/assets/logo.png
+          rm -rf site/preview
+          mkdir -p site/preview
+          cp -a preview-source/apps/web/dist/. site/preview/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/web/dist
+          path: site
 
   deploy:
     name: Deploy to GitHub Pages
