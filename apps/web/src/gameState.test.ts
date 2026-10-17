@@ -4,30 +4,50 @@ import type { Board } from '@peaceful-8/engine';
 import {
   applyDragPayload,
   applyToolToCell,
+  DIFFICULTIES,
+  FIXED_PIECE_COUNTS,
   createGameBoard,
   getBoardSnapshot,
   getStatusMessage,
+  PLAYABLE_BOARD_SIZE,
+  TARGET_PIECE_COUNT,
 } from './gameState';
 
 describe('createGameBoard', () => {
-  it('creates a 5x5 playable board with an 8-piece target', () => {
+  it('creates a 5x5 board with the correct fixed pieces for each difficulty', () => {
     const board = createGameBoard();
     const snapshot = getBoardSnapshot(board);
 
     expect(board.size).toEqual({ rows: 5, cols: 5 });
     expect(snapshot.targetPieceCount).toBe(8);
+    expect(board.pieces).toHaveLength(FIXED_PIECE_COUNTS.easy);
+    expect(board.pieces.every((piece) => piece.fixed)).toBe(true);
+
+    for (const difficulty of DIFFICULTIES) {
+      const level = createGameBoard(difficulty);
+      expect(level.pieces).toHaveLength(FIXED_PIECE_COUNTS[difficulty]);
+      expect(level.pieces.every((piece) => piece.fixed)).toBe(true);
+    }
   });
 });
 
 describe('applyToolToCell', () => {
+  it('does not replace or remove a fixed piece', () => {
+    const board = createGameBoard('hard');
+    const fixedPosition = board.pieces[0]!.position;
+
+    expect(applyToolToCell(board, 'erase', fixedPosition)).toBe(board);
+    expect(applyToolToCell(board, 'queen', fixedPosition)).toBe(board);
+  });
+
   it('places a selected piece on an empty square', () => {
-    const board = applyToolToCell(createGameBoard(), 'queen', { row: 0, col: 0 });
+    const board = applyToolToCell(createEmptyGameBoard(), 'queen', { row: 0, col: 0 });
     expect(board.pieces).toHaveLength(1);
     expect(board.pieces[0]?.type).toBe('queen');
   });
 
   it('replaces an occupied square with a different selected piece', () => {
-    const board = placePiece(createGameBoard(), 'rook', { row: 1, col: 1 });
+    const board = placePiece(createEmptyGameBoard(), 'rook', { row: 1, col: 1 });
     const updated = applyToolToCell(board, 'bishop', { row: 1, col: 1 });
 
     expect(updated.pieces).toHaveLength(1);
@@ -35,21 +55,21 @@ describe('applyToolToCell', () => {
   });
 
   it('removes an occupied square when the selected piece matches', () => {
-    const board = placePiece(createGameBoard(), 'bishop', { row: 1, col: 1 });
+    const board = placePiece(createEmptyGameBoard(), 'bishop', { row: 1, col: 1 });
     const updated = applyToolToCell(board, 'bishop', { row: 1, col: 1 });
 
     expect(updated.pieces).toHaveLength(0);
   });
 
   it('removes a piece when the erase tool is active', () => {
-    const board = placePiece(createGameBoard(), 'knight', { row: 3, col: 3 });
+    const board = placePiece(createEmptyGameBoard(), 'knight', { row: 3, col: 3 });
     const updated = applyToolToCell(board, 'erase', { row: 3, col: 3 });
 
     expect(updated.pieces).toHaveLength(0);
   });
 
   it('toggles a blocked square without reducing the piece target', () => {
-    const board = applyToolToCell(createGameBoard(), 'blocked', { row: 1, col: 1 });
+    const board = applyToolToCell(createEmptyGameBoard(), 'blocked', { row: 1, col: 1 });
     const snapshot = getBoardSnapshot(board);
 
     expect(board.blockedPositions).toEqual([{ row: 1, col: 1 }]);
@@ -59,15 +79,32 @@ describe('applyToolToCell', () => {
   });
 
   it('ignores placing a piece on a blocked square', () => {
-    const board = applyToolToCell(createGameBoard(), 'blocked', { row: 1, col: 1 });
+    const board = applyToolToCell(createEmptyGameBoard(), 'blocked', { row: 1, col: 1 });
 
     expect(applyToolToCell(board, 'queen', { row: 1, col: 1 })).toBe(board);
   });
 });
 
 describe('applyDragPayload', () => {
+  it('does not move a fixed board piece', () => {
+    const board = createGameBoard('hard');
+    const fixedPiece = board.pieces[0]!;
+
+    expect(
+      applyDragPayload(
+        board,
+        {
+          kind: 'board-piece',
+          pieceType: fixedPiece.type,
+          position: fixedPiece.position,
+        },
+        { row: 4, col: 4 }
+      )
+    ).toBe(board);
+  });
+
   it('moves a board piece to an empty square', () => {
-    const board = placePiece(createGameBoard(), 'rook', { row: 0, col: 0 });
+    const board = placePiece(createEmptyGameBoard(), 'rook', { row: 0, col: 0 });
     const updated = applyDragPayload(
       board,
       { kind: 'board-piece', pieceType: 'rook', position: { row: 0, col: 0 } },
@@ -79,7 +116,7 @@ describe('applyDragPayload', () => {
   });
 
   it('does not move a piece onto a blocked square', () => {
-    let board = applyToolToCell(createGameBoard(), 'blocked', { row: 2, col: 2 });
+    let board = applyToolToCell(createEmptyGameBoard(), 'blocked', { row: 2, col: 2 });
     board = placePiece(board, 'rook', { row: 0, col: 0 });
 
     const updated = applyDragPayload(
@@ -112,7 +149,7 @@ describe('board status', () => {
   });
 
   it('reports conflicts and an eight-piece solved state', () => {
-    let conflictBoard = placePiece(createGameBoard(), 'rook', { row: 0, col: 0 });
+    let conflictBoard = placePiece(createEmptyGameBoard(), 'rook', { row: 0, col: 0 });
     conflictBoard = placePiece(conflictBoard, 'rook', { row: 0, col: 4 });
 
     const conflictSnapshot = getBoardSnapshot(conflictBoard);
@@ -140,6 +177,10 @@ function fillBoardWithoutConflicts(): Board {
 
   return solution.reduce(
     (board, [row, col]) => placePiece(board, 'knight', { row, col }),
-    createGameBoard()
+    createEmptyGameBoard()
   );
+}
+
+function createEmptyGameBoard(): Board {
+  return createBoard({ size: PLAYABLE_BOARD_SIZE, requiredPieceCount: TARGET_PIECE_COUNT });
 }

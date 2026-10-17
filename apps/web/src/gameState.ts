@@ -12,6 +12,7 @@ import {
 import type { Board, PieceType, Position } from '@peaceful-8/engine';
 
 export type Tool = PieceType | 'blocked' | 'erase';
+export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export type DragPayload =
   | { kind: 'palette'; pieceType: PieceType }
@@ -33,9 +34,29 @@ export const DEFAULT_TOOL: Tool = 'queen';
 export const AVAILABLE_PIECES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
 export const PLAYABLE_BOARD_SIZE = { rows: 5, cols: 5 } as const;
 export const TARGET_PIECE_COUNT = 8;
+export const DIFFICULTIES: ReadonlyArray<Difficulty> = ['easy', 'medium', 'hard'];
+export const FIXED_PIECE_COUNTS: Readonly<Record<Difficulty, number>> = {
+  easy: 4,
+  medium: 2,
+  hard: 1,
+};
 
-export function createGameBoard(): Board {
-  return createBoard({ size: PLAYABLE_BOARD_SIZE, requiredPieceCount: TARGET_PIECE_COUNT });
+export function createGameBoard(difficulty: Difficulty = 'easy'): Board {
+  const board = createBoard({ size: PLAYABLE_BOARD_SIZE, requiredPieceCount: TARGET_PIECE_COUNT });
+  const solution: ReadonlyArray<Position> = [
+    { row: 0, col: 0 },
+    { row: 0, col: 2 },
+    { row: 0, col: 4 },
+    { row: 1, col: 1 },
+    { row: 1, col: 3 },
+    { row: 2, col: 0 },
+    { row: 2, col: 2 },
+    { row: 2, col: 4 },
+  ];
+
+  return solution
+    .slice(0, FIXED_PIECE_COUNTS[difficulty])
+    .reduce((currentBoard, position) => placePiece(currentBoard, 'knight', position, true), board);
 }
 
 export function serializeDragPayload(payload: DragPayload): string {
@@ -75,6 +96,10 @@ export function parseDragPayload(value: string): DragPayload | null {
 }
 
 export function applyToolToCell(board: Board, tool: Tool, position: Position): Board {
+  if (getPieceAt(board, position)?.fixed) {
+    return board;
+  }
+
   if (tool === 'erase') {
     return removePiece(board, position);
   }
@@ -106,6 +131,10 @@ export function applyToolToCell(board: Board, tool: Tool, position: Position): B
 export function applyDragPayload(board: Board, payload: DragPayload, position: Position): Board {
   if (payload.kind === 'blocked') {
     return toggleBlockedPosition(board, position);
+  }
+
+  if (payload.kind === 'board-piece' && getPieceAt(board, payload.position)?.fixed) {
+    return board;
   }
 
   const targetPieceCount = getTargetPieceCount(board);
