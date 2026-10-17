@@ -58,6 +58,11 @@ Ein Level muss:
 - gesperrte Felder konsistent definieren
 - Schwierigkeitsgrad erfüllen
 
+Leichte und mittlere Level benötigen mindestens eine gültige Lösung. Schwere
+und extra schwere Level benötigen genau eine gültige Lösung. Die Validierung
+weist Level mit Konflikten in den Startpositionen oder ohne vollständige
+Belegung der erforderlichen Figurenanzahl zurück.
+
 Fest vorgegebene Figuren (`fixed: true`) werden beim Start auf ihren gespeicherten Positionen
 platziert und können danach weder verschoben noch entfernt werden. Im Web-Prototyp haben Easy,
 Medium und Hard jeweils 4, 2 und 1 feste Figuren.
