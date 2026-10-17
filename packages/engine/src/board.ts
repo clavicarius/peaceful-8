@@ -46,6 +46,15 @@ export function createBoard(input: BoardSize | BoardConfig = DEFAULT_BOARD_SIZE)
   const blockedPositions = config.blockedPositions ?? [];
   const requiredPieceCount = config.requiredPieceCount ?? DEFAULT_REQUIRED_PIECE_COUNT;
 
+  if (
+    !Number.isInteger(size.rows) ||
+    size.rows <= 0 ||
+    !Number.isInteger(size.cols) ||
+    size.cols <= 0
+  ) {
+    throw new Error('Board dimensions must be positive integers.');
+  }
+
   if (requiredPieceCount < 0 || !Number.isInteger(requiredPieceCount)) {
     throw new Error('requiredPieceCount must be a non-negative integer.');
   }

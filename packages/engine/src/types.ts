@@ -42,3 +42,10 @@ export interface BoardConfig {
   blockedPositions?: ReadonlyArray<Position>;
   requiredPieceCount?: number;
 }
+
+/** Board layout stored in a level definition. */
+export interface LevelBoardLayout {
+  width: number;
+  height: number;
+  blockedCells: ReadonlyArray<string>;
+}
