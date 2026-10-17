@@ -14,8 +14,10 @@ export type {
   ValidationResult,
   BoardSize,
   BoardConfig,
+  LevelBoardLayout,
 } from './types.js';
 export type { Board } from './board.js';
+export { createBoardFromLevel } from './level.js';
 
 export { queenAttacks, rookAttacks, bishopAttacks, knightAttacks, canAttack } from './attacks.js';
 

@@ -58,6 +58,12 @@ Ein Level muss:
 - gesperrte Felder konsistent definieren
 - Schwierigkeitsgrad erfüllen
 
+Die Engine-Funktion `createBoardFromLevel` übernimmt `board.width`, `board.height`
+und `board.blockedCells` aus diesem Format. Breite und Höhe werden auf
+`cols` beziehungsweise `rows` abgebildet. Algebraische Koordinaten wie `B2`
+werden in nullbasierte Engine-Positionen umgewandelt; gesperrte Felder außerhalb
+des Bretts oder ungültige Koordinaten werden abgewiesen.
+
 ## Beispielanalyse: 5×5 mit gesperrten Ecken
 
 Für ein 5×5-Brett mit gesperrten Eckfeldern `A1`, `A5`, `E1`, `E5` wurden folgende
