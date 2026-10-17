@@ -85,6 +85,13 @@ describe('placePiece', () => {
     expect(board.pieces).toHaveLength(1);
     expect(board.pieces[0].type).toBe('queen');
     expect(board.pieces[0].position).toEqual(pos(3, 4));
+    expect(board.pieces[0].fixed).toBe(false);
+  });
+
+  it('marks a placed piece as fixed when requested', () => {
+    const board = placePiece(createBoard(), 'queen', pos(3, 4), true);
+
+    expect(board.pieces[0]?.fixed).toBe(true);
   });
 
   it('throws when position is outside the board', () => {
@@ -123,6 +130,12 @@ describe('removePiece', () => {
     const updated = removePiece(board, pos(5, 5));
     expect(updated.pieces).toHaveLength(1);
   });
+
+  it('does not remove a fixed piece', () => {
+    const board = placePiece(createBoard(), 'rook', pos(1, 1), true);
+
+    expect(removePiece(board, pos(1, 1))).toBe(board);
+  });
 });
 
 describe('movePiece', () => {
@@ -137,6 +150,12 @@ describe('movePiece', () => {
   it('returns the same board when moving to the same cell', () => {
     const board = placePiece(createBoard(), 'bishop', pos(2, 2));
     expect(movePiece(board, pos(2, 2), pos(2, 2))).toBe(board);
+  });
+
+  it('does not move a fixed piece', () => {
+    const board = placePiece(createBoard(), 'bishop', pos(2, 2), true);
+
+    expect(movePiece(board, pos(2, 2), pos(3, 3))).toBe(board);
   });
 
   it('throws when the source cell is empty', () => {

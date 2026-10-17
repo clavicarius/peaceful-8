@@ -6,6 +6,7 @@ import './App.css';
 import {
   AVAILABLE_PIECES,
   DEFAULT_TOOL,
+  DIFFICULTIES,
   applyDragPayload,
   applyToolToCell,
   createGameBoard,
@@ -14,7 +15,7 @@ import {
   parseDragPayload,
   serializeDragPayload,
 } from './gameState';
-import type { Tool } from './gameState';
+import type { Difficulty, Tool } from './gameState';
 
 const PIECE_SYMBOLS: Record<PieceType, string> = {
   bishop: '♝',
@@ -33,7 +34,8 @@ const PIECE_LABELS: Record<PieceType, string> = {
 const versionTag = import.meta.env.VITE_VERSION_TAG ?? 'development';
 
 function App() {
-  const [board, setBoard] = useState(createGameBoard);
+  const [difficulty, setDifficulty] = useState<Difficulty>('easy');
+  const [board, setBoard] = useState(() => createGameBoard('easy'));
   const [selectedTool, setSelectedTool] = useState<Tool>(DEFAULT_TOOL);
   const snapshot = useMemo(() => getBoardSnapshot(board), [board]);
 
@@ -53,7 +55,12 @@ function App() {
   };
 
   const resetBoard = () => {
-    setBoard(createGameBoard());
+    setBoard(createGameBoard(difficulty));
+  };
+
+  const selectDifficulty = (nextDifficulty: Difficulty) => {
+    setDifficulty(nextDifficulty);
+    setBoard(createGameBoard(nextDifficulty));
   };
 
   return (
@@ -74,6 +81,20 @@ function App() {
             {snapshot.pieceCount} / {snapshot.targetPieceCount} pieces placed
           </span>
           <span>{snapshot.conflictCount} conflicts</span>
+        </div>
+        <div className="difficulty-options" role="group" aria-label="Difficulty">
+          {DIFFICULTIES.map((option) => (
+            <button
+              key={option}
+              type="button"
+              className={`difficulty-button ${difficulty === option ? 'selected' : ''}`}
+              aria-pressed={difficulty === option}
+              onClick={() => selectDifficulty(option)}
+            >
+              {option[0]?.toUpperCase()}
+              {option.slice(1)}
+            </button>
+          ))}
         </div>
       </section>
 
@@ -146,7 +167,8 @@ function App() {
                       board.size.rows,
                       piece?.type,
                       conflict,
-                      blocked
+                      blocked,
+                      piece?.fixed
                     )}
                     onClick={() => handleCellClick(position)}
                     onDragOver={(event) => event.preventDefault()}
@@ -155,7 +177,8 @@ function App() {
                     {piece ? (
                       <span
                         className="piece-token"
-                        draggable
+                        draggable={!piece.fixed}
+                        title={piece.fixed ? 'Fixed piece' : undefined}
                         onDragStart={(event) => {
                           event.dataTransfer.setData(
                             'text/plain',
@@ -168,6 +191,11 @@ function App() {
                         }}
                       >
                         {PIECE_SYMBOLS[piece.type]}
+                        {piece.fixed && (
+                          <span className="fixed-indicator" aria-hidden="true">
+                            🔒
+                          </span>
+                        )}
                       </span>
                     ) : (
                       <span className="cell-coordinate">
@@ -218,7 +246,8 @@ function buildCellLabel(
   boardRows: number,
   pieceType?: PieceType,
   conflict = false,
-  blocked = false
+  blocked = false,
+  fixed = false
 ): string {
   const coordinate = `${String.fromCharCode(97 + position.col)}${boardRows - position.row}`;
   if (blocked) {
@@ -230,7 +259,8 @@ function buildCellLabel(
   }
 
   const conflictMessage = conflict ? ' in conflict' : '';
-  return `${PIECE_LABELS[pieceType]} on ${coordinate}${conflictMessage}`;
+  const fixedMessage = fixed ? ' (fixed)' : '';
+  return `${PIECE_LABELS[pieceType]} on ${coordinate}${conflictMessage}${fixedMessage}`;
 }
 
 export default App;

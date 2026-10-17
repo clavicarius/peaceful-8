@@ -58,6 +58,10 @@ Ein Level muss:
 - gesperrte Felder konsistent definieren
 - Schwierigkeitsgrad erfüllen
 
+Fest vorgegebene Figuren (`fixed: true`) werden beim Start auf ihren gespeicherten Positionen
+platziert und können danach weder verschoben noch entfernt werden. Im Web-Prototyp haben Easy,
+Medium und Hard jeweils 4, 2 und 1 feste Figuren.
+
 Die Engine-Funktion `createBoardFromLevel` übernimmt `board.width`, `board.height`
 und `board.blockedCells` aus diesem Format. Breite und Höhe werden auf
 `cols` beziehungsweise `rows` abgebildet. Algebraische Koordinaten wie `B2`
