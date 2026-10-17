@@ -1,0 +1,1342 @@
+
+<!doctype html>
+<html lang="de" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation">
+      
+      
+      
+        <link rel="canonical" href="https://peaceful-8.github.io/adr/0001-design-guidelines/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>ADR-0001 - Brand Guidelines - Peaceful 8</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr-0001-brand-guidelines" class="md-skip">
+          Zum Inhalt
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Kopfzeile">
+    <a href="../.." title="Peaceful 8" class="md-header__button md-logo" aria-label="Peaceful 8" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Peaceful 8
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR-0001 - Brand Guidelines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Suche" placeholder="Suche" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Suche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Zurücksetzen" aria-label="Zurücksetzen" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Suche wird initialisiert
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Peaceful 8" class="md-nav__button md-logo" aria-label="Peaceful 8" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Peaceful 8
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERSIONING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Overview
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/PROJECT_OVERVIEW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/VISION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/GAME_DESIGN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/GAME_ENGINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/LEVEL_SYSTEM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/TECH_STACK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tech Stack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/ROADMAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/MILESTONES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/DEVELOPMENT_PLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/UI_UX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI / UX
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/TESTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/TASKS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ADR
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0001-engine-independent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine Independent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0002-typescript-strict.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TypeScript Strict
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Inhaltsverzeichnis">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="adr-0001-brand-guidelines">ADR-0001 - Brand Guidelines<a class="headerlink" href="#adr-0001-brand-guidelines" title="Permanent link">&para;</a></h1>
+<p>Version: 1.0<br />
+Status: Accepted
+Datum: 2026-07-11</p>
+<hr />
+<h1 id="markenidee">Markenidee<a class="headerlink" href="#markenidee" title="Permanent link">&para;</a></h1>
+<p><strong>Peaceful 8</strong> ist ein hochwertiges Logik- und Strategiespiel.</p>
+<p>Die Marke verbindet:</p>
+<ul>
+<li>Ruhe</li>
+<li>Balance</li>
+<li>Strategie</li>
+<li>Eleganz</li>
+<li>Intelligenz</li>
+<li>Minimalismus</li>
+</ul>
+<p>Der Spieler gewinnt nicht durch Geschwindigkeit oder Glück, sondern durch logisches Denken und harmonische Entscheidungen.</p>
+<hr />
+<h1 id="markenwerte">Markenwerte<a class="headerlink" href="#markenwerte" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Wert</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Balance</td>
+<td>Jede Entscheidung beeinflusst das gesamte Spielfeld</td>
+</tr>
+<tr>
+<td>Intelligence</td>
+<td>Logisches Denken steht im Mittelpunkt</td>
+</tr>
+<tr>
+<td>Simplicity</td>
+<td>Wenige Regeln, große strategische Tiefe</td>
+</tr>
+<tr>
+<td>Harmony</td>
+<td>Konfliktfrei, ruhig, konzentriert</td>
+</tr>
+<tr>
+<td>Premium</td>
+<td>Hochwertige Gestaltung statt verspielter Optik</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="tonalitat">Tonalität<a class="headerlink" href="#tonalitat" title="Permanent link">&para;</a></h1>
+<p>Die Marke spricht ruhig und selbstbewusst.</p>
+<p>Nicht:</p>
+<ul>
+<li>laut</li>
+<li>aggressiv</li>
+<li>verspielt</li>
+<li>überladen</li>
+</ul>
+<p>Sondern:</p>
+<ul>
+<li>elegant</li>
+<li>klar</li>
+<li>hochwertig</li>
+<li>intelligent</li>
+<li>zeitlos</li>
+</ul>
+<hr />
+<h1 id="logo">Logo<a class="headerlink" href="#logo" title="Permanent link">&para;</a></h1>
+<h2 id="grundidee">Grundidee<a class="headerlink" href="#grundidee" title="Permanent link">&para;</a></h2>
+<p>Das Logo besteht aus acht perfekt ausbalancierten Elementen.</p>
+<p>Die acht Elemente stehen für:</p>
+<ul>
+<li>Gleichgewicht</li>
+<li>Möglichkeiten</li>
+<li>strategische Entscheidungen</li>
+<li>Vollständigkeit</li>
+</ul>
+<p>Die Komposition darf niemals zufällig wirken.</p>
+<p>Symmetrie und Ruhe haben höchste Priorität.</p>
+<hr />
+<h2 id="symbolik">Symbolik<a class="headerlink" href="#symbolik" title="Permanent link">&para;</a></h2>
+<p>Das Symbol darf Assoziationen wecken zu</p>
+<ul>
+<li>Schach</li>
+<li>Spielfeldern</li>
+<li>Knoten</li>
+<li>Mandalas</li>
+<li>acht Punkten</li>
+<li>acht Kacheln</li>
+<li>acht Linien</li>
+</ul>
+<p>Die Formen bleiben abstrakt.</p>
+<p>Es wird <strong>kein konkretes Schachbrett</strong> dargestellt.</p>
+<hr />
+<h1 id="schutzraum">Schutzraum<a class="headerlink" href="#schutzraum" title="Permanent link">&para;</a></h1>
+<p>Der freie Bereich um das Logo entspricht mindestens der halben Logobreite.</p>
+<p>Innerhalb dieses Bereiches dürfen keine weiteren Elemente erscheinen.</p>
+<div class="highlight"><pre><span></span><code>   x
+xxxxxxxx
+x LOGO x
+xxxxxxxx
+   x
+</code></pre></div>
+<hr />
+<h1 id="mindestgroe">Mindestgröße<a class="headerlink" href="#mindestgroe" title="Permanent link">&para;</a></h1>
+<p>Digital</p>
+<ul>
+<li>Icon: 32 px</li>
+<li>App Icon: 128 px</li>
+<li>UI: 48 px</li>
+<li>Website: 80 px</li>
+</ul>
+<p>Print</p>
+<ul>
+<li>mindestens 18 mm Breite</li>
+</ul>
+<hr />
+<h1 id="farbpalette">Farbpalette<a class="headerlink" href="#farbpalette" title="Permanent link">&para;</a></h1>
+<h2 id="primary">Primary<a class="headerlink" href="#primary" title="Permanent link">&para;</a></h2>
+<h3 id="charcoal-black">Charcoal Black<a class="headerlink" href="#charcoal-black" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>HEX  #111315
+RGB  17 19 21
+</code></pre></div>
+<p>Hintergründe</p>
+<hr />
+<h3 id="ivory">Ivory<a class="headerlink" href="#ivory" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>HEX #F5F1E8
+RGB 245 241 232
+</code></pre></div>
+<p>Texte
+Logo</p>
+<hr />
+<h3 id="burgundy">Burgundy<a class="headerlink" href="#burgundy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>HEX #7B2338
+RGB 123 35 56
+</code></pre></div>
+<p>Akzentfarbe</p>
+<hr />
+<h2 id="secondary">Secondary<a class="headerlink" href="#secondary" title="Permanent link">&para;</a></h2>
+<h3 id="warm-gold">Warm Gold<a class="headerlink" href="#warm-gold" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>HEX #B89A63
+</code></pre></div>
+<p>Nur sparsam einsetzen.</p>
+<hr />
+<h3 id="slate-gray">Slate Gray<a class="headerlink" href="#slate-gray" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>HEX #4B535A
+</code></pre></div>
+<p>Sekundäre UI-Elemente.</p>
+<hr />
+<h1 id="farbverhaltnis">Farbverhältnis<a class="headerlink" href="#farbverhaltnis" title="Permanent link">&para;</a></h1>
+<p>Empfohlen:</p>
+<ul>
+<li>75 % Charcoal</li>
+<li>15 % Ivory</li>
+<li>8 % Burgundy</li>
+<li>2 % Gold</li>
+</ul>
+<hr />
+<h1 id="typografie">Typografie<a class="headerlink" href="#typografie" title="Permanent link">&para;</a></h1>
+<h2 id="headlines">Headlines<a class="headerlink" href="#headlines" title="Permanent link">&para;</a></h2>
+<p>Empfohlen:</p>
+<ul>
+<li>Cormorant Garamond</li>
+<li>Playfair Display</li>
+<li>Cinzel</li>
+</ul>
+<p>Eigenschaften:</p>
+<ul>
+<li>elegante Serifen</li>
+<li>großzügiger Zeichenabstand</li>
+<li>ruhige Wirkung</li>
+</ul>
+<hr />
+<h2 id="flietext">Fließtext<a class="headerlink" href="#flietext" title="Permanent link">&para;</a></h2>
+<p>Empfohlen:</p>
+<ul>
+<li>Inter</li>
+<li>Manrope</li>
+<li>Source Sans Pro</li>
+</ul>
+<hr />
+<h1 id="icon-style">Icon Style<a class="headerlink" href="#icon-style" title="Permanent link">&para;</a></h1>
+<p>Alle Icons folgen denselben Regeln.</p>
+<p>Eigenschaften:</p>
+<ul>
+<li>geometrisch</li>
+<li>flächig</li>
+<li>keine Verläufe</li>
+<li>keine Schatten</li>
+<li>keine Konturen</li>
+<li>gleiche Strichstärke</li>
+</ul>
+<hr />
+<h1 id="illustration-style">Illustration Style<a class="headerlink" href="#illustration-style" title="Permanent link">&para;</a></h1>
+<p>Illustrationen wirken:</p>
+<ul>
+<li>minimalistisch</li>
+<li>hochwertig</li>
+<li>ruhig</li>
+<li>geometrisch</li>
+</ul>
+<p>Nicht verwenden:</p>
+<ul>
+<li>Comicstil</li>
+<li>Anime</li>
+<li>Neonfarben</li>
+<li>übertriebene Effekte</li>
+</ul>
+<hr />
+<h1 id="github-social-preview">GitHub Social Preview<a class="headerlink" href="#github-social-preview" title="Permanent link">&para;</a></h1>
+<p>Format</p>
+<div class="highlight"><pre><span></span><code>1280 × 640 px
+</code></pre></div>
+<p>Aufbau</p>
+<div class="highlight"><pre><span></span><code>+------------------------------------------------+
+
+            Peaceful 8 Logo
+
+            PEACEFUL 8
+
+     Strategic Logic Puzzle Game
+
+   Eight Elements. Perfect Balance.
+
+                    GitHub
+
++------------------------------------------------+
+</code></pre></div>
+<p>Hintergrund:</p>
+<ul>
+<li>dunkler Verlauf</li>
+<li>dezente geometrische Muster</li>
+<li>schwache Schachfeldstruktur</li>
+</ul>
+<hr />
+<h1 id="github-repository-icon">GitHub Repository Icon<a class="headerlink" href="#github-repository-icon" title="Permanent link">&para;</a></h1>
+<p>Format</p>
+<div class="highlight"><pre><span></span><code>1024 × 1024 px
+</code></pre></div>
+<p>Nur das Symbol.</p>
+<p>Kein Text.</p>
+<hr />
+<h1 id="favicon">Favicon<a class="headerlink" href="#favicon" title="Permanent link">&para;</a></h1>
+<p>16×16</p>
+<p>32×32</p>
+<p>48×48</p>
+<p>Nur das Symbol.</p>
+<hr />
+<h1 id="app-icon">App Icon<a class="headerlink" href="#app-icon" title="Permanent link">&para;</a></h1>
+<ul>
+<li>quadratisch</li>
+<li>runde Ecken</li>
+<li>zentriertes Symbol</li>
+<li>dunkler Hintergrund</li>
+<li>ivoryfarbenes Logo</li>
+<li>burgunderfarbener Akzent</li>
+</ul>
+<hr />
+<h1 id="animation">Animation<a class="headerlink" href="#animation" title="Permanent link">&para;</a></h1>
+<p>Animationen sind langsam und dezent.</p>
+<p>Empfohlen:</p>
+<ul>
+<li>Fade</li>
+<li>Rotation &lt; 5°</li>
+<li>sanftes Einblenden</li>
+<li>leichte Skalierung</li>
+</ul>
+<p>Keine:</p>
+<ul>
+<li>Explosionen</li>
+<li>Blitze</li>
+<li>Wackeln</li>
+<li>Bounce-Effekte</li>
+</ul>
+<hr />
+<h1 id="bildsprache">Bildsprache<a class="headerlink" href="#bildsprache" title="Permanent link">&para;</a></h1>
+<p>Motive:</p>
+<ul>
+<li>Schach</li>
+<li>Symmetrie</li>
+<li>Kreise</li>
+<li>Linien</li>
+<li>Knoten</li>
+<li>geometrische Muster</li>
+<li>Konzentration</li>
+</ul>
+<p>Keine:</p>
+<ul>
+<li>Waffen</li>
+<li>Krieg</li>
+<li>Gewalt</li>
+<li>Chaos</li>
+</ul>
+<hr />
+<h1 id="ui-design">UI Design<a class="headerlink" href="#ui-design" title="Permanent link">&para;</a></h1>
+<p>Die Benutzeroberfläche wirkt ruhig.</p>
+<p>Eigenschaften:</p>
+<ul>
+<li>viel Weißraum</li>
+<li>klare Hierarchie</li>
+<li>große Buttons</li>
+<li>wenige Farben</li>
+<li>sanfte Übergänge</li>
+</ul>
+<hr />
+<h1 id="markenbotschaft">Markenbotschaft<a class="headerlink" href="#markenbotschaft" title="Permanent link">&para;</a></h1>
+<p><strong>Balance is Victory.</strong></p>
+<p>Alternativen:</p>
+<ul>
+<li>Think in Harmony.</li>
+<li>Eight Pieces. Infinite Possibilities.</li>
+<li>Calm Mind. Strong Strategy.</li>
+<li>Every Move Matters.</li>
+<li>Logic Without Noise.</li>
+<li>Where Balance Wins.</li>
+</ul>
+<hr />
+<h1 id="do">Do<a class="headerlink" href="#do" title="Permanent link">&para;</a></h1>
+<p>✅ Minimalistisch
+✅ Elegant
+✅ Symmetrisch
+✅ Hochwertig
+✅ Zeitlos
+✅ Intelligente Formensprache</p>
+<hr />
+<h1 id="dont">Don't<a class="headerlink" href="#dont" title="Permanent link">&para;</a></h1>
+<p>❌ Comicstil
+❌ Neonfarben
+❌ Überladene Grafiken
+❌ Zu viele Schachfiguren
+❌ Realistische Illustrationen
+❌ Verspielte Typografie
+❌ Starke Farbverläufe
+❌ Effektreiche Schatten</p>
+<hr />
+<h1 id="designziel">Designziel<a class="headerlink" href="#designziel" title="Permanent link">&para;</a></h1>
+<p>Das Erscheinungsbild soll wirken wie die Marke eines internationalen Premium-Strategiespiels – vergleichbar mit der visuellen Qualität moderner Brettspielverlage und hochwertiger Indie-Studios.
+Jede Gestaltung soll Ruhe, Präzision und strategische Tiefe vermitteln und die Marke langfristig wiedererkennbar machen.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "In Zwischenablage kopiert", "clipboard.copy": "In Zwischenablage kopieren", "search.result.more.one": "1 weiteres Suchergebnis auf dieser Seite", "search.result.more.other": "# weitere Suchergebnisse auf dieser Seite", "search.result.none": "Keine Suchergebnisse", "search.result.one": "1 Suchergebnis", "search.result.other": "# Suchergebnisse", "search.result.placeholder": "Suchbegriff eingeben", "search.result.term.missing": "Es fehlt", "select.version": "Version ausw\u00e4hlen"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
