@@ -16,6 +16,7 @@ export interface Piece {
   id: string;
   type: PieceType;
   position: Position;
+  fixed: boolean;
 }
 
 /** A conflict between two pieces that attack each other. */

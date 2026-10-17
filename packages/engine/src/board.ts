@@ -66,7 +66,12 @@ export function createBoard(input: BoardSize | BoardConfig = DEFAULT_BOARD_SIZE)
  *
  * Throws when the position is outside the board or already occupied.
  */
-export function placePiece(board: Board, type: PieceType, position: Position): Board {
+export function placePiece(
+  board: Board,
+  type: PieceType,
+  position: Position,
+  fixed = false
+): Board {
   if (!isValidPosition(position, board.size)) {
     throw new Error(`Position (${position.row}, ${position.col}) is outside the board.`);
   }
@@ -85,6 +90,7 @@ export function placePiece(board: Board, type: PieceType, position: Position): B
     id: createPieceId(type, position.row, position.col),
     type,
     position,
+    fixed,
   };
 
   return { ...board, pieces: [...board.pieces, piece] };
@@ -93,9 +99,13 @@ export function placePiece(board: Board, type: PieceType, position: Position): B
 /**
  * Returns a new board with the piece at the given position removed.
  *
- * If no piece exists at that position the board is returned unchanged.
+ * If no piece exists or the piece is fixed, the board is returned unchanged.
  */
 export function removePiece(board: Board, position: Position): Board {
+  if (getPieceAt(board, position)?.fixed) {
+    return board;
+  }
+
   const pieces = board.pieces.filter(
     (p) => p.position.row !== position.row || p.position.col !== position.col
   );
@@ -106,7 +116,8 @@ export function removePiece(board: Board, position: Position): Board {
  * Returns a new board with a piece moved from one position to another.
  *
  * Throws when the source cell is empty, the target position is outside the
- * board, or the target cell is occupied by a different piece.
+ * board, or the target cell is occupied by a different piece. Fixed pieces
+ * cannot be moved and leave the board unchanged.
  */
 export function movePiece(board: Board, from: Position, to: Position): Board {
   if (!isValidPosition(to, board.size)) {
@@ -123,6 +134,9 @@ export function movePiece(board: Board, from: Position, to: Position): Board {
   const piece = getPieceAt(board, from);
   if (!piece) {
     throw new Error(`No piece found at position (${from.row}, ${from.col}).`);
+  }
+  if (piece.fixed) {
+    return board;
   }
 
   const targetPiece = getPieceAt(board, to);

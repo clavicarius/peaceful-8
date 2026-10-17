@@ -58,6 +58,10 @@ Ein Level muss:
 - gesperrte Felder konsistent definieren
 - Schwierigkeitsgrad erfüllen
 
+Fest vorgegebene Figuren (`fixed: true`) werden beim Start auf ihren gespeicherten Positionen
+platziert und können danach weder verschoben noch entfernt werden. Im Web-Prototyp haben Easy,
+Medium und Hard jeweils 4, 2 und 1 feste Figuren.
+
 ## Beispielanalyse: 5×5 mit gesperrten Ecken
 
 Für ein 5×5-Brett mit gesperrten Eckfeldern `A1`, `A5`, `E1`, `E5` wurden folgende

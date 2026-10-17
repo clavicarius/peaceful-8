@@ -75,6 +75,27 @@
   color: #5e4b36;
 }
 
+.difficulty-options {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.difficulty-button {
+  padding: 0.5rem 0.85rem;
+  border: 1px solid #d5c5ab;
+  border-radius: 0.7rem;
+  background: #f8f3eb;
+  color: #2a2118;
+  cursor: pointer;
+  font: inherit;
+  text-transform: capitalize;
+}
+
+.difficulty-button.selected {
+  background: #d8c19c;
+}
+
 .toolbox-panel,
 .board-panel {
   padding: 1.25rem;
@@ -133,8 +154,16 @@
 }
 
 .piece-token {
+  position: relative;
   font-size: 3.5rem;
   line-height: 1;
+}
+
+.fixed-indicator {
+  position: absolute;
+  right: -0.6rem;
+  bottom: -0.25rem;
+  font-size: 0.9rem;
 }
 
 .board {
