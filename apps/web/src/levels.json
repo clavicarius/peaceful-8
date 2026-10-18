@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "difficulty": "easy",
+    "board": {
+      "width": 5,
+      "height": 5,
+      "blockedCells": []
+    },
+    "pieces": [
+      { "type": "knight", "position": "A5", "fixed": true },
+      { "type": "knight", "position": "C5", "fixed": true },
+      { "type": "knight", "position": "E5", "fixed": true },
+      { "type": "knight", "position": "B4", "fixed": true }
+    ]
+  }
+]

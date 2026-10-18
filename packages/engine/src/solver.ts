@@ -1,18 +1,17 @@
-import { canAttack } from './attacks.js';
 import { detectConflicts, isBlockedPosition, placePiece, validateBoard } from './board.js';
 import type { Board } from './board.js';
 import type { PieceType, Position } from './types.js';
 
 const PIECE_TYPES: ReadonlyArray<PieceType> = ['queen', 'rook', 'bishop', 'knight'];
 
-/** Counts solutions up to maxSolutions, treating the board's pieces as clues. */
-export function countSolutions(board: Board, maxSolutions = 2): number {
+/** Finds solutions up to maxSolutions, treating the board's pieces as clues. */
+export function findSolutions(board: Board, maxSolutions = 1): ReadonlyArray<Board> {
   if (!Number.isInteger(maxSolutions) || maxSolutions < 1) {
     throw new Error('maxSolutions must be a positive integer.');
   }
 
   if (board.pieces.length > board.requiredPieceCount || detectConflicts(board).length > 0) {
-    return 0;
+    return [];
   }
 
   const positions: Position[] = [];
@@ -30,20 +29,20 @@ export function countSolutions(board: Board, maxSolutions = 2): number {
 
   const remainingPieceCount = board.requiredPieceCount - board.pieces.length;
   if (remainingPieceCount > positions.length) {
-    return 0;
+    return [];
   }
 
-  let solutionCount = 0;
+  const solutions: Board[] = [];
 
   function search(currentBoard: Board, startIndex: number): void {
-    if (solutionCount >= maxSolutions) {
+    if (solutions.length >= maxSolutions) {
       return;
     }
 
     const piecesToPlace = board.requiredPieceCount - currentBoard.pieces.length;
     if (piecesToPlace === 0) {
       if (validateBoard(currentBoard).valid) {
-        solutionCount++;
+        solutions.push(currentBoard);
       }
       return;
     }
@@ -57,12 +56,12 @@ export function countSolutions(board: Board, maxSolutions = 2): number {
 
       for (const type of PIECE_TYPES) {
         const nextBoard = placePiece(currentBoard, type, position);
-        if (hasUnblockableConflict(nextBoard)) {
+        if (detectConflicts(nextBoard).length > 0) {
           continue;
         }
 
         search(nextBoard, index + 1);
-        if (solutionCount >= maxSolutions) {
+        if (solutions.length >= maxSolutions) {
           return;
         }
       }
@@ -70,14 +69,10 @@ export function countSolutions(board: Board, maxSolutions = 2): number {
   }
 
   search(board, 0);
-  return solutionCount;
+  return solutions;
 }
 
-function hasUnblockableConflict(board: Board): boolean {
-  return detectConflicts(board).some(({ pieceA, pieceB }) => {
-    return (
-      (pieceA.type === 'knight' && canAttack('knight', pieceA.position, pieceB.position)) ||
-      (pieceB.type === 'knight' && canAttack('knight', pieceB.position, pieceA.position))
-    );
-  });
+/** Counts solutions up to maxSolutions, treating the board's pieces as clues. */
+export function countSolutions(board: Board, maxSolutions = 2): number {
+  return findSolutions(board, maxSolutions).length;
 }
