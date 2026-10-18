@@ -94,10 +94,7 @@ export function validateLevel(level: LevelDefinition): LevelResult {
   }
 
   try {
-    const result = validateLevelByDifficulty(
-      createBoardForLevel(level),
-      level.difficulty
-    );
+    const result = validateLevelByDifficulty(createBoardForLevel(level), level.difficulty);
     return { valid: result.valid, errors: result.errors, solutionCount: result.solutionCount };
   } catch (error) {
     return {
@@ -119,7 +116,9 @@ export function levelFromBoard(
     board: {
       width: board.size.cols,
       height: board.size.rows,
-      blockedCells: board.blockedPositions.map((position) => toCoordinate(position, board.size.rows)),
+      blockedCells: board.blockedPositions.map((position) =>
+        toCoordinate(position, board.size.rows)
+      ),
     },
     pieces: board.pieces
       .filter((piece) => piece.fixed)
@@ -146,8 +145,8 @@ export function generateLevel(
   }
 
   const clueCounts: number[] =
-    difficulty === 'hard'
-      ? Array.from({ length: solution.pieces.length }, (_, index) => solution.pieces.length - index)
+    difficulty === 'hard' || difficulty === 'extra-hard'
+      ? Array.from({ length: solution.pieces.length }, (_, index) => index + 1)
       : [difficulty === 'easy' ? 4 : 2];
 
   for (const clueCount of clueCounts) {
@@ -169,6 +168,27 @@ export function generateLevel(
   }
 
   throw new Error(`Could not create a valid ${difficulty} level for this board layout.`);
+}
+
+export function upsertLevel(
+  levels: ReadonlyArray<LevelDefinition>,
+  level: LevelDefinition
+): ReadonlyArray<LevelDefinition> {
+  const validation = validateLevel(level);
+  if (!validation.valid) {
+    throw new Error(`Level ${level.id} is invalid: ${validation.errors.join(' ')}`);
+  }
+
+  return [...levels.filter((candidate) => candidate.id !== level.id), level].sort(
+    (left, right) => left.id - right.id
+  );
+}
+
+export function deleteLevel(
+  levels: ReadonlyArray<LevelDefinition>,
+  id: number
+): ReadonlyArray<LevelDefinition> {
+  return levels.filter((level) => level.id !== id);
 }
 
 export function parseLevelFile(contents: string): ReadonlyArray<LevelDefinition> {
@@ -229,7 +249,10 @@ function* combinations<T>(items: ReadonlyArray<T>, count: number): Generator<Rea
   }
 }
 
-function parseCoordinate(coordinate: string, layout: LevelBoardLayout): { row: number; col: number } {
+function parseCoordinate(
+  coordinate: string,
+  layout: LevelBoardLayout
+): { row: number; col: number } {
   const match = /^([a-z]+)([1-9]\d*)$/i.exec(coordinate);
   if (!match) {
     throw new Error(`Invalid level cell coordinate: ${coordinate}.`);

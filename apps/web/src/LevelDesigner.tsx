@@ -14,10 +14,12 @@ import { AVAILABLE_PIECES, applyToolToCell, getBoardSnapshot, getStatusMessage }
 import type { Tool } from './gameState';
 import {
   createBoardForLevel,
+  deleteLevel as removeLevel,
   generateLevel,
   levelFromBoard,
   parseLevelFile,
   STARTER_LEVELS,
+  upsertLevel,
   validateLevel,
 } from './levels';
 import type { LevelDefinition } from './levels';
@@ -28,16 +30,21 @@ const SYMBOLS: Record<PieceType, string> = {
   queen: '♛',
   rook: '♜',
 };
-const DIFFICULTIES: ReadonlyArray<LevelDifficulty> = ['easy', 'medium', 'hard'];
+const DIFFICULTIES: ReadonlyArray<LevelDifficulty> = ['easy', 'medium', 'hard', 'extra-hard'];
+const initialLevel = STARTER_LEVELS[0];
 
 function LevelDesigner() {
   const [levels, setLevels] = useState<ReadonlyArray<LevelDefinition>>(STARTER_LEVELS);
-  const [selectedLevelId, setSelectedLevelId] = useState<number | null>(STARTER_LEVELS[0]!.id);
-  const [draftId, setDraftId] = useState(STARTER_LEVELS[0]!.id);
+  const [selectedLevelId, setSelectedLevelId] = useState<number | null>(initialLevel?.id ?? null);
+  const [draftId, setDraftId] = useState(initialLevel?.id ?? 1);
   const [difficulty, setDifficulty] = useState<LevelDifficulty>('easy');
   const [width, setWidth] = useState(5);
   const [height, setHeight] = useState(5);
-  const [board, setBoard] = useState(() => createEditableBoard(STARTER_LEVELS[0]!));
+  const [board, setBoard] = useState(() =>
+    initialLevel
+      ? createEditableBoard(initialLevel)
+      : createBoard({ size: { rows: 5, cols: 5 }, requiredPieceCount: 8 })
+  );
   const [selectedTool, setSelectedTool] = useState<Tool>('queen');
   const [message, setMessage] = useState('');
   const snapshot = useMemo(() => getBoardSnapshot(board), [board]);
@@ -79,7 +86,10 @@ function LevelDesigner() {
       nextBoard
     );
     const withPieces = board.pieces.reduce((currentBoard, piece) => {
-      if (!isValidPosition(piece.position, currentBoard.size) || isBlockedPosition(currentBoard, piece.position)) {
+      if (
+        !isValidPosition(piece.position, currentBoard.size) ||
+        isBlockedPosition(currentBoard, piece.position)
+      ) {
         return currentBoard;
       }
       return placePiece(currentBoard, piece.type, piece.position);
@@ -96,17 +106,18 @@ function LevelDesigner() {
     const level = levelFromBoard(fixedBoard, draftId, difficulty);
     const validation = validateLevel(level);
     if (!validation.valid) {
-      setMessage(`Level is invalid (${validation.solutionCount} solutions): ${validation.errors.join(' ')}`);
+      setMessage(
+        `Level is invalid (${validation.solutionCount} solutions): ${validation.errors.join(' ')}`
+      );
       return;
     }
 
-    setLevels((currentLevels) => {
-      const updated = currentLevels.filter((candidate) => candidate.id !== draftId);
-      return [...updated, level].sort((left, right) => left.id - right.id);
-    });
+    setLevels((currentLevels) => upsertLevel(currentLevels, level));
     setSelectedLevelId(draftId);
     setBoard(createEditableBoard(level));
-    setMessage(`Level ${draftId} is valid (${validation.solutionCount} solution(s)). Export JSON to save it manually.`);
+    setMessage(
+      `Level ${draftId} is valid (${validation.solutionCount} solution(s)). Export JSON to save it manually.`
+    );
   };
 
   const generate = () => {
@@ -129,7 +140,7 @@ function LevelDesigner() {
       return;
     }
 
-    const remainingLevels = levels.filter((level) => level.id !== selectedLevel.id);
+    const remainingLevels = removeLevel(levels, selectedLevel.id);
     setLevels(remainingLevels);
     if (remainingLevels[0]) {
       loadLevel(remainingLevels[0]);
@@ -185,7 +196,11 @@ function LevelDesigner() {
           Build or generate levels, validate them with the game solver, then export JSON for manual
           review and version control.
         </p>
-        {message && <p className="designer-message" role="status">{message}</p>}
+        {message && (
+          <p className="designer-message" role="status">
+            {message}
+          </p>
+        )}
       </section>
 
       <section className="designer-layout">
@@ -195,7 +210,9 @@ function LevelDesigner() {
             <select
               value={selectedLevelId ?? ''}
               onChange={(event) => {
-                const level = levels.find((candidate) => candidate.id === Number(event.target.value));
+                const level = levels.find(
+                  (candidate) => candidate.id === Number(event.target.value)
+                );
                 if (level) loadLevel(level);
               }}
             >
@@ -281,7 +298,12 @@ function LevelDesigner() {
           <button type="button" className="secondary-button" onClick={saveLevel}>
             Validate and save draft
           </button>
-          <button type="button" className="secondary-button" onClick={deleteLevel} disabled={!selectedLevel}>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={deleteLevel}
+            disabled={!selectedLevel}
+          >
             Delete level
           </button>
           <button type="button" className="secondary-button" onClick={exportLevels}>
@@ -291,7 +313,9 @@ function LevelDesigner() {
             Import level catalog
             <input type="file" accept="application/json,.json" onChange={importLevels} />
           </label>
-          <p className="designer-note">Export does not write to the repository or create a Git commit.</p>
+          <p className="designer-note">
+            Export does not write to the repository or create a Git commit.
+          </p>
         </aside>
 
         <section className="panel board-panel">
@@ -299,7 +323,9 @@ function LevelDesigner() {
             {getStatusMessage(snapshot)}
           </div>
           <p className="stats-row">
-            <span>{snapshot.pieceCount} / {snapshot.targetPieceCount} clues</span>
+            <span>
+              {snapshot.pieceCount} / {snapshot.targetPieceCount} clues
+            </span>
             <span>{snapshot.conflictCount} conflicts</span>
           </p>
           <div
@@ -319,11 +345,15 @@ function LevelDesigner() {
                     key={`${row}-${col}`}
                     type="button"
                     role="gridcell"
-                    aria-label={`${blocked ? 'Blocked' : piece?.type ?? 'Empty'} square ${col + 1}, ${row + 1}`}
+                    aria-label={`${blocked ? 'Blocked' : (piece?.type ?? 'Empty')} square ${col + 1}, ${row + 1}`}
                     className={`board-cell ${(row + col) % 2 === 0 ? 'light' : 'dark'} ${
                       blocked ? 'blocked' : ''
                     } ${conflict ? 'conflict' : ''}`}
-                    onClick={() => setBoard((currentBoard) => applyToolToCell(currentBoard, selectedTool, position))}
+                    onClick={() =>
+                      setBoard((currentBoard) =>
+                        applyToolToCell(currentBoard, selectedTool, position)
+                      )
+                    }
                   >
                     {blocked ? '▧' : piece ? SYMBOLS[piece.type] : ''}
                   </button>

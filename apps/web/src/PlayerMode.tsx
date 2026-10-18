@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { CSSProperties, DragEvent } from 'react';
 import { getPieceAt } from '@peaceful-8/engine';
-import type { PieceType, Position } from '@peaceful-8/engine';
+import type { Board, PieceType, Position } from '@peaceful-8/engine';
 import './App.css';
 import {
   AVAILABLE_PIECES,
@@ -33,14 +33,18 @@ const PIECE_LABELS: Record<PieceType, string> = {
 const versionTag = import.meta.env.VITE_VERSION_TAG ?? 'development';
 
 function PlayerMode() {
-  const [levelId, setLevelId] = useState(STARTER_LEVELS[0]!.id);
-  const level = STARTER_LEVELS.find((candidate) => candidate.id === levelId)!;
-  const [board, setBoard] = useState(() => createBoardForLevel(level));
+  const [levelId, setLevelId] = useState<number | null>(STARTER_LEVELS[0]?.id ?? null);
+  const level = STARTER_LEVELS.find((candidate) => candidate.id === levelId);
+  const [board, setBoard] = useState<Board | null>(() =>
+    level ? createBoardForLevel(level) : null
+  );
   const [selectedTool, setSelectedTool] = useState<Tool>(DEFAULT_TOOL);
-  const snapshot = useMemo(() => getBoardSnapshot(board), [board]);
+  const snapshot = useMemo(() => (board ? getBoardSnapshot(board) : null), [board]);
 
   const handleCellClick = (position: Position) => {
-    setBoard((currentBoard) => applyToolToCell(currentBoard, selectedTool, position));
+    setBoard((currentBoard) =>
+      currentBoard ? applyToolToCell(currentBoard, selectedTool, position) : currentBoard
+    );
   };
 
   const handleDrop = (event: DragEvent<HTMLElement>, position: Position) => {
@@ -51,7 +55,9 @@ function PlayerMode() {
       return;
     }
 
-    setBoard((currentBoard) => applyDragPayload(currentBoard, payload, position));
+    setBoard((currentBoard) =>
+      currentBoard ? applyDragPayload(currentBoard, payload, position) : currentBoard
+    );
   };
 
   const selectLevel = (nextLevelId: number) => {
@@ -62,14 +68,26 @@ function PlayerMode() {
     }
   };
 
+  if (!level || !board || !snapshot) {
+    return (
+      <main className="app-shell">
+        <section className="panel intro-panel">
+          <p className="eyebrow">Player mode · {versionTag}</p>
+          <h1>Peaceful 8</h1>
+          <p>No levels are currently available.</p>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="app-shell">
       <section className="panel intro-panel">
         <p className="eyebrow">Player mode · {versionTag}</p>
         <h1>Peaceful 8</h1>
         <p className="intro-copy">
-        Solve repository levels by placing pieces without attacks. Red squares mark conflicts;
-        blocked squares are defined by each level.
+          Solve repository levels by placing pieces without attacks. Red squares mark conflicts;
+          blocked squares are defined by each level.
         </p>
         <div className={`status-banner status-${snapshot.status}`} aria-live="polite">
           {getStatusMessage(snapshot)}
@@ -82,7 +100,10 @@ function PlayerMode() {
         </div>
         <label className="level-select">
           Level
-          <select value={levelId} onChange={(event) => selectLevel(Number(event.target.value))}>
+          <select
+            value={levelId ?? ''}
+            onChange={(event) => selectLevel(Number(event.target.value))}
+          >
             {STARTER_LEVELS.map((option) => (
               <option key={option.id} value={option.id}>
                 {option.id} · {option.difficulty}
@@ -114,7 +135,7 @@ function PlayerMode() {
               <span>Erase</span>
             </button>
           </div>
-          <button type="button" className="secondary-button" onClick={() => selectLevel(levelId)}>
+          <button type="button" className="secondary-button" onClick={() => selectLevel(level.id)}>
             Restart level
           </button>
         </aside>
@@ -123,7 +144,7 @@ function PlayerMode() {
           <div
             className="board"
             role="grid"
-            aria-label="Peaceful 8 5x5 board"
+            aria-label={`Peaceful 8 ${board.size.cols}x${board.size.rows} board`}
             style={{ '--board-columns': String(board.size.cols) } as CSSProperties}
           >
             {Array.from({ length: board.size.rows }, (_, row) =>

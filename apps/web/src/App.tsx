@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
 import PlayerMode from './PlayerMode';
 
-const LevelDesigner = lazy(() => import('./LevelDesigner'));
+const LevelDesigner = import.meta.env.DEV ? lazy(() => import('./LevelDesigner')) : null;
 
 function App() {
   const [mode, setMode] = useState<'player' | 'designer'>('player');
@@ -34,9 +34,11 @@ function App() {
           Level designer
         </button>
       </nav>
-      <Suspense fallback={<p className="loading-message">Loading level designer…</p>}>
-        <LevelDesigner />
-      </Suspense>
+      {LevelDesigner && (
+        <Suspense fallback={<p className="loading-message">Loading level designer…</p>}>
+          <LevelDesigner />
+        </Suspense>
+      )}
     </>
   );
 }
