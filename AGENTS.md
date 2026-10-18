@@ -230,6 +230,24 @@ When implementing new functionality:
 9. Preserve backwards compatibility where practical.
 10. Do not introduce breaking changes without documenting them.
 
+## Branch Naming Convention
+
+Every pull request source branch must match this pattern:
+
+```text
+^(feature|enhancement|bugfix|hotfix|release|chore|copilot)/[a-z0-9._-]+$
+```
+
+Use a lowercase allowed prefix followed by `/` and a name containing only
+lowercase letters, numbers, dots, underscores, or hyphens. Ticket identifiers
+are allowed, for example `feature/abc-123-add-login` or
+`bugfix/proj-991-nullpointer-fix`. Rename a nonconforming branch before opening
+or updating its pull request.
+
+The `Validate branch name` workflow checks pull requests targeting `main`.
+Configure that status check as required in the `main` branch protection rules
+so a pull request cannot be merged unless its source branch name is valid.
+
 ---
 
 # Definition of Done
