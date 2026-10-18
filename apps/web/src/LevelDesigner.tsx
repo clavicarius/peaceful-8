@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ChangeEvent } from 'react';
 import {
   createBoard,
@@ -36,10 +36,12 @@ const initialLevel = STARTER_LEVELS[0];
 function LevelDesigner() {
   const [levels, setLevels] = useState<ReadonlyArray<LevelDefinition>>(STARTER_LEVELS);
   const [selectedLevelId, setSelectedLevelId] = useState<number | null>(initialLevel?.id ?? null);
+  const selectedLevelIdRef = useRef<number | null>(initialLevel?.id ?? null);
+  const draftRevisionRef = useRef(0);
   const [draftId, setDraftId] = useState(initialLevel?.id ?? 1);
-  const [difficulty, setDifficulty] = useState<LevelDifficulty>('easy');
-  const [width, setWidth] = useState(5);
-  const [height, setHeight] = useState(5);
+  const [difficulty, setDifficulty] = useState<LevelDifficulty>(initialLevel?.difficulty ?? 'easy');
+  const [width, setWidth] = useState(initialLevel?.board.width ?? 5);
+  const [height, setHeight] = useState(initialLevel?.board.height ?? 5);
   const [board, setBoard] = useState(() =>
     initialLevel
       ? createEditableBoard(initialLevel)
@@ -50,7 +52,13 @@ function LevelDesigner() {
   const snapshot = useMemo(() => getBoardSnapshot(board), [board]);
   const selectedLevel = levels.find((level) => level.id === selectedLevelId);
 
+  const markDraftChanged = () => {
+    draftRevisionRef.current += 1;
+  };
+
   const loadLevel = (level: LevelDefinition) => {
+    selectedLevelIdRef.current = level.id;
+    markDraftChanged();
     setSelectedLevelId(level.id);
     setDraftId(level.id);
     setDifficulty(level.difficulty);
@@ -62,6 +70,8 @@ function LevelDesigner() {
 
   const createNewLevel = () => {
     const id = Math.max(0, ...levels.map((level) => level.id)) + 1;
+    selectedLevelIdRef.current = null;
+    markDraftChanged();
     setSelectedLevelId(null);
     setDraftId(id);
     setDifficulty('easy');
@@ -94,6 +104,7 @@ function LevelDesigner() {
       }
       return placePiece(currentBoard, piece.type, piece.position);
     }, withBlocks);
+    markDraftChanged();
     setBoard(withPieces);
     setMessage('Board size updated.');
   };
@@ -113,6 +124,8 @@ function LevelDesigner() {
     }
 
     setLevels((currentLevels) => upsertLevel(currentLevels, level));
+    selectedLevelIdRef.current = draftId;
+    markDraftChanged();
     setSelectedLevelId(draftId);
     setBoard(createEditableBoard(level));
     setMessage(
@@ -128,6 +141,7 @@ function LevelDesigner() {
         difficulty
       );
       const level = generateLevel(draftId, difficulty, width, height, layout.board.blockedCells);
+      markDraftChanged();
       setBoard(createEditableBoard(level));
       setMessage(`Generated a valid ${difficulty} level. Save it to add it to the catalog.`);
     } catch (error) {
@@ -146,8 +160,10 @@ function LevelDesigner() {
       loadLevel(remainingLevels[0]);
     } else {
       setSelectedLevelId(null);
+      selectedLevelIdRef.current = null;
+      markDraftChanged();
       setDraftId(1);
-      setBoard(createBoard({ size: { rows: height, cols: width }, requiredPieceCount: 8 }));
+      setBoard(createBoard({ size: board.size, requiredPieceCount: 8 }));
       setMessage('Level deleted. Create or import a level before exporting.');
     }
   };
@@ -158,6 +174,8 @@ function LevelDesigner() {
       return;
     }
 
+    const selectedLevelAtImport = selectedLevelIdRef.current;
+    const draftRevisionAtImport = draftRevisionRef.current;
     const reader = new FileReader();
     reader.onload = () => {
       try {
@@ -167,6 +185,14 @@ function LevelDesigner() {
           imported.forEach((level) => merged.set(level.id, level));
           return [...merged.values()].sort((left, right) => left.id - right.id);
         });
+        const selectedReplacement = imported.find((level) => level.id === selectedLevelAtImport);
+        if (
+          selectedReplacement &&
+          selectedLevelIdRef.current === selectedLevelAtImport &&
+          draftRevisionRef.current === draftRevisionAtImport
+        ) {
+          loadLevel(selectedReplacement);
+        }
         setMessage(`Imported ${imported.length} validated level(s).`);
       } catch (error) {
         setMessage(error instanceof Error ? error.message : 'Unable to import levels.');
@@ -233,7 +259,10 @@ function LevelDesigner() {
             Difficulty
             <select
               value={difficulty}
-              onChange={(event) => setDifficulty(event.target.value as LevelDifficulty)}
+              onChange={(event) => {
+                markDraftChanged();
+                setDifficulty(event.target.value as LevelDifficulty);
+              }}
             >
               {DIFFICULTIES.map((option) => (
                 <option key={option} value={option}>
@@ -249,7 +278,10 @@ function LevelDesigner() {
                 type="number"
                 min="1"
                 value={width}
-                onChange={(event) => setWidth(Number(event.target.value))}
+                onChange={(event) => {
+                  markDraftChanged();
+                  setWidth(Number(event.target.value));
+                }}
               />
             </label>
             <label className="field-label">
@@ -258,7 +290,10 @@ function LevelDesigner() {
                 type="number"
                 min="1"
                 value={height}
-                onChange={(event) => setHeight(Number(event.target.value))}
+                onChange={(event) => {
+                  markDraftChanged();
+                  setHeight(Number(event.target.value));
+                }}
               />
             </label>
           </div>
@@ -349,11 +384,12 @@ function LevelDesigner() {
                     className={`board-cell ${(row + col) % 2 === 0 ? 'light' : 'dark'} ${
                       blocked ? 'blocked' : ''
                     } ${conflict ? 'conflict' : ''}`}
-                    onClick={() =>
+                    onClick={() => {
+                      markDraftChanged();
                       setBoard((currentBoard) =>
                         applyToolToCell(currentBoard, selectedTool, position)
-                      )
-                    }
+                      );
+                    }}
                   >
                     {blocked ? '▧' : piece ? SYMBOLS[piece.type] : ''}
                   </button>

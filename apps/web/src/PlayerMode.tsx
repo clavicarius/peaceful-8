@@ -10,7 +10,7 @@ import {
   applyToolToCell,
   getBoardSnapshot,
   getStatusMessage,
-  parseDragPayload,
+  parsePlayerDragPayload,
   serializeDragPayload,
 } from './gameState';
 import type { Tool } from './gameState';
@@ -49,7 +49,7 @@ function PlayerMode() {
 
   const handleDrop = (event: DragEvent<HTMLElement>, position: Position) => {
     event.preventDefault();
-    const payload = parseDragPayload(event.dataTransfer.getData('text/plain'));
+    const payload = parsePlayerDragPayload(event.dataTransfer.getData('text/plain'));
 
     if (!payload) {
       return;
