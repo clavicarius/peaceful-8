@@ -18,7 +18,7 @@ export type {
 } from './types.js';
 export type { Board } from './board.js';
 export { createBoardFromLevel } from './level.js';
-export { countSolutions } from './solver.js';
+export { countSolutions, solveBoard, getHint } from './solver.js';
 export { validateLevelByDifficulty } from './validation.js';
 export type { LevelDifficulty, LevelValidationResult } from './validation.js';
 
