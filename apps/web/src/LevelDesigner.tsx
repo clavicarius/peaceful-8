@@ -36,6 +36,7 @@ const initialLevel = STARTER_LEVELS[0];
 
 function LevelDesigner() {
   const [levels, setLevels] = useState<ReadonlyArray<LevelDefinition>>(STARTER_LEVELS);
+  const levelsRef = useRef<ReadonlyArray<LevelDefinition>>(STARTER_LEVELS);
   const [selectedLevelId, setSelectedLevelId] = useState<number | null>(initialLevel?.id ?? null);
   const selectedLevelIdRef = useRef<number | null>(initialLevel?.id ?? null);
   const draftRevisionRef = useRef(0);
@@ -53,6 +54,11 @@ function LevelDesigner() {
   const [message, setMessage] = useState('');
   const snapshot = useMemo(() => getBoardSnapshot(board), [board]);
   const selectedLevel = levels.find((level) => level.id === selectedLevelId);
+
+  const updateLevels = (nextLevels: ReadonlyArray<LevelDefinition>) => {
+    levelsRef.current = nextLevels;
+    setLevels(nextLevels);
+  };
 
   const markDraftChanged = () => {
     draftRevisionRef.current += 1;
@@ -126,7 +132,7 @@ function LevelDesigner() {
     }
 
     catalogImportGuardRef.current.catalogChanged();
-    setLevels((currentLevels) => upsertLevel(currentLevels, level));
+    updateLevels(upsertLevel(levelsRef.current, level));
     selectedLevelIdRef.current = draftId;
     markDraftChanged();
     setSelectedLevelId(draftId);
@@ -157,9 +163,9 @@ function LevelDesigner() {
       return;
     }
 
-    const remainingLevels = removeLevel(levels, selectedLevel.id);
+    const remainingLevels = removeLevel(levelsRef.current, selectedLevel.id);
     catalogImportGuardRef.current.catalogChanged();
-    setLevels(remainingLevels);
+    updateLevels(remainingLevels);
     if (remainingLevels[0]) {
       loadLevel(remainingLevels[0]);
     } else {
@@ -190,11 +196,9 @@ function LevelDesigner() {
           return;
         }
 
-        setLevels((currentLevels) => {
-          const merged = new Map(currentLevels.map((level) => [level.id, level]));
-          imported.forEach((level) => merged.set(level.id, level));
-          return [...merged.values()].sort((left, right) => left.id - right.id);
-        });
+        const merged = new Map(levelsRef.current.map((level) => [level.id, level]));
+        imported.forEach((level) => merged.set(level.id, level));
+        updateLevels([...merged.values()].sort((left, right) => left.id - right.id));
         const selectedReplacement = imported.find((level) => level.id === selectedLevelAtImport);
         if (
           selectedReplacement &&
