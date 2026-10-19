@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  createCatalogImportGuard,
   createBoardForLevel,
   deleteLevel,
   generateLevel,
@@ -12,6 +13,25 @@ import {
 } from './levels';
 
 describe('levels', () => {
+  it('discards imports after the catalog changes while a file is being read', () => {
+    const guard = createCatalogImportGuard();
+    const pendingImport = guard.begin();
+
+    guard.catalogChanged();
+
+    expect(guard.commit(pendingImport)).toBe(false);
+  });
+
+  it('allows only the latest overlapping import to update the catalog', () => {
+    const guard = createCatalogImportGuard();
+    const earlierImport = guard.begin();
+    const latestImport = guard.begin();
+
+    expect(guard.commit(earlierImport)).toBe(false);
+    expect(guard.commit(latestImport)).toBe(true);
+    expect(guard.commit(latestImport)).toBe(false);
+  });
+
   it('loads a repository level with fixed clues and validates it through the solver', () => {
     const board = createBoardForLevel(STARTER_LEVEL);
 

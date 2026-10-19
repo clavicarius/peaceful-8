@@ -24,6 +24,33 @@ export interface LevelResult {
   readonly solutionCount: number;
 }
 
+export interface CatalogImportRevision {
+  readonly importId: number;
+  readonly catalogRevision: number;
+}
+
+export function createCatalogImportGuard() {
+  let latestImportId = 0;
+  let catalogRevision = 0;
+
+  return {
+    begin(): CatalogImportRevision {
+      return { importId: ++latestImportId, catalogRevision };
+    },
+    catalogChanged(): void {
+      catalogRevision++;
+    },
+    commit(revision: CatalogImportRevision): boolean {
+      if (revision.importId !== latestImportId || revision.catalogRevision !== catalogRevision) {
+        return false;
+      }
+
+      catalogRevision++;
+      return true;
+    },
+  };
+}
+
 export const STARTER_LEVELS = levelData as ReadonlyArray<LevelDefinition>;
 export const STARTER_LEVEL = STARTER_LEVELS[0]!;
 

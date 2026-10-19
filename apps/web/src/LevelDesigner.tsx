@@ -14,6 +14,7 @@ import { AVAILABLE_PIECES, applyToolToCell, getBoardSnapshot, getStatusMessage }
 import type { Tool } from './gameState';
 import {
   createBoardForLevel,
+  createCatalogImportGuard,
   deleteLevel as removeLevel,
   generateLevel,
   levelFromBoard,
@@ -38,6 +39,7 @@ function LevelDesigner() {
   const [selectedLevelId, setSelectedLevelId] = useState<number | null>(initialLevel?.id ?? null);
   const selectedLevelIdRef = useRef<number | null>(initialLevel?.id ?? null);
   const draftRevisionRef = useRef(0);
+  const catalogImportGuardRef = useRef(createCatalogImportGuard());
   const [draftId, setDraftId] = useState(initialLevel?.id ?? 1);
   const [difficulty, setDifficulty] = useState<LevelDifficulty>(initialLevel?.difficulty ?? 'easy');
   const [width, setWidth] = useState(initialLevel?.board.width ?? 5);
@@ -123,6 +125,7 @@ function LevelDesigner() {
       return;
     }
 
+    catalogImportGuardRef.current.catalogChanged();
     setLevels((currentLevels) => upsertLevel(currentLevels, level));
     selectedLevelIdRef.current = draftId;
     markDraftChanged();
@@ -155,6 +158,7 @@ function LevelDesigner() {
     }
 
     const remainingLevels = removeLevel(levels, selectedLevel.id);
+    catalogImportGuardRef.current.catalogChanged();
     setLevels(remainingLevels);
     if (remainingLevels[0]) {
       loadLevel(remainingLevels[0]);
@@ -174,12 +178,18 @@ function LevelDesigner() {
       return;
     }
 
+    const importRevision = catalogImportGuardRef.current.begin();
     const selectedLevelAtImport = selectedLevelIdRef.current;
     const draftRevisionAtImport = draftRevisionRef.current;
     const reader = new FileReader();
     reader.onload = () => {
       try {
         const imported = parseLevelFile(String(reader.result));
+        if (!catalogImportGuardRef.current.commit(importRevision)) {
+          setMessage('Import discarded because the catalog changed or a newer import started.');
+          return;
+        }
+
         setLevels((currentLevels) => {
           const merged = new Map(currentLevels.map((level) => [level.id, level]));
           imported.forEach((level) => merged.set(level.id, level));
