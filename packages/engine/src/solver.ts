@@ -10,7 +10,9 @@ export function findSolutions(board: Board, maxSolutions = 1): ReadonlyArray<Boa
     throw new Error('maxSolutions must be a positive integer.');
   }
 
-  return searchSolutions(board, maxSolutions, () => {});
+  const solutions: Board[] = [];
+  searchSolutions(board, maxSolutions, (solution) => solutions.push(solution));
+  return solutions;
 }
 
 /** Returns the first valid completion of the board, or null when none exists. */
@@ -48,7 +50,7 @@ function searchSolutions(
   onSolution: (solution: Board) => void
 ): number {
   if (board.pieces.length > board.requiredPieceCount || detectConflicts(board).length > 0) {
-    return [];
+    return 0;
   }
 
   const positions: Position[] = [];
@@ -66,7 +68,7 @@ function searchSolutions(
 
   const remainingPieceCount = board.requiredPieceCount - board.pieces.length;
   if (remainingPieceCount > positions.length) {
-    return [];
+    return 0;
   }
 
   const solutions: Board[] = [];
@@ -79,7 +81,7 @@ function searchSolutions(
     const piecesToPlace = board.requiredPieceCount - currentBoard.pieces.length;
     if (piecesToPlace === 0) {
       if (validateBoard(currentBoard).valid) {
-        solutionCount++;
+        solutions.push(currentBoard);
         onSolution(currentBoard);
       }
       return;
@@ -107,7 +109,7 @@ function searchSolutions(
   }
 
   search(board, 0);
-  return solutions;
+  return solutions.length;
 }
 
 /** Counts solutions up to maxSolutions, treating the board's pieces as clues. */
