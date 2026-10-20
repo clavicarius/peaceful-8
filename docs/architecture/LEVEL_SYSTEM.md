@@ -111,6 +111,39 @@ Der Generator:
 3. prüft Schwierigkeit
 4. speichert Level
 
+Im Web-Prototyp wird die vollständige Belegung über `findSolutions` aus der Engine gesucht. Der
+Generator entfernt anschließend Hinweise und validiert den Level mit
+`validateLevelByDifficulty`; Such- und Angriffsregeln werden nicht in der UI dupliziert.
+
+Die Generator-Kriterien sind bewusst einfach und reproduzierbar:
+
+- **Easy:** vier fest vorgegebene Figuren; mindestens eine Lösung.
+- **Medium:** zwei fest vorgegebene Figuren; mindestens eine Lösung.
+- **Hard / Extra-hard:** genau eine Lösung. Der Generator probiert Hinweis-Teilmengen der
+  gefundenen Lösung, beginnend mit der kleinsten Anzahl an Vorgaben, und verwirft Ergebnisse, die
+  die Solver-Validierung nicht bestehen.
+
+Diese Kriterien sind eine erste technische Bewertung und keine Aussage über menschliche
+Lösungszeit. Für handerstellte Levels gilt die Solver-Regel: Easy/Medium brauchen mindestens eine
+Lösung, Hard/Extra-hard genau eine.
+
+## Player mode und Level Designer
+
+Der Spielermodus lädt Levels aus `apps/web/src/levels.json`. Brettgröße, gesperrte Felder,
+vorgegebene Figuren und Schwierigkeitsgrad stammen aus dem Level-Eintrag. Vorgabefiguren können
+nicht verschoben oder entfernt werden; Spielzüge werden vom Engine-Board validiert.
+
+Der Level Designer ist ausschließlich in einem Vite-Entwicklungsbuild
+(`import.meta.env.DEV`) verfügbar. Der Produktionsbuild zeigt nur den Spielermodus und lädt den
+Designer nicht. Entwickler können vorhandene Levels laden und ändern, neue Levels manuell oder über
+den Solver erzeugen sowie Levels nach einer Bestätigung löschen. Änderungen bleiben zunächst im
+Browserzustand. **Export JSON** lädt den Levelkatalog herunter; der Entwickler ersetzt damit bei
+Bedarf `apps/web/src/levels.json` und führt Tests und Git-Commit manuell aus.
+
+Es gibt im Prototyp keine Persistenz von Spielfortschritt. Leveländerungen oder -löschungen können
+daher keinen gespeicherten Fortschritt invalidieren. Bei künftiger Persistenz muss der Fortschritt
+über stabile Level-IDs und eine Versionierung des Levelinhalts geschützt werden.
+
 ## Beispielzusammenfassung: 5x5 mit gesperrtem Zentrum
 
 Für ein 5x5-Brett mit gesperrtem Feld `C3` wurden zwei gültige Belegungen mit acht Figuren gefunden.

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createBoard, placePiece } from '../index.js';
-import { countSolutions, validateLevelByDifficulty } from '../index.js';
+import { countSolutions, findSolutions, validateLevelByDifficulty } from '../index.js';
 
 describe('countSolutions', () => {
   it('finds a unique solution when all required pieces are conflict-free', () => {
@@ -11,7 +11,7 @@ describe('countSolutions', () => {
       true
     );
 
-    expect(countSolutions(board)).toBe(1);
+    expect(countSolutions(board, 1)).toBe(1);
   });
 
   it('counts no solutions when the required piece count cannot fit', () => {
@@ -33,6 +33,15 @@ describe('countSolutions', () => {
 
     expect(countSolutions(board, 2)).toBe(2);
     expect(() => countSolutions(board, 0)).toThrow('maxSolutions must be a positive integer.');
+  });
+
+  it('returns solved boards for generator consumers', () => {
+    const board = createBoard({ size: { rows: 1, cols: 1 }, requiredPieceCount: 1 });
+    const [solution] = findSolutions(board);
+
+    expect(solution?.pieces).toHaveLength(1);
+    expect(solution?.pieces[0]?.fixed).toBe(false);
+    expect(countSolutions(board, 1)).toBe(1);
   });
 });
 

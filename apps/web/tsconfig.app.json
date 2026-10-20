@@ -12,10 +12,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "composite": true,
+    "resolveJsonModule": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/**/*.json"],
   "exclude": ["src/**/*.test.ts"],
   "references": [{ "path": "../../packages/engine" }]
 }

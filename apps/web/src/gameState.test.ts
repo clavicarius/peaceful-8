@@ -9,6 +9,7 @@ import {
   createGameBoard,
   getBoardSnapshot,
   getStatusMessage,
+  parsePlayerDragPayload,
   PLAYABLE_BOARD_SIZE,
   TARGET_PIECE_COUNT,
 } from './gameState';
@@ -137,6 +138,16 @@ describe('applyDragPayload', () => {
     );
 
     expect(updated).toBe(filledBoard);
+  });
+});
+
+describe('parsePlayerDragPayload', () => {
+  it('rejects blocked-cell payloads while preserving supported player payloads', () => {
+    expect(parsePlayerDragPayload('{"kind":"blocked"}')).toBeNull();
+    expect(parsePlayerDragPayload('{"kind":"palette","pieceType":"queen"}')).toEqual({
+      kind: 'palette',
+      pieceType: 'queen',
+    });
   });
 });
 

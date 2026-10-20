@@ -18,6 +18,7 @@ export type DragPayload =
   | { kind: 'palette'; pieceType: PieceType }
   | { kind: 'blocked' }
   | { kind: 'board-piece'; pieceType: PieceType; position: Position };
+export type PlayerDragPayload = Exclude<DragPayload, { kind: 'blocked' }>;
 
 export interface BoardSnapshot {
   readonly targetPieceCount: number;
@@ -93,6 +94,11 @@ export function parseDragPayload(value: string): DragPayload | null {
   }
 
   return null;
+}
+
+export function parsePlayerDragPayload(value: string): PlayerDragPayload | null {
+  const payload = parseDragPayload(value);
+  return payload?.kind === 'blocked' ? null : payload;
 }
 
 export function applyToolToCell(board: Board, tool: Tool, position: Position): Board {
