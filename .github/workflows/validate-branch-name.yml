@@ -12,6 +12,9 @@ jobs:
   validate-branch-name:
     name: Validate branch name
     runs-on: ubuntu-latest
+    # Dependabot generates its own branch names (e.g. dependabot/npm_and_yarn/...)
+    # that cannot follow the naming policy, so exempt PRs authored by the bot.
+    if: github.actor != 'dependabot[bot]'
 
     steps:
       - name: Checkout ci-platform validator
