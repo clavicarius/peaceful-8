@@ -117,15 +117,16 @@ Generator entfernt anschließend Hinweise und validiert den Level mit
 
 Die Generator-Kriterien sind bewusst einfach und reproduzierbar:
 
-- **Easy:** vier fest vorgegebene Figuren; mindestens eine Lösung.
-- **Medium:** zwei fest vorgegebene Figuren; mindestens eine Lösung.
-- **Hard / Extra-hard:** genau eine Lösung. Der Generator probiert Hinweis-Teilmengen der
-  gefundenen Lösung, beginnend mit der kleinsten Anzahl an Vorgaben, und verwirft Ergebnisse, die
-  die Solver-Validierung nicht bestehen.
+- **Easy:** mindestens vier fest vorgegebene Figuren und genau eine Lösung.
+- **Medium:** mindestens zwei fest vorgegebene Figuren und genau eine Lösung.
+- **Hard / Extra-hard:** mindestens eine fest vorgegebene Figur und genau eine Lösung.
+  Der Generator probiert Hinweis-Teilmengen der gefundenen Lösung, beginnend mit der
+  schwierigkeitsabhängigen Mindestanzahl an Vorgaben, und fügt bei Bedarf weitere Vorgaben hinzu.
+  Er verwirft Ergebnisse, die nicht eindeutig lösbar sind oder bereits alle Figuren vorgeben.
 
 Diese Kriterien sind eine erste technische Bewertung und keine Aussage über menschliche
-Lösungszeit. Für handerstellte Levels gilt die Solver-Regel: Easy/Medium brauchen mindestens eine
-Lösung, Hard/Extra-hard genau eine.
+Lösungszeit. Für handerstellte Levels gilt weiterhin die Solver-Regel: Easy/Medium brauchen
+mindestens eine Lösung, Hard/Extra-hard genau eine.
 
 ## Player mode und Level Designer
 

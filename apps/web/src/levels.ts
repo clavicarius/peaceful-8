@@ -171,10 +171,11 @@ export function generateLevel(
     throw new Error('No complete solution exists for this board layout.');
   }
 
-  const clueCounts: number[] =
-    difficulty === 'hard' || difficulty === 'extra-hard'
-      ? Array.from({ length: solution.pieces.length }, (_, index) => index + 1)
-      : [difficulty === 'easy' ? 4 : 2];
+  const minimumClueCount = difficulty === 'easy' ? 4 : difficulty === 'medium' ? 2 : 1;
+  const clueCounts = Array.from(
+    { length: solution.pieces.length - minimumClueCount },
+    (_, index) => minimumClueCount + index
+  );
 
   for (const clueCount of clueCounts) {
     for (const clues of combinations(solution.pieces, clueCount)) {
@@ -188,7 +189,8 @@ export function generateLevel(
           fixed: true,
         })),
       };
-      if (validateLevel(level).valid) {
+      const validation = validateLevel(level);
+      if (validation.valid && validation.solutionCount === 1) {
         return level;
       }
     }
