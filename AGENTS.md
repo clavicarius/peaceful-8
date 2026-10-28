@@ -232,7 +232,7 @@ When implementing new functionality:
 
 ## Branch Naming Convention
 
-Every pull request source branch must match this pattern:
+Every human-authored pull request source branch must match this pattern:
 
 ```text
 ^(feature|enhancement|bugfix|hotfix|release|chore|copilot)/[a-z0-9._-]+$
@@ -241,8 +241,8 @@ Every pull request source branch must match this pattern:
 Use a lowercase allowed prefix followed by `/` and a name containing only
 lowercase letters, numbers, dots, underscores, or hyphens. Ticket identifiers
 are allowed, for example `feature/abc-123-add-login` or
-`bugfix/proj-991-nullpointer-fix`. Rename a nonconforming branch before opening
-or updating its pull request.
+`bugfix/proj-991-nullpointer-fix`. Rename any other nonconforming branch before
+opening or updating its pull request.
 
 The `Validate branch name` workflow checks pull requests targeting `main`.
 Configure that status check as required in the `main` branch protection rules
