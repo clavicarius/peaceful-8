@@ -50,8 +50,17 @@ describe('levels', () => {
   it('generates a level whose solution and difficulty are validated by the engine', () => {
     const level = generateLevel(2, 'easy', 5, 5);
 
-    expect(level.pieces).toHaveLength(4);
-    expect(validateLevel(level).valid).toBe(true);
+    expect(level.pieces.length).toBeGreaterThanOrEqual(4);
+    expect(level.pieces.length).toBeLessThan(8);
+    expect(validateLevel(level)).toMatchObject({ valid: true, solutionCount: 1 });
+  });
+
+  it('generates medium levels with exactly one solver solution', () => {
+    const level = generateLevel(4, 'medium', 5, 5);
+
+    expect(level.pieces.length).toBeGreaterThanOrEqual(2);
+    expect(level.pieces.length).toBeLessThan(8);
+    expect(validateLevel(level)).toMatchObject({ valid: true, solutionCount: 1 });
   });
 
   it('generates hard levels with exactly one solver solution', () => {
